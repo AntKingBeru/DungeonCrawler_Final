@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "name": "The First Descent"
+  },
+  "map": {
+    "width": "31",
+    "height": "21",
+    "row0": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "row1": "X.......XXXXXXXXXXXXXXX.......X",
+    "row2": "X.......XXXXXXXXXXXXXXX.......X",
+    "row3": "X.............................X",
+    "row4": "X.......XXXXXXX.XXXXXXX.......X",
+    "row5": "X.......XXXXXXX.XXXXXXX.......X",
+    "row6": "XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX",
+    "row7": "XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX",
+    "row8": "XXXX.XXXXXXX.......XXXXXXX.XXXX",
+    "row9": "XXXX.XXXXXXX.......XXXXXXX.XXXX",
+    "row10": "XXXX.......................XXXX",
+    "row11": "XXXX.XXXXXXX.......XXXXXXX.XXXX",
+    "row12": "XXXX.XXXXXXX.......XXXXXXX.XXXX",
+    "row13": "XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX",
+    "row14": "XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX",
+    "row15": "X.......XXXXXXX.XXXXXXX.......X",
+    "row16": "X.......XXXXXXX.XXXXXXX.......X",
+    "row17": "X...........................E.X",
+    "row18": "X.......XXXXXXXXXXXXXXX.......X",
+    "row19": "X.......XXXXXXXXXXXXXXX.......X",
+    "row20": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  },
+  "player": {
+    "x": "2",
+    "y": "2",
+    "hp": "20",
+    "attack": "5"
+  },
+  "enemies": {
+    "e0": "goblin 15 10",
+    "e1": "goblin 26 3",
+    "e2": "goblin 4 17",
+    "e3": "goblin 25 16"
+  }
+}

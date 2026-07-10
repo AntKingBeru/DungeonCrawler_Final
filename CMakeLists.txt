@@ -23,6 +23,8 @@ add_executable(dungeon
     src/Game.cpp
     src/Map.cpp
     src/Player.cpp
+    src/Enemy.cpp
+    src/Entity.cpp
     src/Renderer.cpp
 )
 target_include_directories(dungeon PRIVATE src)

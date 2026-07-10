@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<meta>
+		<name>The First Descent</name>
+	</meta>
+	<map>
+		<width>31</width>
+		<height>21</height>
+		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
+		<row1>X.......XXXXXXXXXXXXXXX.......X</row1>
+		<row2>X.......XXXXXXXXXXXXXXX.......X</row2>
+		<row3>X.............................X</row3>
+		<row4>X.......XXXXXXX.XXXXXXX.......X</row4>
+		<row5>X.......XXXXXXX.XXXXXXX.......X</row5>
+		<row6>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row6>
+		<row7>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row7>
+		<row8>XXXX.XXXXXXX.......XXXXXXX.XXXX</row8>
+		<row9>XXXX.XXXXXXX.......XXXXXXX.XXXX</row9>
+		<row10>XXXX.......................XXXX</row10>
+		<row11>XXXX.XXXXXXX.......XXXXXXX.XXXX</row11>
+		<row12>XXXX.XXXXXXX.......XXXXXXX.XXXX</row12>
+		<row13>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row13>
+		<row14>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row14>
+		<row15>X.......XXXXXXX.XXXXXXX.......X</row15>
+		<row16>X.......XXXXXXX.XXXXXXX.......X</row16>
+		<row17>X...........................E.X</row17>
+		<row18>X.......XXXXXXXXXXXXXXX.......X</row18>
+		<row19>X.......XXXXXXXXXXXXXXX.......X</row19>
+		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
+	</map>
+	<player>
+		<x>2</x>
+		<y>2</y>
+		<hp>20</hp>
+		<attack>5</attack>
+	</player>
+	<enemies>
+		<e0>goblin 15 10</e0>
+		<e1>goblin 26 3</e1>
+		<e2>goblin 4 17</e2>
+		<e3>goblin 25 16</e3>
+	</enemies>
+</config>
