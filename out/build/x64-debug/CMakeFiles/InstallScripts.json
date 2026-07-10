@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/cmake_install.cmake",
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/configparser_build/cmake_install.cmake",
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-build/cmake_install.cmake",
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-build/raylib/cmake_install.cmake",
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-build/raylib/external/glfw/cmake_install.cmake",
+		"E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-build/raylib/external/glfw/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

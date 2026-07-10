@@ -1,0 +1,14 @@
+# Target labels
+ raylib-populate
+# Source files and their labels
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test.rule
+E:/CPP/HW/DungeonCrawler/out/build/x64-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update.rule
