@@ -29,22 +29,37 @@ int main(int argc, char* argv[])
     {
         game.update(GetFrameTime());
 
-        if (IsKeyPressed(KEY_I))
-            inventoryOpen = !inventoryOpen;
-
-        if (inventoryOpen)
+        if (game.isShopOpen())
         {
+            if (IsKeyPressed(KEY_I))
+                game.closeShop();
+            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            {
+                ShopHit h = renderer.hitTestShop(game, GetMouseX(), GetMouseY());
+                if (h.kind == ShopHit::Buy)
+                    game.buy(h.index);
+                else if (h.kind == ShopHit::Sell)
+                    game.sellBackpack(h.index);
+                else if (h.kind == ShopHit::Close)
+                    game.closeShop();
+            }
+        }
+        else if (inventoryOpen)
+        {
+            if (IsKeyPressed(KEY_I)) inventoryOpen = false;
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
                 InvHit hit = renderer.hitTestInventory(game, GetMouseX(), GetMouseY());
                 if (hit.kind == InvHit::Storage)
-                    game.equipItem(hit.storageIndex);
+                    game.useBackpackItem(hit.storageIndex);
                 else if (hit.kind == InvHit::Gear)
                     game.unequipItem(hit.slot, hit.sub);
             }
         }
         else
         {
+            if (IsKeyPressed(KEY_I))
+                inventoryOpen = true;
             if (IsKeyDown(KEY_W))
                 game.movePlayer(0, -1);
             else if (IsKeyDown(KEY_S))
@@ -53,8 +68,13 @@ int main(int argc, char* argv[])
                 game.movePlayer(-1, 0);
             else if (IsKeyDown(KEY_D))
                 game.movePlayer(1, 0);
+
             if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                game.attackAt(GetMouseX() / TILE_SIZE, GetMouseY() / TILE_SIZE);
+            {
+                int tx, ty;
+                renderer.screenToTile(GetMouseX(), GetMouseY(), tx, ty);
+                game.interactAt(tx, ty);
+            }
         }
 
         renderer.draw(game, inventoryOpen);

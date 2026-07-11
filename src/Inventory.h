@@ -3,20 +3,21 @@
 
 #include <vector>
 #include <map>
+#include <optional>
 #include "Item.h"
 
 class Inventory
 {
 public:
-    static constexpr int STORAGE_MAX = 27;
+    static constexpr int SLOTS = 27;
+    Inventory() : storage_(SLOTS) {}
 
     bool addItem(const Item& it);
-
-    bool equip(int storageIndex);
-
+    bool equip(int slot);
     bool unequip(ItemSlot slot, int sub);
+    bool removeStorage(int slot);
 
-    const std::vector<Item>& storage() const
+    const std::vector<std::optional<Item>>& storage() const
     {
         return storage_;
     }
@@ -31,7 +32,8 @@ public:
     int totalHp() const;
 
 private:
-    std::vector<Item> storage_;
+    int firstEmpty() const;
+    std::vector<std::optional<Item>> storage_;
     std::map<ItemSlot, std::vector<Item>> equipped_;
 };
 

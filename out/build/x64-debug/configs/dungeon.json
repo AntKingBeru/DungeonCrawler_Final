@@ -31,14 +31,44 @@
     "x": "2",
     "y": "2",
     "hp": "20",
-    "attack": "5"
+    "attack": "5",
+    "gold": "20"
+  },
+  "shopkeeper": {
+    "x": "14",
+    "y": "3"
+  },
+  "shop": {
+    "s0": "15 weapon Steel_Sword 5 0 0",
+    "s1": "20 armor Plate_Armor 0 6 10",
+    "s2": "8 potion Health_Potion 10",
+    "s3": "25 amulet Lucky_Amulet 2 2 10",
+    "s4": "30 weapon War_Hammer 8 0 0"
   },
   "items": {
     "i0": "weapon 3 3 Rusty_Sword 3 0 0",
     "i1": "helmet 28 3 Iron_Helm 0 2 5",
     "i2": "armor 2 15 Chainmail 0 4 10",
     "i3": "ring 15 11 Gold_Ring 1 0 0",
-    "i4": "amulet 26 10 Ruby_Amulet 1 1 5"
+    "i4": "amulet 26 10 Ruby_Amulet 1 1 5",
+    "i5": "potion 4 3 Health_Potion 10",
+    "i6": "potion 9 10 Health_Potionn 10"
+  },
+  "chests": {
+    "c0": "5 3 wooden",
+    "c1": "17 10 treasure",
+    "c2": "2 17 wooden"
+  },
+  "loot_wooden": {
+    "d0": "potion Health_Potion 10 0.8",
+    "d1": "gloves Leather_Gloves 0 1 0 0.5",
+    "d2": "gold 15 1.0"
+  },
+  "loot_treasure": {
+    "d0": "weapon Steel_Sword 5 0 0 0.7",
+    "d1": "amulet Silver_Amulet 2 1 5 0.6",
+    "d2": "potion Greater_Potion 20 1.0",
+    "d3": "gold 50 1.0"
   },
   "enemies": {
     "e0": "goblin 15 10",
@@ -51,15 +81,18 @@
   },
   "loot_goblin": {
     "d0": "weapon Rusty_Dagger 2 0 0 0.5",
-    "d1": "ring Cracked_Ring 1 0 0 0.25"
+    "d1": "ring Cracked_Ring 1 0 0 0.25",
+    "d2": "gold 8 0.8"
   },
   "loot_skeleton": {
     "d0": "helmet Bone_Helm 0 2 0 0.4",
-    "d1": "weapon Bone_Club 3 0 0 0.35"
+    "d1": "weapon Bone_Club 3 0 0 0.35",
+    "d2": "gold 12 0.7"
   },
   "loot_dragon": {
     "d0": "weapon Dragon_Fang 8 0 0 1.0",
     "d1": "armor Dragon_Scale 0 6 20 1.0",
-    "d2": "amulet Dragon_Heart 3 3 15 1.0"
+    "d2": "amulet Dragon_Heart 3 3 15 1.0",
+    "d3": "gold 100 1.0"
   }
 }

@@ -33,14 +33,44 @@
 		<y>2</y>
 		<hp>20</hp>
 		<attack>5</attack>
+		<gold>20</gold>
 	</player>
+	<shopkeeper>
+		<x>14</x>
+		<y>3</y>
+	</shopkeeper>
+	<shop>
+		<s0>15 weapon Steel_Sword 5 0 0</s0>
+		<s1>20 armor Plate_Armor 0 6 10</s1>
+		<s2>8 potion Health_Potion 10</s2>
+		<s3>25 amulet Lucky_Amulet 2 2 10</s3>
+		<s4>30 weapon War_Hammer 8 0 0</s4>
+	</shop>
 	<items>
 		<i0>weapon 3 3 Rusty_Sword 3 0 0</i0>
 		<i1>helmet 28 3 Iron_Helm 0 2 5</i1>
 		<i2>armor 2 15 Chainmail 0 4 10</i2>
 		<i3>ring 15 11 Gold_Ring 1 0 0</i3>
 		<i4>amulet 26 10 Ruby_Amulet 1 1 5</i4>
+		<i5>amulet 4 3 Health_Potion 10</i5>
+		<i6>amulet 9 10 Health_Potion 10</i6>
 	</items>
+	<chests>
+		<c0>5 3 wooden</c0>
+		<c1>17 10 treasure</c1>
+		<c2>2 17 wooden</c2>
+	</chests>
+	<loot_wooden>
+		<d0>potion Health_Potion 10 0.8</d0>
+		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d2>gold 15 1.0</d2>
+	</loot_wooden>
+	<loot_treasure>
+		<d0>weapon Steel_Sword 5 0 0 0.7</d0>
+		<d1>amulet Silver_Amulet 2 1 5 0.6</d1>
+		<d2>potion Greater_Potion 20 1.0</d2>
+		<d3>gold 50 1.0</d3>
+	</loot_treasure>
 	<enemies>
 		<e0>goblin 15 10</e0>
 		<e1>goblin 26 3</e1>
@@ -53,14 +83,17 @@
 	<loot_goblin>
 		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
 		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
+		<d2>gold 8 0.8</d2>
 	</loot_goblin>
 	<loot_skeleton>
 		<d0>helmet Bone_Helm 0 2 0 0.4</d0>
 		<d1>weapon Bone_Club 3 0 0 0.35</d1>
+		<d2>gold 12 0.7</d2>
 	</loot_skeleton>
 	<loot_dragon>
 		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
 		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
 		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
+		<d3>gold 100 1.0</d3>
 	</loot_dragon>
 </config>

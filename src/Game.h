@@ -17,6 +17,23 @@ struct GroundItem
     int x;
     int y;
 };
+struct Chest
+{
+    int x;
+    int y;
+    std::string table;
+};
+struct ShopKeeper
+{
+    int x = 0;
+    int y = 0;
+    bool exists = false;
+};
+struct ShopEntry
+{
+	Item item;
+	int price;
+};
 
 class Game
 {
@@ -25,16 +42,29 @@ public:
     void update(float dt);
 
     void movePlayer(int dx, int dy);
-    void attackAt(int tileX, int tileY);
+    void interactAt(int tileX, int tileY);
 
-    void equipItem(int storageIndex)
-    {
-        player_.equip(storageIndex);
-    }
+    void useBackpackItem(int storageIndex);
     void unequipItem(ItemSlot slot, int sub)
     {
         player_.unequip(slot, sub);
     }
+
+    bool isShopOpen() const
+    {
+        return shopOpen_;
+    }
+    void closeShop()
+    {
+        shopOpen_ = false;
+    }
+    void buy(int stockIndex);
+	void sellBackpack(int storageIndex);
+    int gold() const
+    {
+        return player_.gold();
+    }
+    static int sellValue(const Item& it);
 
     bool isComplete() const
     {
@@ -60,6 +90,18 @@ public:
     {
         return ground_;
     }
+    const std::vector<Chest>& chests() const
+    {
+        return chests_;
+    }
+    const ShopKeeper& shopkeeper() const
+    {
+        return shopkeeper_;
+    }
+    const std::vector<ShopEntry>& shopStock() const
+    {
+        return shopStock_;
+    }
     const std::vector<std::string>& log() const
     {
         return log_;
@@ -70,7 +112,9 @@ private:
     void removeDead();
     void addLog(const std::string& msg);
     void tryPickUp(int x, int y);
-    void dropLoot(const Enemy& e);
+    void dropLoot(const std::string& table, int x, int y);
+    void openChest(size_t index);
+    bool blocked(int x, int y) const;
     bool wallOrEnemy(int x, int y, const Enemy* self) const;
     const Enemy* enemyAt(int x, int y) const;
     Enemy* enemyAt(int x, int y);
@@ -79,11 +123,15 @@ private:
     Player player_;
     std::vector<Enemy> enemies_;
     std::vector<GroundItem> ground_;
+    std::vector<Chest> chests_;
+	ShopKeeper shopkeeper_;
+	std::vector<ShopEntry> shopStock_;
     std::map<std::string, LootTable> lootTables_;
     std::vector<std::string> log_;
     std::mt19937 rng_{ std::random_device{}() };
     bool complete_ = false;
     bool gameOver_ = false;
+    bool shopOpen_ = false;
 };
 
 #endif

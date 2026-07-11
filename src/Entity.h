@@ -65,6 +65,12 @@ public:
 		if (hp_ < 0)
 			hp_ = 0;
 	}
+	void heal(int d)
+	{
+		hp_ += d;
+		if (hp_ > maxHp_)
+			hp_ = maxHp_;
+	}
 
 protected:
 	static constexpr float MOVE_SPEED = 8.0f;

@@ -14,7 +14,8 @@ namespace
     }
     std::string cap(std::string s)
     {
-        if (!s.empty()) s[0] = static_cast<char>(std::toupper(s[0]));
+        if (!s.empty())
+            s[0] = static_cast<char>(std::toupper(s[0]));
         return s;
     }
     std::string prettyName(std::string s)
@@ -23,6 +24,42 @@ namespace
             if (c == '_') c = ' ';
         return s;
     }
+
+    bool parseItemBody(std::istringstream& ss, Item& out)
+    {
+        std::string first; if (!(ss >> first))
+            return false;
+        if (first == "potion")
+        {
+            std::string name;
+            int heal;
+            if (!(ss >> name >> heal))
+                return false;
+            out = Item{ prettyName(name), ItemSlot::Weapon, 0, 0, 0, heal, 0 };
+            return true;
+        }
+        if (first == "gold")
+        {
+            int amount; if (!(ss >> amount))
+                return false;
+            out = Item{ "gold", ItemSlot::Weapon, 0, 0, 0, 0, amount };
+            return true;
+        }
+        ItemSlot slot;
+        if (!parseSlot(first, slot))
+            return false;
+        std::string name; int atk, def, hp;
+        if (!(ss >> name >> atk >> def >> hp))
+            return false;
+        out = Item{ prettyName(name), slot, atk, def, hp, 0, 0 };
+        return true;
+    }
+}
+
+int Game::sellValue(const Item& it)
+{
+    const int base = it.atk * 3 + it.def * 3 + it.hp + it.heal;
+    return std::max(1, base / 2);
 }
 
 void Game::load(const std::string& configPath)
@@ -34,15 +71,20 @@ void Game::load(const std::string& configPath)
     player_.loadFrom(data);
     enemies_.clear();
     ground_.clear();
+    chests_.clear();
     lootTables_.clear();
     log_.clear();
+    shopStock_.clear();
+    shopkeeper_ = {};
+    shopOpen_ = false;
     complete_ = gameOver_ = false;
 
     if (auto it = data.find("enemies"); it != data.end())
         for (const auto& [id, spec] : it->second)
         {
             std::istringstream ss(spec);
-            std::string type; int ex, ey;
+            std::string type;
+            int ex, ey;
             if (!(ss >> type >> ex >> ey))
                 continue;
             if (type == "goblin")
@@ -57,12 +99,38 @@ void Game::load(const std::string& configPath)
         for (const auto& [id, spec] : it->second)
         {
             std::istringstream ss(spec);
-            std::string slotStr, name; int ix, iy, atk, def, hp;
-            if (!(ss >> slotStr >> ix >> iy >> name >> atk >> def >> hp))
+            int ix, iy;
+            if (!(ss >> ix >> iy))
                 continue;
-            ItemSlot slot;
-            if (parseSlot(slotStr, slot))
-                ground_.push_back({ Item{ prettyName(name), slot, atk, def, hp }, ix, iy });
+            Item item;
+            if (parseItemBody(ss, item) && !item.isGold())
+                ground_.push_back({ item, ix, iy });
+        }
+
+    if (auto it = data.find("chests"); it != data.end())
+        for (const auto& [id, spec] : it->second)
+        {
+            std::istringstream ss(spec);
+            int cx, cy;
+            std::string table;
+            if (ss >> cx >> cy >> table)
+                chests_.push_back({ cx, cy, table });
+        }
+
+    if (auto it = data.find("shopkeeper"); it != data.end())
+        shopkeeper_ = { cfg::requireInt(data, "shopkeeper", "x"),
+                        cfg::requireInt(data, "shopkeeper", "y"), true };
+
+    if (auto it = data.find("shop"); it != data.end())
+        for (const auto& [id, spec] : it->second)
+        {
+            std::istringstream ss(spec);
+            int price;
+            if (!(ss >> price))
+                continue;
+            Item item;
+            if (parseItemBody(ss, item) && !item.isGold())
+                shopStock_.push_back({ item, price });
         }
 
     for (const auto& [section, kvs] : data)
@@ -70,19 +138,20 @@ void Game::load(const std::string& configPath)
         const std::string prefix = "loot_";
         if (section.rfind(prefix, 0) != 0)
             continue;
-        const std::string type = section.substr(prefix.size());
+        const std::string name = section.substr(prefix.size());
         LootTable table;
         for (const auto& [id, spec] : kvs)
         {
             std::istringstream ss(spec);
-            std::string slotStr, name; int atk, def, hp; double chance;
-            if (!(ss >> slotStr >> name >> atk >> def >> hp >> chance))
+            Item item;
+            if (!parseItemBody(ss, item))
                 continue;
-            ItemSlot slot;
-            if (parseSlot(slotStr, slot))
-                table.add(Item{ prettyName(name), slot, atk, def, hp }, chance);
+            double chance;
+            if (!(ss >> chance))
+                continue;
+            table.add(item, chance);
         }
-        lootTables_[type] = table;
+        lootTables_[name] = table;
     }
 
     addLog("Entered " + cfg::require(data, "meta", "name") + ".");
@@ -95,14 +164,26 @@ void Game::update(float dt)
         e.update(dt);
 }
 
+bool Game::blocked(int x, int y) const
+{
+    if (map_.isWall(x, y))
+        return true;
+    if (enemyAt(x, y))
+        return true;
+    for (const auto& c : chests_)
+        if (c.x == x && c.y == y)
+            return true;
+    if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
+        return true;
+    return false;
+}
+
 void Game::movePlayer(int dx, int dy)
 {
     if (complete_ || gameOver_ || player_.isMoving())
         return;
     const int nx = player_.x() + dx, ny = player_.y() + dy;
-    if (map_.isWall(nx, ny))
-        return;
-    if (enemyAt(nx, ny))
+    if (blocked(nx, ny))
         return;
 
     player_.setTile(nx, ny);
@@ -116,44 +197,128 @@ void Game::movePlayer(int dx, int dy)
     enemyTurn();
 }
 
-void Game::attackAt(int tileX, int tileY)
+void Game::interactAt(int tileX, int tileY)
 {
     if (complete_ || gameOver_ || player_.isMoving())
         return;
-    Enemy* e = enemyAt(tileX, tileY);
-    if (!e)
-        return;
-    if (std::abs(e->x() - player_.x()) + std::abs(e->y() - player_.y()) != 1)
+    if (std::abs(tileX - player_.x()) + std::abs(tileY - player_.y()) != 1)
         return;
 
-    const int dmg = std::max(1, player_.attackPower() - e->defense());
-    e->takeDamage(dmg);
-    addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
-    if (!e->alive())
+    if (Enemy* e = enemyAt(tileX, tileY))
     {
-        addLog(cap(e->type()) + " slain!");
-        dropLoot(*e);
+        const int dmg = std::max(1, player_.attackPower() - e->defense());
+        e->takeDamage(dmg);
+        addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
+        if (!e->alive())
+        {
+            addLog(cap(e->type()) + " slain!");
+            dropLoot(e->type(), e->x(), e->y());
+        }
+        enemyTurn();
+        removeDead();
+        return;
     }
-
-    enemyTurn();
-    removeDead();
+    if (shopkeeper_.exists && shopkeeper_.x == tileX && shopkeeper_.y == tileY)
+    {
+        shopOpen_ = true;
+        return;
+    }
+    for (size_t i = 0; i < chests_.size(); ++i)
+        if (chests_[i].x == tileX && chests_[i].y == tileY)
+        {
+            openChest(i);
+            return;
+        }
 }
 
-void Game::dropLoot(const Enemy& e)
+void Game::openChest(size_t index)
 {
-    auto it = lootTables_.find(e.type());
+    const Chest c = chests_[index];
+    chests_.erase(chests_.begin() + index);
+    addLog("Opened a chest.");
+    dropLoot(c.table, c.x, c.y);
+    enemyTurn();
+}
+
+void Game::dropLoot(const std::string& table, int x, int y)
+{
+    auto it = lootTables_.find(table);
     if (it == lootTables_.end() || it->second.empty())
+    {
         return;
+    }
     std::vector<Item> drops = it->second.roll(rng_);
     if (drops.empty())
     {
-        addLog("...it dropped nothing.");
+        addLog("...nothing.");
         return;
     }
     for (const auto& item : drops)
     {
-        ground_.push_back({ item, e.x(), e.y() });
-        addLog("Dropped: " + item.name + ".");
+        if (item.isGold())
+        {
+            player_.addGold(item.gold);
+            addLog("Found " + std::to_string(item.gold) + " gold.");
+        }
+        else
+        {
+            ground_.push_back({ item, x, y });
+            addLog("Dropped: " + item.name + ".");
+        }
+    }
+}
+
+void Game::buy(int i)
+{
+    if (i < 0 || i >= static_cast<int>(shopStock_.size()))
+        return;
+    const ShopEntry e = shopStock_[i];
+    if (player_.gold() < e.price)
+    {
+        addLog("Not enough gold.");
+        return;
+    }
+    if (!player_.pickUp(e.item))
+    {
+        addLog("Backpack full.");
+        return;
+    }
+    player_.spendGold(e.price);
+    addLog("Bought " + e.item.name + " for " + std::to_string(e.price) + " gold.");
+}
+
+void Game::sellBackpack(int i)
+{
+    const auto& st = player_.inventory().storage();
+    if (i < 0 || i >= static_cast<int>(st.size()) || !st[i])
+        return;
+    const int v = sellValue(*st[i]);
+    const std::string name = st[i]->name;
+    player_.removeStorage(i);
+    player_.addGold(v);
+    addLog("Sold " + name + " for " + std::to_string(v) + " gold.");
+}
+
+void Game::useBackpackItem(int i)
+{
+    const auto& st = player_.inventory().storage();
+    if (i < 0 || i >= static_cast<int>(st.size()) || !st[i])
+        return;
+    if (st[i]->isPotion())
+    {
+        if (player_.hp() >= player_.maxHp())
+        {
+            addLog("Already at full health.");
+            return;
+        }
+        const std::string name = st[i]->name;
+        const int amount = st[i]->heal;
+        player_.usePotion(i);
+        addLog("Drank " + name + " (+" + std::to_string(amount) + " HP).");
+    }
+    else
+    {
+        player_.equip(i);
     }
 }
 
@@ -249,6 +414,11 @@ bool Game::wallOrEnemy(int x, int y, const Enemy* self) const
     for (const auto& e : enemies_)
         if (&e != self && e.alive() && e.x() == x && e.y() == y)
             return true;
+    for (const auto& c : chests_)
+        if (c.x == x && c.y == y)
+            return true; 
+    if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
+        return true;
     return false;
 }
 
