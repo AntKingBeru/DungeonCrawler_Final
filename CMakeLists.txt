@@ -10,10 +10,14 @@ set(CONFIGPARSER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/configparser"
 add_subdirectory(${CONFIGPARSER_DIR} configparser_build)
 
 include(FetchContent)
+
+set(FETCHCONTENT_UPDATES_DISCONNECTED TRUE)
+
 FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git
     GIT_TAG 5.5
+    GIT_SHALLOW TRUE
 )
 set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(raylib)
@@ -25,6 +29,9 @@ add_executable(dungeon
     src/Player.cpp
     src/Enemy.cpp
     src/Entity.cpp
+    src/Item.cpp
+    src/Inventory.cpp
+    src/LootTable.cpp
     src/Renderer.cpp
 )
 target_include_directories(dungeon PRIVATE src)

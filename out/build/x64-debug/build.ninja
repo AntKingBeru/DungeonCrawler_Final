@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_dungeon: phony || cmake_object_order_dep
 build CMakeFiles\dungeon.dir\src\main.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\main.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -63,7 +63,7 @@ build CMakeFiles\dungeon.dir\src\main.cpp.obj: CXX_COMPILER__dungeon_unscanned_D
 build CMakeFiles\dungeon.dir\src\Game.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Game.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -74,7 +74,7 @@ build CMakeFiles\dungeon.dir\src\Game.cpp.obj: CXX_COMPILER__dungeon_unscanned_D
 build CMakeFiles\dungeon.dir\src\Map.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Map.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -85,7 +85,7 @@ build CMakeFiles\dungeon.dir\src\Map.cpp.obj: CXX_COMPILER__dungeon_unscanned_De
 build CMakeFiles\dungeon.dir\src\Player.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Player.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -96,7 +96,7 @@ build CMakeFiles\dungeon.dir\src\Player.cpp.obj: CXX_COMPILER__dungeon_unscanned
 build CMakeFiles\dungeon.dir\src\Enemy.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Enemy.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -107,7 +107,40 @@ build CMakeFiles\dungeon.dir\src\Enemy.cpp.obj: CXX_COMPILER__dungeon_unscanned_
 build CMakeFiles\dungeon.dir\src\Entity.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Entity.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
+  INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
+  OBJECT_DIR = CMakeFiles\dungeon.dir
+  OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\dungeon.dir\
+  TARGET_PDB = dungeon.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\dungeon.dir
+
+build CMakeFiles\dungeon.dir\src\Item.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Item.cpp || cmake_object_order_depends_target_dungeon
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
+  INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
+  OBJECT_DIR = CMakeFiles\dungeon.dir
+  OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\dungeon.dir\
+  TARGET_PDB = dungeon.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\dungeon.dir
+
+build CMakeFiles\dungeon.dir\src\Inventory.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Inventory.cpp || cmake_object_order_depends_target_dungeon
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
+  INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
+  OBJECT_DIR = CMakeFiles\dungeon.dir
+  OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\dungeon.dir\
+  TARGET_PDB = dungeon.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\dungeon.dir
+
+build CMakeFiles\dungeon.dir\src\LootTable.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\LootTable.cpp || cmake_object_order_depends_target_dungeon
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -118,7 +151,7 @@ build CMakeFiles\dungeon.dir\src\Entity.cpp.obj: CXX_COMPILER__dungeon_unscanned
 build CMakeFiles\dungeon.dir\src\Renderer.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Renderer.cpp || cmake_object_order_depends_target_dungeon
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = CMakeFiles\dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
@@ -134,9 +167,9 @@ build CMakeFiles\dungeon.dir\src\Renderer.cpp.obj: CXX_COMPILER__dungeon_unscann
 #############################################
 # Link the executable dungeon.exe
 
-build dungeon.exe: CXX_EXECUTABLE_LINKER__dungeon_Debug CMakeFiles\dungeon.dir\src\main.cpp.obj CMakeFiles\dungeon.dir\src\Game.cpp.obj CMakeFiles\dungeon.dir\src\Map.cpp.obj CMakeFiles\dungeon.dir\src\Player.cpp.obj CMakeFiles\dungeon.dir\src\Enemy.cpp.obj CMakeFiles\dungeon.dir\src\Entity.cpp.obj CMakeFiles\dungeon.dir\src\Renderer.cpp.obj | _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib
+build dungeon.exe: CXX_EXECUTABLE_LINKER__dungeon_Debug CMakeFiles\dungeon.dir\src\main.cpp.obj CMakeFiles\dungeon.dir\src\Game.cpp.obj CMakeFiles\dungeon.dir\src\Map.cpp.obj CMakeFiles\dungeon.dir\src\Player.cpp.obj CMakeFiles\dungeon.dir\src\Enemy.cpp.obj CMakeFiles\dungeon.dir\src\Entity.cpp.obj CMakeFiles\dungeon.dir\src\Item.cpp.obj CMakeFiles\dungeon.dir\src\Inventory.cpp.obj CMakeFiles\dungeon.dir\src\LootTable.cpp.obj CMakeFiles\dungeon.dir\src\Renderer.cpp.obj | _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = _deps\raylib-build\raylib\raylib.lib  configparser_build\configparser.lib  opengl32.lib  glu32.lib  winmm.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
   MANIFESTS = "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest"
@@ -242,7 +275,7 @@ build cmake_object_order_depends_target_configparser: phony || .
 
 build configparser_build\CMakeFiles\configparser.dir\StringUtils.cpp.obj: CXX_COMPILER__configparser_unscanned_Debug E$:\CPP\HW\DungeonCrawler\configparser\StringUtils.cpp || cmake_object_order_depends_target_configparser
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   OBJECT_FILE_DIR = configparser_build\CMakeFiles\configparser.dir
@@ -252,7 +285,7 @@ build configparser_build\CMakeFiles\configparser.dir\StringUtils.cpp.obj: CXX_CO
 
 build configparser_build\CMakeFiles\configparser.dir\IniParser.cpp.obj: CXX_COMPILER__configparser_unscanned_Debug E$:\CPP\HW\DungeonCrawler\configparser\IniParser.cpp || cmake_object_order_depends_target_configparser
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   OBJECT_FILE_DIR = configparser_build\CMakeFiles\configparser.dir
@@ -262,7 +295,7 @@ build configparser_build\CMakeFiles\configparser.dir\IniParser.cpp.obj: CXX_COMP
 
 build configparser_build\CMakeFiles\configparser.dir\JsonParser.cpp.obj: CXX_COMPILER__configparser_unscanned_Debug E$:\CPP\HW\DungeonCrawler\configparser\JsonParser.cpp || cmake_object_order_depends_target_configparser
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   OBJECT_FILE_DIR = configparser_build\CMakeFiles\configparser.dir
@@ -272,7 +305,7 @@ build configparser_build\CMakeFiles\configparser.dir\JsonParser.cpp.obj: CXX_COM
 
 build configparser_build\CMakeFiles\configparser.dir\XmlParser.cpp.obj: CXX_COMPILER__configparser_unscanned_Debug E$:\CPP\HW\DungeonCrawler\configparser\XmlParser.cpp || cmake_object_order_depends_target_configparser
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   OBJECT_FILE_DIR = configparser_build\CMakeFiles\configparser.dir
@@ -282,7 +315,7 @@ build configparser_build\CMakeFiles\configparser.dir\XmlParser.cpp.obj: CXX_COMP
 
 build configparser_build\CMakeFiles\configparser.dir\ParserFactory.cpp.obj: CXX_COMPILER__configparser_unscanned_Debug E$:\CPP\HW\DungeonCrawler\configparser\ParserFactory.cpp || cmake_object_order_depends_target_configparser
   CONFIG = Debug
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++17 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\configparser
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   OBJECT_FILE_DIR = configparser_build\CMakeFiles\configparser.dir
@@ -300,7 +333,7 @@ build configparser_build\CMakeFiles\configparser.dir\ParserFactory.cpp.obj: CXX_
 
 build configparser_build\configparser.lib: CXX_STATIC_LIBRARY_LINKER__configparser_Debug configparser_build\CMakeFiles\configparser.dir\StringUtils.cpp.obj configparser_build\CMakeFiles\configparser.dir\IniParser.cpp.obj configparser_build\CMakeFiles\configparser.dir\JsonParser.cpp.obj configparser_build\CMakeFiles\configparser.dir\XmlParser.cpp.obj configparser_build\CMakeFiles\configparser.dir\ParserFactory.cpp.obj
   CONFIG = Debug
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -MDd
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = configparser_build\CMakeFiles\configparser.dir
   POST_BUILD = cd .
@@ -499,7 +532,7 @@ build cmake_object_order_depends_target_raylib: phony || cmake_object_order_depe
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raudio.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\raudio.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -510,7 +543,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raudio.c.obj: C_COMPILER__
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rcore.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\rcore.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -521,7 +554,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rcore.c.obj: C_COMPILER__r
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rmodels.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\rmodels.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -532,7 +565,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rmodels.c.obj: C_COMPILER_
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rshapes.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\rshapes.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -543,7 +576,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rshapes.c.obj: C_COMPILER_
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtext.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\rtext.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -554,7 +587,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtext.c.obj: C_COMPILER__r
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtextures.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\rtextures.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -565,7 +598,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtextures.c.obj: C_COMPILE
 build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\utils.c.obj: C_COMPILER__raylib_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\utils.c || cmake_object_order_depends_target_raylib
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -D_CRT_SECURE_NO_WARNINGS
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -external:IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -external:W0
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
@@ -583,7 +616,7 @@ build _deps\raylib-build\raylib\CMakeFiles\raylib.dir\utils.c.obj: C_COMPILER__r
 
 build _deps\raylib-build\raylib\raylib.lib: C_STATIC_LIBRARY_LINKER__raylib_Debug _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\context.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\init.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\input.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\monitor.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\platform.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\vulkan.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\window.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\egl_context.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\osmesa_context.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_init.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_monitor.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_window.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_joystick.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_module.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_time.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_thread.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_init.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_joystick.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_monitor.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_window.c.obj _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\wgl_context.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\raudio.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rcore.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rmodels.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rshapes.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtext.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\rtextures.c.obj _deps\raylib-build\raylib\CMakeFiles\raylib.dir\utils.c.obj || _deps\raylib-build\raylib\external\glfw\src\glfw
   CONFIG = Debug
-  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd
+  LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = _deps\raylib-build\raylib\CMakeFiles\raylib.dir
   POST_BUILD = cd .
@@ -769,7 +802,7 @@ build cmake_object_order_depends_target_glfw: phony || .
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\context.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -780,7 +813,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\context.c.
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\init.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\init.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -791,7 +824,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\init.c.obj
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\input.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\input.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -802,7 +835,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\input.c.ob
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\monitor.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\monitor.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -813,7 +846,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\monitor.c.
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\platform.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\platform.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -824,7 +857,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\platform.c
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\vulkan.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\vulkan.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -835,7 +868,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\vulkan.c.o
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\window.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\window.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -846,7 +879,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\window.c.o
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\egl_context.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\egl_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -857,7 +890,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\egl_contex
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\osmesa_context.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\osmesa_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -868,7 +901,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\osmesa_con
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_init.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\null_init.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -879,7 +912,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_init.
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_monitor.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\null_monitor.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -890,7 +923,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_monit
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_window.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\null_window.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -901,7 +934,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_windo
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_joystick.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\null_joystick.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -912,7 +945,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\null_joyst
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_module.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_module.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -923,7 +956,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_modu
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_time.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_time.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -934,7 +967,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_time
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_thread.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_thread.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -945,7 +978,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_thre
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_init.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_init.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -956,7 +989,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_init
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_joystick.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_joystick.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -967,7 +1000,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_joys
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_monitor.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_monitor.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -978,7 +1011,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_moni
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_window.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\win32_window.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
@@ -989,7 +1022,7 @@ build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\win32_wind
 build _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir\wgl_context.c.obj: C_COMPILER__glfw_unscanned_Debug E$:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src\wgl_context.c || cmake_object_order_depends_target_glfw
   CONFIG = Debug
   DEFINES = -DUNICODE -D_CRT_SECURE_NO_WARNINGS -D_GLFW_WIN32 -D_UNICODE
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Ob0 /Od /RTC1 -MDd /W3
+  FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd /W3
   INCLUDES = -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-build\raylib\external\glfw\src
   OBJECT_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir
   OBJECT_FILE_DIR = _deps\raylib-build\raylib\external\glfw\src\CMakeFiles\glfw.dir

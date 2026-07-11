@@ -14,8 +14,13 @@ namespace
     }
     std::string cap(std::string s)
     {
-        if (!s.empty())
-            s[0] = static_cast<char>(std::toupper(s[0]));
+        if (!s.empty()) s[0] = static_cast<char>(std::toupper(s[0]));
+        return s;
+    }
+    std::string prettyName(std::string s)
+    {
+        for (char& c : s)
+            if (c == '_') c = ' ';
         return s;
     }
 }
@@ -27,23 +32,59 @@ void Game::load(const std::string& configPath)
 
     map_.loadFrom(data);
     player_.loadFrom(data);
-
     enemies_.clear();
+    ground_.clear();
+    lootTables_.clear();
     log_.clear();
     complete_ = gameOver_ = false;
 
-    auto it = data.find("enemies");
-    if (it != data.end())
-    {
+    if (auto it = data.find("enemies"); it != data.end())
         for (const auto& [id, spec] : it->second)
         {
             std::istringstream ss(spec);
             std::string type; int ex, ey;
             if (!(ss >> type >> ex >> ey))
                 continue;
-            if (type == "goblin") enemies_.push_back(Enemy::makeGoblin(ex, ey));
+            if (type == "goblin")
+                enemies_.push_back(Enemy::makeGoblin(ex, ey));
+            else if (type == "skeleton")
+                enemies_.push_back(Enemy::makeSkeleton(ex, ey));
+            else if (type == "dragon")
+                enemies_.push_back(Enemy::makeDragon(ex, ey));
         }
+
+    if (auto it = data.find("items"); it != data.end())
+        for (const auto& [id, spec] : it->second)
+        {
+            std::istringstream ss(spec);
+            std::string slotStr, name; int ix, iy, atk, def, hp;
+            if (!(ss >> slotStr >> ix >> iy >> name >> atk >> def >> hp))
+                continue;
+            ItemSlot slot;
+            if (parseSlot(slotStr, slot))
+                ground_.push_back({ Item{ prettyName(name), slot, atk, def, hp }, ix, iy });
+        }
+
+    for (const auto& [section, kvs] : data)
+    {
+        const std::string prefix = "loot_";
+        if (section.rfind(prefix, 0) != 0)
+            continue;
+        const std::string type = section.substr(prefix.size());
+        LootTable table;
+        for (const auto& [id, spec] : kvs)
+        {
+            std::istringstream ss(spec);
+            std::string slotStr, name; int atk, def, hp; double chance;
+            if (!(ss >> slotStr >> name >> atk >> def >> hp >> chance))
+                continue;
+            ItemSlot slot;
+            if (parseSlot(slotStr, slot))
+                table.add(Item{ prettyName(name), slot, atk, def, hp }, chance);
+        }
+        lootTables_[type] = table;
     }
+
     addLog("Entered " + cfg::require(data, "meta", "name") + ".");
 }
 
@@ -65,6 +106,7 @@ void Game::movePlayer(int dx, int dy)
         return;
 
     player_.setTile(nx, ny);
+    tryPickUp(nx, ny);
     if (map_.isExit(nx, ny))
     {
         complete_ = true;
@@ -84,13 +126,53 @@ void Game::attackAt(int tileX, int tileY)
     if (std::abs(e->x() - player_.x()) + std::abs(e->y() - player_.y()) != 1)
         return;
 
-    e->takeDamage(player_.attackPower());
-    addLog("You hit the " + e->type() + " for " + std::to_string(player_.attackPower()) + ".");
+    const int dmg = std::max(1, player_.attackPower() - e->defense());
+    e->takeDamage(dmg);
+    addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
     if (!e->alive())
-        addLog(cap(e->type()) + " slain! Dropped: " + e->reward() + ".");
+    {
+        addLog(cap(e->type()) + " slain!");
+        dropLoot(*e);
+    }
 
     enemyTurn();
     removeDead();
+}
+
+void Game::dropLoot(const Enemy& e)
+{
+    auto it = lootTables_.find(e.type());
+    if (it == lootTables_.end() || it->second.empty())
+        return;
+    std::vector<Item> drops = it->second.roll(rng_);
+    if (drops.empty())
+    {
+        addLog("...it dropped nothing.");
+        return;
+    }
+    for (const auto& item : drops)
+    {
+        ground_.push_back({ item, e.x(), e.y() });
+        addLog("Dropped: " + item.name + ".");
+    }
+}
+
+void Game::tryPickUp(int x, int y)
+{
+    for (size_t i = 0; i < ground_.size();)
+    {
+        if (ground_[i].x == x && ground_[i].y == y)
+        {
+            if (player_.pickUp(ground_[i].item))
+            {
+                addLog("Picked up " + ground_[i].item.name + ".");
+                ground_.erase(ground_.begin() + i);
+                continue;
+            }
+            addLog("Backpack full - left " + ground_[i].item.name + ".");
+        }
+        ++i;
+    }
 }
 
 void Game::enemyTurn()
@@ -104,11 +186,13 @@ void Game::enemyTurn()
 
         if (manhattan == 1)
         {
-            player_.takeDamage(e.attackPower());
-            addLog(cap(e.type()) + " hits you for " + std::to_string(e.attackPower()) + ".");
+            const int dmg = std::max(1, e.attackPower() - player_.defense());
+            player_.takeDamage(dmg);
+            addLog(cap(e.type()) + " hits you for " + std::to_string(dmg) + ".");
             if (!player_.alive())
             {
-                gameOver_ = true; addLog("You died.");
+                gameOver_ = true;
+                addLog("You died.");
                 return;
             }
             continue;
@@ -119,14 +203,15 @@ void Game::enemyTurn()
             continue;
 
         const int sx = sgn(dx), sy = sgn(dy);
-        auto tryStep = [&](int mx, int my) {
-            const int tx = e.x() + mx, ty = e.y() + my;
-            if (tx == player_.x() && ty == player_.y())
-                return false;
-            if (wallOrEnemy(tx, ty, &e))
-                return false;
-            e.setTile(tx, ty);
-            return true;
+        auto tryStep = [&](int mx, int my)
+            {
+                const int tx = e.x() + mx, ty = e.y() + my;
+                if (tx == player_.x() && ty == player_.y())
+                    return false;
+                if (wallOrEnemy(tx, ty, &e))
+                    return false;
+                e.setTile(tx, ty);
+                return true;
             };
         if (std::abs(dx) >= std::abs(dy))
         {
@@ -143,11 +228,11 @@ void Game::enemyTurn()
 
 void Game::removeDead()
 {
-    for (size_t i = 0; i < enemies_.size();) {
+    for (size_t i = 0; i < enemies_.size();)
         if (!enemies_[i].alive())
             enemies_.erase(enemies_.begin() + i);
-        else ++i;
-    }
+        else
+            ++i;
 }
 
 void Game::addLog(const std::string& msg)
