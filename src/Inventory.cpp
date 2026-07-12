@@ -60,6 +60,29 @@ bool Inventory::removeStorage(int i)
     return true;
 }
 
+void Inventory::clear()
+{
+    storage_.assign(SLOTS, std::nullopt);
+    equipped_.clear();
+}
+
+bool Inventory::placeBackpack(int slot, const Item& it)
+{
+    if (slot < 0 || slot >= SLOTS)
+		return false;
+    storage_[slot] = it;
+    return true;
+}
+
+bool Inventory::placeEquipped(const Item& it)
+{
+    auto& worn = equipped_[it.slot];
+    if (static_cast<int>(worn.size()) >= slotCapacity(it.slot))
+        return false;
+	worn.push_back(it);
+	return true;
+}
+
 int Inventory::equippedCount(ItemSlot s) const
 {
     auto it = equipped_.find(s);

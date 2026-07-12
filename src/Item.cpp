@@ -1,4 +1,5 @@
 #include "Item.h"
+#include <sstream>
 
 const char* slotName(ItemSlot s)
 {
@@ -72,4 +73,64 @@ bool parseSlot(const std::string& s, ItemSlot& out)
         return true;
     }
     return false;
+}
+
+namespace
+{
+    std::string spacesToUnderscores(std::string s)
+    {
+        for (char& c : s)
+            if (c == ' ')
+                c = '_';
+        return s;
+    }
+    std::string underscoresToSpaces(std::string s)
+    {
+        for (char& c : s)
+            if (c == '_')
+                c = ' ';
+        return s;
+    }
+}
+
+bool parseItemBody(std::istringstream& ss, Item& out)
+{
+    std::string first; if (!(ss >> first))
+        return false;
+    if (first == "potion")
+    {
+        std::string name; int heal;
+        if (!(ss >> name >> heal))
+            return false;
+        out = Item{ underscoresToSpaces(name), ItemSlot::Weapon, 0, 0, 0, heal, 0 };
+        return true;
+    }
+    if (first == "gold")
+    {
+        int amount; if (!(ss >> amount))
+            return false;
+        out = Item{ "gold", ItemSlot::Weapon, 0, 0, 0, 0, amount };
+        return true;
+    }
+    ItemSlot slot;
+    if (!parseSlot(first, slot))
+        return false;
+    std::string name; int atk, def, hp;
+    if (!(ss >> name >> atk >> def >> hp))
+        return false;
+    out = Item{ underscoresToSpaces(name), slot, atk, def, hp, 0, 0 };
+    return true;
+}
+
+std::string itemToBody(const Item& it)
+{
+    std::ostringstream os;
+    if (it.isPotion())
+        os << "potion " << spacesToUnderscores(it.name) << ' ' << it.heal;
+    else if (it.isGold())
+        os << "gold " << it.gold;
+    else
+        os << slotName(it.slot) << ' ' << spacesToUnderscores(it.name)
+        << ' ' << it.atk << ' ' << it.def << ' ' << it.hp;
+    return os.str();
 }

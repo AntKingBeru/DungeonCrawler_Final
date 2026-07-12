@@ -33,6 +33,7 @@ add_executable(dungeon
     src/Inventory.cpp
     src/LootTable.cpp
     src/Renderer.cpp
+    src/Menu.cpp
 )
 target_include_directories(dungeon PRIVATE src)
 target_link_libraries(dungeon PRIVATE raylib configparser)

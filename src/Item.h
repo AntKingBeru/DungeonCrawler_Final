@@ -2,6 +2,7 @@
 #define ITEM_H
 
 #include <string>
+#include <sstream>
 
 enum class ItemSlot
 {
@@ -36,5 +37,8 @@ struct Item
 const char* slotName(ItemSlot s);
 int slotCapacity(ItemSlot s);
 bool parseSlot(const std::string& s, ItemSlot& out);
+
+bool parseItemBody(std::istringstream& ss, Item& out);
+std::string itemToBody(const Item& it);
 
 #endif

@@ -17,6 +17,10 @@ public:
     bool unequip(ItemSlot slot, int sub);
     bool removeStorage(int slot);
 
+    void clear();
+    bool placeBackpack(int slot, const Item& it);
+	bool placeEquipped(const Item& it);
+
     const std::vector<std::optional<Item>>& storage() const
     {
         return storage_;

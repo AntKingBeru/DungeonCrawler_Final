@@ -31,6 +31,22 @@ public:
     }
     bool spendGold(int g);
 
+    int baseMaxHp() const
+    {
+		return baseMaxHp_;
+    }
+    int baseAtk() const
+    {
+		return baseAtk_;
+    }
+    int baseDef() const
+    {
+		return baseDef_;
+    }
+
+    void writeState(ConfigData& out) const;
+	void readState(const ConfigData& in);
+
 private:
     void recomputeStats();
 

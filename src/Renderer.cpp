@@ -143,14 +143,14 @@ namespace
 
 void Renderer::draw(const Game& game, bool showInventory) const
 {
+    BeginDrawing();
+    ClearBackground(DARKGRAY);
+
     const Map& map = game.map();
     const Player& player = game.player();
     const int screenW = map.width() * TILE_SIZE;
     const int screenH = map.height() * TILE_SIZE;
     const bool shopOpen = game.isShopOpen();
-
-    BeginDrawing();
-    ClearBackground(DARKGRAY);
 
     for (int y = 0; y < map.height(); ++y)
         for (int x = 0; x < map.width(); ++x)
@@ -291,8 +291,6 @@ void Renderer::draw(const Game& game, bool showInventory) const
         const char* s = "Press Esc to quit";
         DrawText(s, (screenW - MeasureText(s, 20)) / 2, screenH / 2 + 10, 20, RAYWHITE);
     }
-
-    EndDrawing();
 }
 
 InvHit Renderer::hitTestInventory(const Game& game, int mx, int my) const

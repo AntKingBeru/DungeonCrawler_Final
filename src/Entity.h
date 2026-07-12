@@ -71,6 +71,14 @@ public:
 		if (hp_ > maxHp_)
 			hp_ = maxHp_;
 	}
+	void setHp(int h)
+	{
+		hp_ = h;
+		if (hp_ < 0)
+			hp_ = 0;
+		if (hp_ > maxHp_)
+			hp_ = maxHp_;
+	}
 
 protected:
 	static constexpr float MOVE_SPEED = 8.0f;

@@ -38,7 +38,14 @@ struct ShopEntry
 class Game
 {
 public:
-    void load(const std::string& configPath);
+    void newGame(const std::string& levelPath);
+    bool loadSlot(const std::string& savePath);
+    void saveSlot(const std::string& savePath) const;
+    const std::string& levelName() const
+    {
+        return levelName_;
+    }
+
     void update(float dt);
 
     void movePlayer(int dx, int dy);
@@ -108,6 +115,12 @@ public:
     }
 
 private:
+    void buildStatic(const ConfigData& level);
+    void buildEnemies(const ConfigData& data);
+    void buildGround(const ConfigData& data, const std::string& section);
+    void buildChests(const ConfigData& data, const std::string& section);
+    void resetRuntime();
+
     void enemyTurn();
     void removeDead();
     void addLog(const std::string& msg);
@@ -124,10 +137,12 @@ private:
     std::vector<Enemy> enemies_;
     std::vector<GroundItem> ground_;
     std::vector<Chest> chests_;
-	ShopKeeper shopkeeper_;
-	std::vector<ShopEntry> shopStock_;
+    ShopKeeper shopkeeper_;
+    std::vector<ShopEntry> shopStock_;
     std::map<std::string, LootTable> lootTables_;
     std::vector<std::string> log_;
+    std::string levelPath_;
+    std::string levelName_;
     std::mt19937 rng_{ std::random_device{}() };
     bool complete_ = false;
     bool gameOver_ = false;

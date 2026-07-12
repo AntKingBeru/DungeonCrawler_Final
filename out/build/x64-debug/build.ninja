@@ -159,6 +159,17 @@ build CMakeFiles\dungeon.dir\src\Renderer.cpp.obj: CXX_COMPILER__dungeon_unscann
   TARGET_PDB = dungeon.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\dungeon.dir
 
+build CMakeFiles\dungeon.dir\src\Menu.cpp.obj: CXX_COMPILER__dungeon_unscanned_Debug E$:\CPP\HW\DungeonCrawler\src\Menu.cpp || cmake_object_order_depends_target_dungeon
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -std:c++17 -MDd
+  INCLUDES = -IE:\CPP\HW\DungeonCrawler\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src -IE:\CPP\HW\DungeonCrawler\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include -IE:\CPP\HW\DungeonCrawler\configparser
+  OBJECT_DIR = CMakeFiles\dungeon.dir
+  OBJECT_FILE_DIR = CMakeFiles\dungeon.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\dungeon.dir\
+  TARGET_PDB = dungeon.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\dungeon.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target dungeon
@@ -167,7 +178,7 @@ build CMakeFiles\dungeon.dir\src\Renderer.cpp.obj: CXX_COMPILER__dungeon_unscann
 #############################################
 # Link the executable dungeon.exe
 
-build dungeon.exe: CXX_EXECUTABLE_LINKER__dungeon_Debug CMakeFiles\dungeon.dir\src\main.cpp.obj CMakeFiles\dungeon.dir\src\Game.cpp.obj CMakeFiles\dungeon.dir\src\Map.cpp.obj CMakeFiles\dungeon.dir\src\Player.cpp.obj CMakeFiles\dungeon.dir\src\Enemy.cpp.obj CMakeFiles\dungeon.dir\src\Entity.cpp.obj CMakeFiles\dungeon.dir\src\Item.cpp.obj CMakeFiles\dungeon.dir\src\Inventory.cpp.obj CMakeFiles\dungeon.dir\src\LootTable.cpp.obj CMakeFiles\dungeon.dir\src\Renderer.cpp.obj | _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib
+build dungeon.exe: CXX_EXECUTABLE_LINKER__dungeon_Debug CMakeFiles\dungeon.dir\src\main.cpp.obj CMakeFiles\dungeon.dir\src\Game.cpp.obj CMakeFiles\dungeon.dir\src\Map.cpp.obj CMakeFiles\dungeon.dir\src\Player.cpp.obj CMakeFiles\dungeon.dir\src\Enemy.cpp.obj CMakeFiles\dungeon.dir\src\Entity.cpp.obj CMakeFiles\dungeon.dir\src\Item.cpp.obj CMakeFiles\dungeon.dir\src\Inventory.cpp.obj CMakeFiles\dungeon.dir\src\LootTable.cpp.obj CMakeFiles\dungeon.dir\src\Renderer.cpp.obj CMakeFiles\dungeon.dir\src\Menu.cpp.obj | _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib configparser_build\configparser.lib
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /GR /EHsc /Zi /Ob0 /Od /RTC1 -MDd
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
