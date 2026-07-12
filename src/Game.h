@@ -116,9 +116,16 @@ public:
 
 private:
     void buildStatic(const ConfigData& level);
+    void readMeta(const ConfigData& data);
+    void descend();
+    Enemy* spawnEnemy(const std::string& type, int x, int y);
     void buildEnemies(const ConfigData& data);
+    void buildBoss(const ConfigData& data);
     void buildGround(const ConfigData& data, const std::string& section);
     void buildChests(const ConfigData& data, const std::string& section);
+    void parseChestsInto(const ConfigData& data, const std::string& section, std::vector<Chest>& out);
+    bool hasLivingBoss() const;
+    void onBossDefeated();
     void resetRuntime();
 
     void enemyTurn();
@@ -139,10 +146,14 @@ private:
     std::vector<Chest> chests_;
     ShopKeeper shopkeeper_;
     std::vector<ShopEntry> shopStock_;
+    std::vector<Chest> pendingBossChests_;
+    bool bossDefeated_ = false;
     std::map<std::string, LootTable> lootTables_;
     std::vector<std::string> log_;
     std::string levelPath_;
     std::string levelName_;
+    std::string nextLevel_;
+    float enemyScale_ = 1.0f;
     std::mt19937 rng_{ std::random_device{}() };
     bool complete_ = false;
     bool gameOver_ = false;

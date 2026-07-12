@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<meta>
+		<name>The Deepening Dark</name>
+		<next>configs/floor3.xml</next>
+		<enemy_scale>1.4</enemy_scale>
+	</meta>
+	<map>
+		<width>31</width>
+		<height>21</height>
+		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
+		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
+		<row2>XX........XXXXXXXXXXX........XX</row2>
+		<row3>XX........XXXXXXXXXXX........XX</row3>
+		<row4>XX...........................XX</row4>
+		<row5>XX........XXXXXXXXXXX........XX</row5>
+		<row6>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row6>
+		<row7>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row7>
+		<row8>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row8>
+		<row9>XX........XXXXXXXXXXX........XX</row9>
+		<row10>XX........XXXXXXXXXXX........XX</row10>
+		<row11>XX...........................XX</row11>
+		<row12>XX........XXXXXXXXXXX........XX</row12>
+		<row13>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row13>
+		<row14>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row14>
+		<row15>XXXXXX.XXXXXXXXXXXXXX........XX</row15>
+		<row16>XX........XXXXXXXXXXX........XX</row16>
+		<row17>XX........XXXXXXXXXXX...E....XX</row17>
+		<row18>XX...........................XX</row18>
+		<row19>XX........XXXXXXXXXXX........XX</row19>
+		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
+	</map>
+	<player>
+		<x>3</x>
+		<y>3</y>
+		<hp>20</hp>
+		<attack>5</attack>
+		<defense>0</defense>
+		<gold>20</gold>
+	</player>
+	<enemies>
+		<e0>goblin 6 2</e0>
+		<e1>goblin 7 3</e1>
+		<e2>goblin 6 4</e2>
+		<e3>skeleton 5 17</e3>
+		<e4>skeleton 2 18</e4>
+		<e5>skeleton 4 18</e5>
+		<e6>skeleton 3 19</e6>
+		<e7>skeleton 19 4</e7>
+	</enemies>
+	<boss>
+		<b0>dragon 24 16</b0>
+	</boss>
+	<boss_chests>
+		<bc0>22 18 boss</bc0>
+		<bc1>26 18 treasure</bc1>
+	</boss_chests>
+	<items>
+		<i0>12 11 potion Health_Potion 10</i0>
+		<i1>7 16 potion Greater_Potion 20</i1>
+		<i2>6 17 armor Plate_Armor 0 6 10</i2>
+		<i3>5 18 amulet Silver_Amulet 2 1 5</i3>
+		<i4>2 19 boots Swift_Boots 0 1 0</i4>
+	</items>
+	<chests>
+		<c0>28 12 wooden</c0>
+		<c1>25 14 treasure</c1>
+		<c2>27 12 wooden</c2>
+	</chests>
+	<shopkeeper>
+		<x>6</x>
+		<y>11</y>
+	</shopkeeper>
+	<shop>
+		<s0>12 potion Health_Potion 10</s0>
+		<s1>22 weapon Steel_Sword 5 0 0</s1>
+		<s2>28 armor Plate_Armor 0 6 10</s2>
+		<s3>35 weapon War_Hammer 8 0 0</s3>
+		<s4>40 amulet Lucky_Amulet 2 2 10</s4>
+	</shop>
+	<loot_goblin>
+		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
+		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
+		<d2>gold 12 0.8</d2>
+	</loot_goblin>
+	<loot_skeleton>
+		<d0>helmet Bone_Helm 0 2 0 0.4</d0>
+		<d1>weapon Bone_Club 3 0 0 0.35</d1>
+		<d2>gold 18 0.7</d2>
+	</loot_skeleton>
+	<loot_boss>
+		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
+		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
+		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
+		<d3>gold 140 1.0</d3>
+	</loot_boss>
+	<loot_treasure>
+		<d0>weapon War_Hammer 8 0 0 0.8</d0>
+		<d1>armor Plate_Armor 0 6 10 0.6</d1>
+		<d2>potion Greater_Potion 20 1.0</d2>
+		<d3>gold 70 1.0</d3>
+	</loot_treasure>
+	<loot_wooden>
+		<d0>potion Health_Potion 10 0.8</d0>
+		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d2>gold 17 1.0</d2>
+	</loot_wooden>
+</config>

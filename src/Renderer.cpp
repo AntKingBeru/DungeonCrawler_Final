@@ -184,9 +184,11 @@ void Renderer::draw(const Game& game, bool showInventory) const
 
     for (const auto& e : game.enemies())
     {
-        DrawCircle(static_cast<int>(e.visualX() * TILE_SIZE) + TILE_SIZE / 2,
-            static_cast<int>(e.visualY() * TILE_SIZE) + TILE_SIZE / 2,
-            TILE_SIZE * enemyRadius(e.type()), enemyColor(e.type()));
+        const int cx = static_cast<int>(e.visualX() * TILE_SIZE) + TILE_SIZE / 2;
+        const int cy = static_cast<int>(e.visualY() * TILE_SIZE) + TILE_SIZE / 2;
+        DrawCircle(cx, cy, TILE_SIZE * enemyRadius(e.type()), enemyColor(e.type()));
+        if (e.isBoss())
+            DrawCircleLines(cx, cy, TILE_SIZE * enemyRadius(e.type()) + 3, GOLD);
         drawHpBar(static_cast<int>(e.visualX() * TILE_SIZE), static_cast<int>(e.visualY() * TILE_SIZE), e.hp(), e.maxHp());
     }
     DrawCircle(static_cast<int>(player.visualX() * TILE_SIZE) + TILE_SIZE / 2,
@@ -199,6 +201,10 @@ void Renderer::draw(const Game& game, bool showInventory) const
         player.attackPower(), player.defense(), game.gold()),
         10, screenH + 8, 20, player.hp() > player.maxHp() / 4 ? RAYWHITE : RED);
     DrawText("[I] Inventory", screenW - 150, screenH + 8, 18, LIGHTGRAY);
+    {
+        const std::string& fl = game.levelName();
+        DrawText(fl.c_str(), screenW - MeasureText(fl.c_str(), 18) - 10, screenH + 34, 18, GOLD);
+    }
     const auto& log = game.log();
     for (int i = 0; i < 3 && i < static_cast<int>(log.size()); ++i)
         DrawText(log[log.size() - 1 - i].c_str(), 10, screenH + 34 + i * 18, 16, LIGHTGRAY);
@@ -286,9 +292,9 @@ void Renderer::draw(const Game& game, bool showInventory) const
     else if (!showInventory && !shopOpen && game.isComplete() && !player.isMoving())
     {
         DrawRectangle(0, 0, screenW, screenH, Fade(BLACK, 0.6f));
-        const char* m = "LEVEL COMPLETE";
+        const char* m = "YOU ESCAPED!";
         DrawText(m, (screenW - MeasureText(m, 40)) / 2, screenH / 2 - 40, 40, GREEN);
-        const char* s = "Press Esc to quit";
+        const char* s = "Press Esc for menu";
         DrawText(s, (screenW - MeasureText(s, 20)) / 2, screenH / 2 + 10, 20, RAYWHITE);
     }
 }

@@ -40,6 +40,37 @@ namespace cfg
             return fallback;
         }
     }
+
+    inline std::string strOr(const ConfigData& data, const std::string& section,
+        const std::string& key, const std::string& fallback)
+    {
+        auto s = data.find(section);
+        if (s == data.end())
+            return fallback;
+        auto k = s->second.find(key);
+        if (k == s->second.end())
+            return fallback;
+        return k->second;
+    }
+
+    inline float floatOr(const ConfigData& data, const std::string& section,
+        const std::string& key, float fallback)
+    {
+        auto s = data.find(section);
+        if (s == data.end())
+            return fallback;
+        auto k = s->second.find(key);
+        if (k == s->second.end())
+            return fallback;
+        try
+        {
+            return std::stof(k->second);
+        }
+        catch (...)
+        {
+            return fallback;
+        }
+    }
 }
 
 #endif

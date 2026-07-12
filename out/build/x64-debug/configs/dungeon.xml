@@ -2,84 +2,77 @@
 <config>
 	<meta>
 		<name>The First Descent</name>
+		<next>configs/floor2.xml</next>
+		<enemy_scale>1.0</enemy_scale>
 	</meta>
 	<map>
 		<width>31</width>
 		<height>21</height>
 		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
-		<row1>X.......XXXXXXXXXXXXXXX.......X</row1>
-		<row2>X.......XXXXXXXXXXXXXXX.......X</row2>
-		<row3>X.............................X</row3>
-		<row4>X.......XXXXXXX.XXXXXXX.......X</row4>
-		<row5>X.......XXXXXXX.XXXXXXX.......X</row5>
-		<row6>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row6>
-		<row7>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row7>
-		<row8>XXXX.XXXXXXX.......XXXXXXX.XXXX</row8>
-		<row9>XXXX.XXXXXXX.......XXXXXXX.XXXX</row9>
-		<row10>XXXX.......................XXXX</row10>
-		<row11>XXXX.XXXXXXX.......XXXXXXX.XXXX</row11>
-		<row12>XXXX.XXXXXXX.......XXXXXXX.XXXX</row12>
-		<row13>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row13>
-		<row14>XXXX.XXXXXXXXXX.XXXXXXXXXX.XXXX</row14>
-		<row15>X.......XXXXXXX.XXXXXXX.......X</row15>
-		<row16>X.......XXXXXXX.XXXXXXX.......X</row16>
-		<row17>X...........................E.X</row17>
-		<row18>X.......XXXXXXXXXXXXXXX.......X</row18>
-		<row19>X.......XXXXXXXXXXXXXXX.......X</row19>
+		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
+		<row2>XX.......XXX.......XXX.......XX</row2>
+		<row3>XX.......XXX.......XXX.......XX</row3>
+		<row4>XX...........................XX</row4>
+		<row5>XX.......XXX.......XXX.......XX</row5>
+		<row6>XX.......XXX.......XXX.......XX</row6>
+		<row7>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row7>
+		<row8>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row8>
+		<row9>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row9>
+		<row10>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row10>
+		<row11>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row11>
+		<row12>XXXXX.XXXXXXXXX.XXXXXXXXX.XXXXX</row12>
+		<row13>XXXXX.XXXXXXXXX.XXXXXX.......XX</row13>
+		<row14>XX.......XXX.......XXX.......XX</row14>
+		<row15>XX.......XXX.......XXX.......XX</row15>
+		<row16>XX...........................XX</row16>
+		<row17>XX.......XXX.......XXX...E...XX</row17>
+		<row18>XX.......XXX.......XXX.......XX</row18>
+		<row19>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row19>
 		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
 	</map>
 	<player>
-		<x>2</x>
-		<y>2</y>
+		<x>3</x>
+		<y>3</y>
 		<hp>20</hp>
 		<attack>5</attack>
+		<defense>0</defense>
 		<gold>20</gold>
 	</player>
+	<enemies>
+		<e0>goblin 6 2</e0>
+		<e1>goblin 7 3</e1>
+		<e2>goblin 6 4</e2>
+		<e3>skeleton 5 13</e3>
+		<e4>skeleton 2 14</e4>
+		<e5>skeleton 4 14</e5>
+	</enemies>
+	<boss>
+		<b0>dragon 25 14</b0>
+	</boss>
+	<boss_chests>
+		<bc0>23 17 boss</bc0>
+		<bc1>27 17 treasure</bc1>
+	</boss_chests>
+	<items>
+		<i0>3 15 potion Health_Potion 10</i0>
+		<i1>15 2 weapon Rusty_Sword 3 0 0</i1>
+		<i2>16 3 helmet Iron_Helm 0 2 5</i2>
+		<i3>15 4 ring Gold_Ring 1 0 0</i3>
+	</items>
+	<chests>
+		<c0>21 16 wooden</c0>
+		<c1>25 12 wooden</c1>
+	</chests>
 	<shopkeeper>
-		<x>14</x>
-		<y>3</y>
+		<x>25</x>
+		<y>4</y>
 	</shopkeeper>
 	<shop>
 		<s0>15 weapon Steel_Sword 5 0 0</s0>
 		<s1>20 armor Plate_Armor 0 6 10</s1>
 		<s2>8 potion Health_Potion 10</s2>
 		<s3>25 amulet Lucky_Amulet 2 2 10</s3>
-		<s4>30 weapon War_Hammer 8 0 0</s4>
 	</shop>
-	<items>
-		<i0>weapon 3 3 Rusty_Sword 3 0 0</i0>
-		<i1>helmet 28 3 Iron_Helm 0 2 5</i1>
-		<i2>armor 2 15 Chainmail 0 4 10</i2>
-		<i3>ring 15 11 Gold_Ring 1 0 0</i3>
-		<i4>amulet 26 10 Ruby_Amulet 1 1 5</i4>
-		<i5>amulet 4 3 Health_Potion 10</i5>
-		<i6>amulet 9 10 Health_Potion 10</i6>
-	</items>
-	<chests>
-		<c0>5 3 wooden</c0>
-		<c1>17 10 treasure</c1>
-		<c2>2 17 wooden</c2>
-	</chests>
-	<loot_wooden>
-		<d0>potion Health_Potion 10 0.8</d0>
-		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
-		<d2>gold 15 1.0</d2>
-	</loot_wooden>
-	<loot_treasure>
-		<d0>weapon Steel_Sword 5 0 0 0.7</d0>
-		<d1>amulet Silver_Amulet 2 1 5 0.6</d1>
-		<d2>potion Greater_Potion 20 1.0</d2>
-		<d3>gold 50 1.0</d3>
-	</loot_treasure>
-	<enemies>
-		<e0>goblin 15 10</e0>
-		<e1>goblin 26 3</e1>
-		<e2>goblin 4 17</e2>
-		<e3>goblin 25 16</e3>
-		<e4>skeleton 12 10</e4>
-		<e5>skeleton 18 3</e5>
-		<e6>dragon 26 17</e6>
-	</enemies>
 	<loot_goblin>
 		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
 		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
@@ -90,10 +83,21 @@
 		<d1>weapon Bone_Club 3 0 0 0.35</d1>
 		<d2>gold 12 0.7</d2>
 	</loot_skeleton>
-	<loot_dragon>
+	<loot_boss>
 		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
 		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
 		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
 		<d3>gold 100 1.0</d3>
-	</loot_dragon>
+	</loot_boss>
+	<loot_treasure>
+		<d0>weapon Steel_Sword 5 0 0 0.8</d0>
+		<d1>armor Plate_Armor 0 6 10 0.6</d1>
+		<d2>potion Greater_Potion 20 1.0</d2>
+		<d3>gold 50 1.0</d3>
+	</loot_treasure>
+	<loot_wooden>
+		<d0>potion Health_Potion 10 0.8</d0>
+		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d2>gold 13 1.0</d2>
+	</loot_wooden>
 </config>

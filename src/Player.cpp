@@ -118,6 +118,13 @@ void Player::readState(const ConfigData& in)
         hp_ = 0;
 }
 
+void Player::moveToStart(const ConfigData& data)
+{
+    x_ = cfg::requireInt(data, "player", "x");
+    y_ = cfg::requireInt(data, "player", "y");
+    snapVisual();
+}
+
 void Player::recomputeStats()
 {
     attack_ = baseAtk_ + inv_.totalAtk();

@@ -15,7 +15,8 @@ namespace
     }
     std::string cap(std::string s)
     {
-        if (!s.empty()) s[0] = static_cast<char>(std::toupper(s[0]));
+        if (!s.empty())
+            s[0] = static_cast<char>(std::toupper(s[0]));
         return s;
     }
 }
@@ -26,6 +27,13 @@ int Game::sellValue(const Item& it)
     return std::max(1, base / 2);
 }
 
+void Game::readMeta(const ConfigData& data)
+{
+    levelName_ = cfg::require(data, "meta", "name");
+    nextLevel_ = cfg::strOr(data, "meta", "next", "");
+    enemyScale_ = cfg::floatOr(data, "meta", "enemy_scale", 1.0f);
+}
+
 void Game::buildStatic(const ConfigData& data)
 {
     map_.loadFrom(data);
@@ -33,18 +41,15 @@ void Game::buildStatic(const ConfigData& data)
     shopStock_.clear();
     shopkeeper_ = {};
 
-    if (auto it = data.find("shopkeeper");
-        it != data.end())
+    if (auto it = data.find("shopkeeper"); it != data.end())
         shopkeeper_ = { cfg::requireInt(data, "shopkeeper", "x"),
                         cfg::requireInt(data, "shopkeeper", "y"), true };
 
-    if (auto it = data.find("shop");
-        it != data.end())
+    if (auto it = data.find("shop"); it != data.end())
         for (const auto& [id, spec] : it->second)
         {
             std::istringstream ss(spec);
-            int price;
-            if (!(ss >> price))
+            int price; if (!(ss >> price))
                 continue;
             Item item;
             if (parseItemBody(ss, item) && !item.isGold())
@@ -64,13 +69,27 @@ void Game::buildStatic(const ConfigData& data)
             Item item;
             if (!parseItemBody(ss, item))
                 continue;
-            double chance;
-            if (!(ss >> chance))
+            double chance; if (!(ss >> chance))
                 continue;
             table.add(item, chance);
         }
         lootTables_[name] = table;
     }
+}
+
+Enemy* Game::spawnEnemy(const std::string& type, int x, int y)
+{
+    if (type == "goblin")
+        enemies_.push_back(Enemy::makeGoblin(x, y));
+    else if (type == "skeleton")
+        enemies_.push_back(Enemy::makeSkeleton(x, y));
+    else if (type == "dragon")
+        enemies_.push_back(Enemy::makeDragon(x, y));
+    else
+        return nullptr;
+    Enemy* e = &enemies_.back();
+    e->scaleStats(enemyScale_);
+    return e;
 }
 
 void Game::buildEnemies(const ConfigData& data)
@@ -82,30 +101,38 @@ void Game::buildEnemies(const ConfigData& data)
     for (const auto& [id, spec] : it->second)
     {
         std::istringstream ss(spec);
-        std::string type;
-        int x, y;
+        std::string type; int x, y;
         if (!(ss >> type >> x >> y))
             continue;
-        Enemy* e = nullptr;
-        if (type == "goblin")
-        {
-            enemies_.push_back(Enemy::makeGoblin(x, y));
-            e = &enemies_.back();
-        }
-        else if (type == "skeleton")
-        {
-            enemies_.push_back(Enemy::makeSkeleton(x, y));
-            e = &enemies_.back();
-        }
-        else if (type == "dragon")
-        {
-            enemies_.push_back(Enemy::makeDragon(x, y));
-            e = &enemies_.back();
-        }
+        Enemy* e = spawnEnemy(type, x, y);
         if (!e)
             continue;
         int hp;
         if (ss >> hp)
+            e->setHp(hp);
+        std::string flag;
+        if (ss >> flag && flag == "boss")
+            e->setBoss(true);
+    }
+}
+
+void Game::buildBoss(const ConfigData& data)
+{
+    auto it = data.find("boss");
+    if (it == data.end())
+        return;
+    for (const auto& [id, spec] : it->second)
+    {
+        std::istringstream ss(spec);
+        std::string type;
+        int x, y;
+        if (!(ss >> type >> x >> y))
+            continue;
+        Enemy* e = spawnEnemy(type, x, y);
+        if (!e)
+            continue;
+        e->setBoss(true);
+        int hp; if (ss >> hp)
             e->setHp(hp);
     }
 }
@@ -128,19 +155,44 @@ void Game::buildGround(const ConfigData& data, const std::string& section)
     }
 }
 
-void Game::buildChests(const ConfigData& data, const std::string& section)
+void Game::parseChestsInto(const ConfigData& data, const std::string& section, std::vector<Chest>& out)
 {
-    chests_.clear();
+    out.clear();
     auto it = data.find(section);
     if (it == data.end())
         return;
     for (const auto& [id, spec] : it->second)
     {
         std::istringstream ss(spec);
-        int x, y; std::string table;
+        int x, y;
+        std::string table;
         if (ss >> x >> y >> table)
-            chests_.push_back({ x, y, table });
+            out.push_back({ x, y, table });
     }
+}
+
+void Game::buildChests(const ConfigData& data, const std::string& section)
+{
+    parseChestsInto(data, section, chests_);
+}
+
+bool Game::hasLivingBoss() const
+{
+    for (const auto& e : enemies_)
+        if (e.isBoss() && e.alive())
+            return true;
+    return false;
+}
+
+void Game::onBossDefeated()
+{
+    if (bossDefeated_ || hasLivingBoss())
+        return;
+    for (const auto& c : pendingBossChests_)
+        chests_.push_back(c);
+    pendingBossChests_.clear();
+    bossDefeated_ = true;
+    addLog("The guardian's hoard appears!");
 }
 
 void Game::resetRuntime()
@@ -153,15 +205,36 @@ void Game::newGame(const std::string& levelPath)
 {
     levelPath_ = levelPath;
     ConfigData data = makeParser(levelPath)->parse(levelPath);
-    levelName_ = cfg::require(data, "meta", "name");
+    readMeta(data);
 
     buildStatic(data);
     player_.loadFrom(data);
     buildEnemies(data);
+    buildBoss(data);
     buildGround(data, "items");
     buildChests(data, "chests");
+    parseChestsInto(data, "boss_chests", pendingBossChests_);
+    bossDefeated_ = false;
     resetRuntime();
     addLog("Entered " + levelName_ + ".");
+}
+
+void Game::descend()
+{
+    levelPath_ = nextLevel_;
+    ConfigData data = makeParser(levelPath_)->parse(levelPath_);
+    readMeta(data);
+
+    buildStatic(data);
+    player_.moveToStart(data);
+    buildEnemies(data);
+    buildBoss(data);
+    buildGround(data, "items");
+    buildChests(data, "chests");
+    parseChestsInto(data, "boss_chests", pendingBossChests_);
+    bossDefeated_ = false;
+    shopOpen_ = false;
+    addLog("Descended to " + levelName_ + ".");
 }
 
 bool Game::loadSlot(const std::string& savePath)
@@ -183,13 +256,18 @@ bool Game::loadSlot(const std::string& savePath)
 
     levelPath_ = cfg::require(save, "save", "level");
     ConfigData level = makeParser(levelPath_)->parse(levelPath_);
-    levelName_ = cfg::require(level, "meta", "name");
+    readMeta(level);
 
     buildStatic(level);
     player_.readState(save);
     buildEnemies(save);
     buildGround(save, "ground");
     buildChests(save, "chests");
+    bossDefeated_ = (cfg::strOr(save, "save", "boss_defeated", "0") == "1");
+    if (bossDefeated_)
+        pendingBossChests_.clear();
+    else
+        parseChestsInto(level, "boss_chests", pendingBossChests_);
     resetRuntime();
     addLog("Loaded " + levelName_ + ".");
     return true;
@@ -201,15 +279,20 @@ void Game::saveSlot(const std::string& savePath) const
     d["save"]["level"] = levelPath_;
     d["save"]["name"] = levelName_;
     d["save"]["version"] = "1";
+    d["save"]["boss_defeated"] = bossDefeated_ ? "1" : "0";
 
     player_.writeState(d);
 
     int n = 0;
     for (const auto& e : enemies_)
         if (e.alive())
-            d["enemies"]["e" + std::to_string(n++)] =
-            e.type() + " " + std::to_string(e.x()) + " " + std::to_string(e.y())
-            + " " + std::to_string(e.hp());
+        {
+            std::string line = e.type() + " " + std::to_string(e.x()) + " " + std::to_string(e.y())
+                + " " + std::to_string(e.hp());
+            if (e.isBoss())
+                line += " boss";
+            d["enemies"]["e" + std::to_string(n++)] = line;
+        }
 
     n = 0;
     for (const auto& g : ground_)
@@ -223,6 +306,7 @@ void Game::saveSlot(const std::string& savePath) const
 
     makeParser(savePath)->serialize(d, savePath);
 }
+
 
 void Game::update(float dt)
 {
@@ -257,8 +341,19 @@ void Game::movePlayer(int dx, int dy)
     tryPickUp(nx, ny);
     if (map_.isExit(nx, ny))
     {
-        complete_ = true;
-        addLog("You reached the exit!");
+        if (hasLivingBoss())
+        {
+            addLog("The exit is sealed until the guardian falls.");
+            enemyTurn();
+            return;
+        }
+        if (!nextLevel_.empty())
+            descend();
+        else
+        {
+            complete_ = true;
+            addLog("You escaped the dungeon!");
+        }
         return;
     }
     enemyTurn();
@@ -278,8 +373,16 @@ void Game::interactAt(int tileX, int tileY)
         addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
         if (!e->alive())
         {
-            addLog(cap(e->type()) + " slain!");
-            dropLoot(e->type(), e->x(), e->y());
+            if (e->isBoss())
+            {
+                addLog("The " + e->type() + " guardian falls!");
+                onBossDefeated();
+            }
+            else
+            {
+                addLog(cap(e->type()) + " slain!");
+                dropLoot(e->type(), e->x(), e->y());
+            }
         }
         enemyTurn();
         removeDead();
@@ -479,8 +582,9 @@ bool Game::wallOrEnemy(int x, int y, const Enemy* self) const
     for (const auto& e : enemies_)
         if (&e != self && e.alive() && e.x() == x && e.y() == y)
             return true;
-    for (const auto& c : chests_) if (c.x == x && c.y == y)
-        return true;
+    for (const auto& c : chests_)
+        if (c.x == x && c.y == y)
+            return true;
     if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
         return true;
     return false;

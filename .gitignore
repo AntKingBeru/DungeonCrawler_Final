@@ -24,3 +24,4 @@ CMakeUserPresets.json
 *.exe
 *.out
 *.app
+*.ipch

@@ -22,9 +22,21 @@ public:
         return sight_;
     }
 
+    void scaleStats(float m);
+
+    bool isBoss() const
+    {
+        return boss_;
+    }
+    void setBoss(bool b)
+    {
+        boss_ = b;
+    }
+
 private:
 	std::string type_;
 	int sight_ = 0;
+    bool boss_ = false;
 };
 
 #endif

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<meta>
+		<name>The Abyssal Throne</name>
+		<enemy_scale>1.9</enemy_scale>
+	</meta>
+	<map>
+		<width>31</width>
+		<height>21</height>
+		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
+		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
+		<row2>XX......XXXXXXXXXXXXXXX......XX</row2>
+		<row3>XX......XXXXXXXXXXXXXXX......XX</row3>
+		<row4>XX...........................XX</row4>
+		<row5>XX......XXXXXXX.XXXXXXX......XX</row5>
+		<row6>XXXXX.XXXX...........XXXXX.XXXX</row6>
+		<row7>XXXXX.XXXX...........XXXXX.XXXX</row7>
+		<row8>XXXXX.XXXX...........XXXXX.XXXX</row8>
+		<row9>XXXXX.XXXX...........XXXXX.XXXX</row9>
+		<row10>XXXXX.XXXX.....E.....XXXXX.XXXX</row10>
+		<row11>XXXXX.XXXX...........XXXXX.XXXX</row11>
+		<row12>XXXXX.XXXX...........XXXXX.XXXX</row12>
+		<row13>XXXXX.XXXX...........XXXXX.XXXX</row13>
+		<row14>XXXXX.XXXX...........XXXXX.XXXX</row14>
+		<row15>XX......XXXXXXX.XXXXXXX......XX</row15>
+		<row16>XX......XXXXXXX.XXXXXXX......XX</row16>
+		<row17>XX...........................XX</row17>
+		<row18>XX......XXXXXXXXXXXXXXX......XX</row18>
+		<row19>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row19>
+		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
+	</map>
+	<player>
+		<x>3</x>
+		<y>3</y>
+		<hp>20</hp>
+		<attack>5</attack>
+		<defense>0</defense>
+		<gold>20</gold>
+	</player>
+	<enemies>
+		<e0>goblin 6 2</e0>
+		<e1>goblin 7 3</e1>
+		<e2>skeleton 5 14</e2>
+		<e3>skeleton 2 15</e3>
+		<e4>skeleton 4 15</e4>
+		<e5>skeleton 3 16</e5>
+		<e6>skeleton 16 4</e6>
+		<e7>skeleton 15 5</e7>
+	</enemies>
+	<boss>
+		<b0>dragon 15 8</b0>
+	</boss>
+	<boss_chests>
+		<bc0>12 12 boss</bc0>
+		<bc1>18 12 treasure</bc1>
+	</boss_chests>
+	<items>
+		<i0>5 15 potion Greater_Potion 20</i0>
+		<i1>2 16 potion Greater_Potion 20</i1>
+		<i2>4 16 weapon Runed_Blade 9 0 5</i2>
+		<i3>3 17 ring Power_Ring 2 0 0</i3>
+	</items>
+	<chests>
+		<c0>28 18 treasure</c0>
+		<c1>27 18 wooden</c1>
+	</chests>
+	<shopkeeper>
+		<x>26</x>
+		<y>4</y>
+	</shopkeeper>
+	<shop>
+		<s0>15 potion Greater_Potion 20</s0>
+		<s1>40 weapon Runed_Blade 9 0 5</s1>
+		<s2>50 armor Aegis_Mail 0 8 25</s2>
+		<s3>30 gloves Plate_Gauntlets 0 2 0</s3>
+		<s4>45 amulet Power_Amulet 3 2 10</s4>
+	</shop>
+	<loot_goblin>
+		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
+		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
+		<d2>gold 20 0.8</d2>
+	</loot_goblin>
+	<loot_skeleton>
+		<d0>helmet Bone_Helm 0 2 0 0.4</d0>
+		<d1>weapon Bone_Club 3 0 0 0.35</d1>
+		<d2>gold 28 0.7</d2>
+	</loot_skeleton>
+	<loot_boss>
+		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
+		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
+		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
+		<d3>gold 220 1.0</d3>
+	</loot_boss>
+	<loot_treasure>
+		<d0>weapon Runed_Blade 9 0 5 0.8</d0>
+		<d1>armor Aegis_Mail 0 8 25 0.6</d1>
+		<d2>potion Greater_Potion 20 1.0</d2>
+		<d3>gold 110 1.0</d3>
+	</loot_treasure>
+	<loot_wooden>
+		<d0>potion Health_Potion 10 0.8</d0>
+		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d2>gold 25 1.0</d2>
+	</loot_wooden>
+</config>

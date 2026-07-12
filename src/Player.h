@@ -47,6 +47,8 @@ public:
     void writeState(ConfigData& out) const;
 	void readState(const ConfigData& in);
 
+    void moveToStart(const ConfigData& data);
+
 private:
     void recomputeStats();
 
