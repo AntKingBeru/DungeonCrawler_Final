@@ -9,7 +9,7 @@
 
 namespace
 {
-    constexpr int kMenuW = 900, kMenuH = 640;
+    constexpr int kMenuW = 1240, kMenuH = 950;
     const std::string kLevel = "configs/dungeon.ini";
     const std::array<std::string, 3> kSlots = {
         "saves/slot1.json", "saves/slot2.json", "saves/slot3.json" };
