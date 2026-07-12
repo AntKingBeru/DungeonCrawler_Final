@@ -32,7 +32,10 @@ namespace
     }
     SlotInfo readSlots()
     {
-        return { slotSummary(kSlots[0]), slotSummary(kSlots[1]), slotSummary(kSlots[2]) };
+        return
+        {
+            slotSummary(kSlots[0]), slotSummary(kSlots[1]), slotSummary(kSlots[2])
+        };
     }
 }
 

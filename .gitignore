@@ -25,3 +25,8 @@ CMakeUserPresets.json
 *.out
 *.app
 *.ipch
+.vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/967cfef2658d3716/MAIN.ipch
+.vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/a91e4cdd0eec6c21/MAP.ipch
+.vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/afdaced854fcdecf/ENEMY.ipch
+.vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/bff853239eba773e/PLAYER.ipch
+.vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/f53aeb0ade47e1c5/GAME.ipch
