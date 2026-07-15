@@ -32,3 +32,5 @@ CMakeUserPresets.json
 .vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/f53aeb0ade47e1c5/GAME.ipch
 .vs/DungeonCrawler.slnx/v18/ipch/AutoPCH/967cfef2658d3716/MAIN.ipch
 /out
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
