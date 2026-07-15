@@ -72,7 +72,8 @@
     "s1": "40 weapon Runed_Blade 9 0 5",
     "s2": "50 armor Aegis_Mail 0 8 25",
     "s3": "30 gloves Plate_Gauntlets 0 2 0",
-    "s4": "45 amulet Power_Amulet 3 2 10"
+    "s4": "45 amulet Power_Amulet 3 2 10",
+    "s5": "55 shield Aegis_Shield 0 8 0"
   },
   "loot_goblin": {
     "d0": "weapon Rusty_Dagger 2 0 0 0.5",

@@ -1,3 +1,4 @@
+// Entry point: main menu + pause/save menu wrapped around the play loop. Thin composition root.
 #include "Game.h"
 #include "Renderer.h"
 #include "Menu.h"
@@ -7,9 +8,8 @@
 #include <string>
 #include <filesystem>
 
-namespace
-{
-    constexpr int kMenuW = 1240, kMenuH = 950;
+namespace {
+    constexpr int kMenuW = 900, kMenuH = 640;
     const std::string kLevel = "configs/dungeon.ini";
     const std::array<std::string, 3> kSlots = {
         "saves/slot1.json", "saves/slot2.json", "saves/slot3.json" };
@@ -32,15 +32,11 @@ namespace
     }
     SlotInfo readSlots()
     {
-        return
-        {
-            slotSummary(kSlots[0]), slotSummary(kSlots[1]), slotSummary(kSlots[2])
-        };
+        return { slotSummary(kSlots[0]), slotSummary(kSlots[1]), slotSummary(kSlots[2]) };
     }
 }
 
-int main()
-{
+int main() {
     InitWindow(kMenuW, kMenuH, "Dungeon Crawler");
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
@@ -55,7 +51,7 @@ int main()
         Play
     };
     State state = State::Menu;
-    bool inventoryOpen = false, paused = false;
+    bool inventoryOpen = false, paused = false, quit = false;
     SlotInfo slots = readSlots();
 
     auto sizeToGame = [&]
@@ -71,9 +67,11 @@ int main()
             SetWindowSize(kMenuW, kMenuH);
         };
 
-    while (!WindowShouldClose())
+    while (!quit && !WindowShouldClose())
     {
         const int W = GetScreenWidth(), H = GetScreenHeight();
+        if (state == State::Play)
+            game.update(GetFrameTime());
 
         if (state == State::Menu)
         {
@@ -82,7 +80,8 @@ int main()
                 const int a = menu.hitMain(W, H, GetMouseX(), GetMouseY());
                 if (a == 0)
                 {
-                    game.newGame(kLevel); sizeToGame();
+                    game.newGame(kLevel);
+                    sizeToGame();
                     state = State::Play;
                     inventoryOpen = paused = false;
                 }
@@ -96,115 +95,112 @@ int main()
                     }
                 }
                 else if (a == 4)
-                    break;
-            }
-            BeginDrawing();
-            ClearBackground(Color{ 15,15,22,255 });
-            menu.drawMain(W, H, slots);
-            EndDrawing();
-            continue;
-        }
-
-        game.update(GetFrameTime());
-        const bool ended = game.isComplete() || game.isGameOver();
-
-        if (IsKeyPressed(KEY_ESCAPE))
-        {
-            if (ended)
-                toMenu();
-            else if (game.isShopOpen())
-                game.closeShop();
-            else if (inventoryOpen)
-                inventoryOpen = false;
-            else if (paused)
-                paused = false;
-            else
-            {
-                paused = true;
-                slots = readSlots();
+                    quit = true;
             }
         }
-
-        if (state == State::Menu)
-            continue;
-
-        if (!ended && !paused)
+        else
         {
-            if (game.isShopOpen())
+            const bool ended = game.isComplete() || game.isGameOver();
+
+            if (IsKeyPressed(KEY_ESCAPE))
             {
-                if (IsKeyPressed(KEY_I))
-                    game.closeShop();
-                if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                {
-                    ShopHit h = renderer.hitTestShop(game, GetMouseX(), GetMouseY());
-                    if (h.kind == ShopHit::Buy)
-                        game.buy(h.index);
-                    else if (h.kind == ShopHit::Sell)
-                        game.sellBackpack(h.index);
-                    else if (h.kind == ShopHit::Close)
-                        game.closeShop();
-                }
-            }
-            else if (inventoryOpen)
-            {
-                if (IsKeyPressed(KEY_I))
-                    inventoryOpen = false;
-                if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                {
-                    InvHit hit = renderer.hitTestInventory(game, GetMouseX(), GetMouseY());
-                    if (hit.kind == InvHit::Storage)
-                        game.useBackpackItem(hit.storageIndex);
-                    else if (hit.kind == InvHit::Gear)
-                        game.unequipItem(hit.slot, hit.sub);
-                }
-            }
-            else
-            {
-                if (IsKeyPressed(KEY_I))
-                    inventoryOpen = true;
-                if (IsKeyDown(KEY_W))
-                    game.movePlayer(0, -1);
-                else if (IsKeyDown(KEY_S))
-                    game.movePlayer(0, 1);
-                else if (IsKeyDown(KEY_A))
-                    game.movePlayer(-1, 0);
-                else if (IsKeyDown(KEY_D))
-                    game.movePlayer(1, 0);
-                if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-                {
-                    int tx, ty;
-                    renderer.screenToTile(GetMouseX(), GetMouseY(), tx, ty);
-                    game.interactAt(tx, ty);
-                }
-            }
-        }
-        else if (paused)
-        {
-            if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-            {
-                const int a = menu.hitPause(W, H, GetMouseX(), GetMouseY());
-                if (a == 0)
-                    paused = false;
-                else if (a >= 1 && a <= 3)
-                {
-                    std::filesystem::create_directories("saves");
-                    game.saveSlot(kSlots[a - 1]);
-                    slots = readSlots();
-                    paused = false;
-                }
-                else if (a == 4)
+                if (ended)
                     toMenu();
+                else if (game.isShopOpen())
+                    game.closeShop();
+                else if (inventoryOpen)
+                    inventoryOpen = false;
+                else if (paused)
+                    paused = false;
+                else
+                {
+                    paused = true;
+                    slots = readSlots();
+                }
+            }
+
+            if (state == State::Play && !ended && !paused)
+            {
+                if (game.isShopOpen())
+                {
+                    if (IsKeyPressed(KEY_I))
+                        game.closeShop();
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                    {
+                        ShopHit h = renderer.hitTestShop(game, GetMouseX(), GetMouseY());
+                        if (h.kind == ShopHit::Buy)
+                            game.buy(h.index);
+                        else if (h.kind == ShopHit::Sell)
+                            game.sellBackpack(h.index);
+                        else if (h.kind == ShopHit::Close)
+                            game.closeShop();
+                    }
+                }
+                else if (inventoryOpen)
+                {
+                    if (IsKeyPressed(KEY_I)) inventoryOpen = false;
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                    {
+                        InvHit hit = renderer.hitTestInventory(game, GetMouseX(), GetMouseY());
+                        if (hit.kind == InvHit::Storage)
+                            game.useBackpackItem(hit.storageIndex);
+                        else if (hit.kind == InvHit::Gear)
+                            game.unequipItem(hit.slot, hit.sub);
+                    }
+                }
+                else
+                {
+                    if (IsKeyPressed(KEY_I))
+                        inventoryOpen = true;
+                    if (IsKeyDown(KEY_W))
+                        game.movePlayer(0, -1);
+                    else if (IsKeyDown(KEY_S))
+                        game.movePlayer(0, 1);
+                    else if (IsKeyDown(KEY_A))
+                        game.movePlayer(-1, 0);
+                    else if (IsKeyDown(KEY_D))
+                        game.movePlayer(1, 0);
+                    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                    {
+                        int tx, ty;
+                        renderer.screenToTile(GetMouseX(), GetMouseY(), tx, ty);
+                        game.interactAt(tx, ty);
+                    }
+                }
+            }
+            else if (state == State::Play && paused)
+            {
+                if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+                {
+                    const int a = menu.hitPause(W, H, GetMouseX(), GetMouseY());
+                    if (a == 0)
+                        paused = false;
+                    else if (a >= 1 && a <= 3)
+                    {
+                        std::filesystem::create_directories("saves");
+                        game.saveSlot(kSlots[a - 1]);
+                        slots = readSlots();
+                        paused = false;
+                    }
+                    else if (a == 4)
+                        toMenu();
+                }
             }
         }
-
-        if (state == State::Menu)
-            continue;
 
         BeginDrawing();
-        ClearBackground(DARKGRAY);
-        renderer.draw(game, inventoryOpen);
-        if (paused)
-            menu.drawPause(W, H, slots);
+        if (state == State::Menu)
+        {
+            ClearBackground(Color{ 15,15,22,255 });
+            menu.drawMain(GetScreenWidth(), GetScreenHeight(), slots);
+        }
+        else
+        {
+            ClearBackground(DARKGRAY);
+            renderer.draw(game, inventoryOpen);
+            if (paused)
+                menu.drawPause(GetScreenWidth(), GetScreenHeight(), slots);
+        }
         EndDrawing();
     }
 

@@ -74,6 +74,7 @@
 		<s2>50 armor Aegis_Mail 0 8 25</s2>
 		<s3>30 gloves Plate_Gauntlets 0 2 0</s3>
 		<s4>45 amulet Power_Amulet 3 2 10</s4>
+		<s5>55 shield Aegis_Shield 0 8 0</s5>
 	</shop>
 	<loot_goblin>
 		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>

@@ -58,6 +58,7 @@
 		<i1>15 2 weapon Rusty_Sword 3 0 0</i1>
 		<i2>16 3 helmet Iron_Helm 0 2 5</i2>
 		<i3>15 4 ring Gold_Ring 1 0 0</i3>
+		<i4>14 3 shield Wooden_Shield 0 3 0</i4>
 	</items>
 	<chests>
 		<c0>21 16 wooden</c0>
@@ -72,6 +73,7 @@
 		<s1>20 armor Plate_Armor 0 6 10</s1>
 		<s2>8 potion Health_Potion 10</s2>
 		<s3>25 amulet Lucky_Amulet 2 2 10</s3>
+		<s4>18 shield Wooden_Shield 0 3 0</s4>
 	</shop>
 	<loot_goblin>
 		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>

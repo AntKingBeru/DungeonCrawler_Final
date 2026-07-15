@@ -7,6 +7,7 @@
 enum class ItemSlot
 {
 	Weapon,
+	Shield,
 	Helmet,
 	Cape,
 	Armor,

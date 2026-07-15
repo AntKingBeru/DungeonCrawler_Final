@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 namespace
 {
@@ -28,9 +29,10 @@ namespace
         ItemSlot slot;
         const char* label;
     };
-    const Single kSingles[7] =
+    const Single kSingles[8] =
     {
         {ItemSlot::Weapon,"Weapon"},
+        {ItemSlot::Shield,"Shield"},
         {ItemSlot::Helmet,"Helmet"},
         {ItemSlot::Cape,"Cape"},
         {ItemSlot::Armor,"Armor"},
@@ -38,6 +40,7 @@ namespace
         {ItemSlot::Boots,"Boots"},
         {ItemSlot::Amulet,"Amulet"}
     };
+    constexpr int SINGLES = 8;
 
     void invLayout(int screenW, std::vector<GearBox>& gear, std::vector<Box>& bag,
         int& panelX, int& panelY, int& ringY, int& bagX, int& sy)
@@ -46,9 +49,9 @@ namespace
         const int sx = panelX + 24;
         sy = panelY + 60;
         gear.clear(); bag.clear();
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < SINGLES; ++i)
             gear.push_back({ { sx + LABELW, sy + i * (BOX + GAP), BOX, BOX }, kSingles[i].slot, 0 });
-        ringY = sy + 7 * (BOX + GAP) + 26;
+        ringY = sy + SINGLES * (BOX + GAP) + 26;
         for (int j = 0; j < 8; ++j)
             gear.push_back({ { sx + j * (BOX + GAP), ringY, BOX, BOX }, ItemSlot::Ring, j });
         bagX = screenW / 2 + 20;
@@ -78,6 +81,8 @@ namespace
         {
         case ItemSlot::Weapon:
             return ORANGE;
+        case ItemSlot::Shield:
+            return Color{ 70,130,180,255 };
         case ItemSlot::Helmet:
             return SKYBLUE;
         case ItemSlot::Cape:
@@ -139,6 +144,79 @@ namespace
     }
 
     const Color TEAL{ 0,170,160,255 };
+}
+
+std::string signedStr(int v)
+{
+    return (v > 0 ? "+" : "") + std::to_string(v);
+}
+
+void drawItemTooltip(const Item& it, bool equipped, const Inventory& inv,
+    int mx, int my, int screenW, int screenH)
+{
+    std::vector<std::pair<std::string, Color>> lines;
+    lines.push_back({ it.name, RAYWHITE });
+    if (it.isPotion())
+    {
+        lines.push_back({ "Consumable", LIGHTGRAY });
+        lines.push_back({ "Restores " + std::to_string(it.heal) + " HP", Color{120,220,120,255} });
+    }
+    else
+    {
+        lines.push_back({ std::string(slotName(it.slot)), LIGHTGRAY });
+        if (it.atk)
+            lines.push_back({ "ATK " + signedStr(it.atk), RAYWHITE });
+        if (it.def)
+            lines.push_back({ "DEF " + signedStr(it.def), RAYWHITE });
+        if (it.hp)
+            lines.push_back({ "HP  " + signedStr(it.hp),  RAYWHITE });
+        if (!it.atk && !it.def && !it.hp)
+            lines.push_back({ "No bonuses", LIGHTGRAY });
+        if (equipped) {
+            lines.push_back({ "(equipped)", GOLD });
+        }
+        else if (it.slot != ItemSlot::Ring)
+        {
+            auto e = inv.equipped().find(it.slot);
+            if (e != inv.equipped().end() && !e->second.empty())
+            {
+                const Item& cur = e->second[0];
+                lines.push_back({ "vs " + cur.name + ":", LIGHTGRAY });
+                auto delta = [&](const char* n, int d)
+                    {
+                        Color c = d > 0 ? Color{ 120,220,120,255 } : d < 0 ? Color{ 220,110,110,255 } : GRAY;
+                        lines.push_back({ std::string(n) + " " + signedStr(d), c });
+                    };
+                delta("ATK", it.atk - cur.atk); delta("DEF", it.def - cur.def); delta("HP ", it.hp - cur.hp);
+            }
+            else
+            {
+                lines.push_back({ "(slot empty)", LIGHTGRAY });
+            }
+        }
+    }
+    int wpx = 0;
+    for (auto& ln : lines)
+        wpx = std::max(wpx, MeasureText(ln.first.c_str(), 16));
+    const int pad = 10, lh = 20;
+    const int w = wpx + 2 * pad, h = static_cast<int>(lines.size()) * lh + 2 * pad;
+    int x = mx + 16, y = my + 16;
+    if (x + w > screenW)
+        x = mx - w - 8;
+    if (y + h > screenH)
+        y = screenH - h - 4;
+    if (x < 0)
+        x = 0;
+    if (y < 0)
+        y = 0;
+    DrawRectangle(x, y, w, h, Color{ 20,20,28,245 });
+    DrawRectangleLines(x, y, w, h, RAYWHITE);
+    int ty = y + pad;
+    for (auto& ln : lines)
+    {
+        DrawText(ln.first.c_str(), x + pad, ty, 16, ln.second);
+        ty += lh;
+    }
 }
 
 void Renderer::draw(const Game& game, bool showInventory) const
@@ -223,7 +301,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
         DrawText("Backpack", bagX, sy2 - 24, 16, LIGHTGRAY);
 
         const Inventory& inv = player.inventory();
-        for (int i = 0; i < 7; ++i)
+        for (int i = 0; i < SINGLES; ++i)
         {
             DrawText(kSingles[i].label, panelX + 24, gear[i].box.y + 12, 16, LIGHTGRAY);
             auto it = inv.equipped().find(kSingles[i].slot);
@@ -235,7 +313,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
         {
             auto it = inv.equipped().find(ItemSlot::Ring);
             const Item* item = (it != inv.equipped().end() && j < static_cast<int>(it->second.size())) ? &it->second[j] : nullptr;
-            drawCell(gear[7 + j].box, item);
+            drawCell(gear[SINGLES + j].box, item);
         }
         for (int k = 0; k < 27; ++k)
         {
@@ -244,6 +322,29 @@ void Renderer::draw(const Game& game, bool showInventory) const
         }
         DrawText("Click backpack: equip gear / drink potion.  Click worn gear: unequip.  [I] close.",
             panelX + 24, screenH - panelY - 26, 16, LIGHTGRAY);
+
+        Vector2 mp = GetMousePosition();
+        const int mx = static_cast<int>(mp.x), my = static_cast<int>(mp.y);
+        const Item* hover = nullptr; bool hoverEquipped = false;
+        for (const auto& g : gear)
+        {
+            if (!g.box.has(mx, my))
+                continue;
+            auto e = inv.equipped().find(g.slot);
+            if (e != inv.equipped().end() && g.sub < static_cast<int>(e->second.size()))
+            {
+                hover = &e->second[g.sub]; hoverEquipped = true;
+            }
+        }
+        if (!hover)
+            for (int k = 0; k < 27; ++k)
+                if (bag[k].has(mx, my) && inv.storage()[k])
+                {
+                    hover = &*inv.storage()[k];
+                    break;
+                }
+        if (hover)
+            drawItemTooltip(*hover, hoverEquipped, inv, mx, my, screenW, screenH);
     }
 
     if (shopOpen)

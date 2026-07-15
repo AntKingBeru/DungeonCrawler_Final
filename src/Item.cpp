@@ -7,6 +7,8 @@ const char* slotName(ItemSlot s)
     {
         case ItemSlot::Weapon:
             return "weapon";
+        case ItemSlot::Shield:
+			return "shield";
         case ItemSlot::Helmet:
             return "helmet";
         case ItemSlot::Cape:
@@ -35,6 +37,11 @@ bool parseSlot(const std::string& s, ItemSlot& out)
     if (s == "weapon")
     {
         out = ItemSlot::Weapon;
+        return true;
+    }
+    if (s == "shield")
+    {
+        out = ItemSlot::Shield;
         return true;
     }
     if (s == "helmet")
