@@ -24,6 +24,12 @@ struct Chest
     int y;
     std::string table;
 };
+struct Door
+{
+	int x;
+	int y;
+    std::string area;
+};
 struct ShopKeeper
 {
     int x = 0;
@@ -102,6 +108,10 @@ public:
     {
         return chests_;
     }
+    const std::vector<Door>& doors() const
+    {
+        return doors_;
+    }
     const ShopKeeper& shopkeeper() const
     {
         return shopkeeper_;
@@ -117,17 +127,19 @@ public:
 
 private:
     void buildStatic(const ConfigData& level);
-    void readMeta(const ConfigData& data);
-    void descend();
     Enemy* spawnEnemy(const std::string& type, int x, int y);
     void buildEnemies(const ConfigData& data);
     void buildBoss(const ConfigData& data);
     void buildGround(const ConfigData& data, const std::string& section);
     void buildChests(const ConfigData& data, const std::string& section);
     void parseChestsInto(const ConfigData& data, const std::string& section, std::vector<Chest>& out);
+    void buildDoors(const ConfigData& data, const std::string& section);
+    const Door* doorAt(int x, int y) const;
     bool hasLivingBoss() const;
     void onBossDefeated();
     void resetRuntime();
+    void readMeta(const ConfigData& data);
+    void descend();
 
     void enemyTurn();
     bool detects(const Enemy& e) const;
@@ -152,6 +164,7 @@ private:
     std::vector<Chest> chests_;
     ShopKeeper shopkeeper_;
     std::vector<ShopEntry> shopStock_;
+    std::vector<Door> doors_;
     std::vector<Chest> pendingBossChests_;
     bool bossDefeated_ = false;
     std::map<std::string, LootTable> lootTables_;

@@ -1,106 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<meta>
-		<name>The Abyssal Throne</name>
-		<enemy_scale>1.9</enemy_scale>
-	</meta>
-	<map>
-		<width>31</width>
-		<height>21</height>
-		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
-		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
-		<row2>XX......XXXXXXXXXXXXXXX......XX</row2>
-		<row3>XX......XXXXXXXXXXXXXXX......XX</row3>
-		<row4>XX...........................XX</row4>
-		<row5>XX......XXXXXXX.XXXXXXX......XX</row5>
-		<row6>XXXXX.XXXX...........XXXXX.XXXX</row6>
-		<row7>XXXXX.XXXX...........XXXXX.XXXX</row7>
-		<row8>XXXXX.XXXX...........XXXXX.XXXX</row8>
-		<row9>XXXXX.XXXX...........XXXXX.XXXX</row9>
-		<row10>XXXXX.XXXX.....E.....XXXXX.XXXX</row10>
-		<row11>XXXXX.XXXX...........XXXXX.XXXX</row11>
-		<row12>XXXXX.XXXX...........XXXXX.XXXX</row12>
-		<row13>XXXXX.XXXX...........XXXXX.XXXX</row13>
-		<row14>XXXXX.XXXX...........XXXXX.XXXX</row14>
-		<row15>XX......XXXXXXX.XXXXXXX......XX</row15>
-		<row16>XX......XXXXXXX.XXXXXXX......XX</row16>
-		<row17>XX...........................XX</row17>
-		<row18>XX......XXXXXXXXXXXXXXX......XX</row18>
-		<row19>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row19>
-		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
-	</map>
-	<player>
-		<x>3</x>
-		<y>3</y>
-		<hp>20</hp>
-		<attack>5</attack>
-		<defense>0</defense>
-		<gold>20</gold>
-	</player>
-	<enemies>
-		<e0>goblin 6 2</e0>
-		<e1>goblin 7 3</e1>
-		<e2>skeleton 5 14</e2>
-		<e3>skeleton 2 15</e3>
-		<e4>skeleton 4 15</e4>
-		<e5>skeleton 3 16</e5>
-		<e6>skeleton 16 4</e6>
-		<e7>skeleton 15 5</e7>
-	</enemies>
 	<boss>
-		<b0>dragon 15 8</b0>
+		<b0>lich 24 16</b0>
 	</boss>
 	<boss_chests>
-		<bc0>12 12 boss</bc0>
-		<bc1>18 12 treasure</bc1>
+		<bc0>24 18 lich</bc0>
+		<bc1>27 18 treasure</bc1>
 	</boss_chests>
-	<items>
-		<i0>5 15 potion Greater_Potion 20</i0>
-		<i1>2 16 potion Greater_Potion 20</i1>
-		<i2>4 16 weapon Runed_Blade 9 0 5</i2>
-		<i3>3 17 ring Power_Ring 2 0 0</i3>
-	</items>
 	<chests>
-		<c0>28 18 treasure</c0>
-		<c1>27 18 wooden</c1>
+		<c0>5 7 keyvault</c0>
+		<c1>11 13 keyvault</c1>
+		<c2>17 7 keyvault</c2>
+		<c3>25 3 treasure</c3>
+		<c4>25 10 treasure</c4>
 	</chests>
-	<shopkeeper>
-		<x>26</x>
-		<y>4</y>
-	</shopkeeper>
-	<shop>
-		<s0>15 potion Greater_Potion 20</s0>
-		<s1>40 weapon Runed_Blade 9 0 5</s1>
-		<s2>50 armor Aegis_Mail 0 8 25</s2>
-		<s3>30 gloves Plate_Gauntlets 0 2 0</s3>
-		<s4>45 amulet Power_Amulet 3 2 10</s4>
-		<s5>55 shield Aegis_Shield 0 8 0</s5>
-	</shop>
-	<loot_goblin>
-		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
-		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
+	<doors>
+		<d0>22 3 vaultA</d0>
+		<d1>22 9 vaultB</d1>
+		<d2>22 16 boss</d2>
+	</doors>
+	<enemies>
+		<e0>archer 11 3</e0>
+		<e1>mage 17 3</e1>
+		<e2>knight 5 11</e2>
+		<e3>mage 17 11</e3>
+		<e4>archer 11 15</e4>
+		<e5>knight 5 16</e5>
+		<e6>mage 17 17</e6>
+	</enemies>
+	<items>
+		<i0>5 5 potion Greater_Shadowmend 20</i0>
+		<i1>11 5 potion Greater_Shadowmend 20</i1>
+		<i2>5 10 weapon Voidrune_Blade 9 0 5</i2>
+		<i3>11 11 ring Ring_of_Night 2 0 0</i3>
+	</items>
+	<loot_archer>
+		<d0>gloves Shade_Gloves 0 1 0 0.4</d0>
+		<d1>chestkey Gloom_Key 0.5</d1>
+		<d2>gold 24 0.7</d2>
+	</loot_archer>
+	<loot_keyvault>
+		<d0>doorkey Umbral_Key 1.0</d0>
+		<d1>potion Shadowmend 10 0.7</d1>
+		<d2>gold 30 1.0</d2>
+	</loot_keyvault>
+	<loot_knight>
+		<d0>helmet Wraith_Skull 0 2 0 0.4</d0>
+		<d1>chestkey Gloom_Key 0.5</d1>
 		<d2>gold 20 0.8</d2>
-	</loot_goblin>
-	<loot_skeleton>
-		<d0>helmet Bone_Helm 0 2 0 0.4</d0>
-		<d1>weapon Bone_Club 3 0 0 0.35</d1>
-		<d2>gold 28 0.7</d2>
-	</loot_skeleton>
-	<loot_boss>
-		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
-		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
-		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
+	</loot_knight>
+	<loot_lich>
+		<d0>weapon Voidrune_Blade 9 0 5 1.0</d0>
+		<d1>armor Nightward_Mail 0 8 25 1.0</d1>
+		<d2>ring Ring_of_Night 3 0 0 1.0</d2>
 		<d3>gold 220 1.0</d3>
-	</loot_boss>
+	</loot_lich>
+	<loot_mage>
+		<d0>ring Ring_of_Night 2 0 0 0.4</d0>
+		<d1>chestkey Gloom_Key 0.5</d1>
+		<d2>gold 28 0.8</d2>
+	</loot_mage>
 	<loot_treasure>
-		<d0>weapon Runed_Blade 9 0 5 0.8</d0>
-		<d1>armor Aegis_Mail 0 8 25 0.6</d1>
-		<d2>potion Greater_Potion 20 1.0</d2>
+		<d0>weapon Voidrune_Blade 9 0 5 0.8</d0>
+		<d1>armor Nightward_Mail 0 8 25 0.6</d1>
+		<d2>potion Greater_Shadowmend 20 1.0</d2>
 		<d3>gold 110 1.0</d3>
 	</loot_treasure>
 	<loot_wooden>
-		<d0>potion Health_Potion 10 0.8</d0>
-		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d0>potion Shadowmend 10 0.8</d0>
+		<d1>gloves Shade_Gloves 0 1 0 0.5</d1>
 		<d2>gold 25 1.0</d2>
 	</loot_wooden>
+	<map>
+		<height>21</height>
+		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
+		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
+		<row10>XX...........X.....XXXX......XX</row10>
+		<row11>XX......X..........XXXX......XX</row11>
+		<row12>XX......X....X.....XXXXXXXXXXXX</row12>
+		<row13>XX......X....X.....XXXXXXXXXXXX</row13>
+		<row14>XX......X....X.....XXXX......XX</row14>
+		<row15>XX...........X.....XXXX......XX</row15>
+		<row16>XX......X.................E..XX</row16>
+		<row17>XX......X....X.....XXXX......XX</row17>
+		<row18>XX......X....X.....XXXX......XX</row18>
+		<row19>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row19>
+		<row2>XX......X....X.....XXXX......XX</row2>
+		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
+		<row3>XX......X....X...............XX</row3>
+		<row4>XX......X..........XXXX......XX</row4>
+		<row5>XX...........X.....XXXX......XX</row5>
+		<row6>XX......X....X.....XXXXXXXXXXXX</row6>
+		<row7>XX......X....X.....XXXXXXXXXXXX</row7>
+		<row8>XX......X....X.....XXXX......XX</row8>
+		<row9>XXXXX.XXXXX.XXXX.X...........XX</row9>
+		<width>31</width>
+	</map>
+	<meta>
+		<enemy_scale>1.9</enemy_scale>
+		<name>The Throne of Shadows</name>
+	</meta>
+	<player>
+		<attack>5</attack>
+		<defense>0</defense>
+		<gold>20</gold>
+		<hp>20</hp>
+		<x>3</x>
+		<y>3</y>
+	</player>
+	<shop>
+		<s0>15 potion Greater_Shadowmend 20</s0>
+		<s1>40 weapon Voidrune_Blade 9 0 5</s1>
+		<s2>50 armor Nightward_Mail 0 8 25</s2>
+		<s3>55 shield Voidguard 0 8 0</s3>
+		<s4>45 doorkey Umbral_Key</s4>
+	</shop>
+	<shopkeeper>
+		<x>17</x>
+		<y>5</y>
+	</shopkeeper>
+	<start_equipped>
+		<e0>weapon Shadow_Shard 1 0 0</e0>
+		<e1>shield Cracked_Aegis 0 1 0</e1>
+	</start_equipped>
 </config>

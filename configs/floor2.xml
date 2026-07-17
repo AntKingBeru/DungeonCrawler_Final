@@ -1,109 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-	<meta>
-		<name>The Deepening Dark</name>
-		<next>configs/floor3.xml</next>
-		<enemy_scale>1.4</enemy_scale>
-	</meta>
-	<map>
-		<width>31</width>
-		<height>21</height>
-		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
-		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
-		<row2>XX........XXXXXXXXXXX........XX</row2>
-		<row3>XX........XXXXXXXXXXX........XX</row3>
-		<row4>XX...........................XX</row4>
-		<row5>XX........XXXXXXXXXXX........XX</row5>
-		<row6>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row6>
-		<row7>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row7>
-		<row8>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row8>
-		<row9>XX........XXXXXXXXXXX........XX</row9>
-		<row10>XX........XXXXXXXXXXX........XX</row10>
-		<row11>XX...........................XX</row11>
-		<row12>XX........XXXXXXXXXXX........XX</row12>
-		<row13>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row13>
-		<row14>XXXXXX.XXXXXXXXXXXXXXXXXX.XXXXX</row14>
-		<row15>XXXXXX.XXXXXXXXXXXXXX........XX</row15>
-		<row16>XX........XXXXXXXXXXX........XX</row16>
-		<row17>XX........XXXXXXXXXXX...E....XX</row17>
-		<row18>XX...........................XX</row18>
-		<row19>XX........XXXXXXXXXXX........XX</row19>
-		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
-	</map>
-	<player>
-		<x>3</x>
-		<y>3</y>
-		<hp>20</hp>
-		<attack>5</attack>
-		<defense>0</defense>
-		<gold>20</gold>
-	</player>
-	<enemies>
-		<e0>goblin 6 2</e0>
-		<e1>goblin 7 3</e1>
-		<e2>goblin 6 4</e2>
-		<e3>skeleton 5 17</e3>
-		<e4>skeleton 2 18</e4>
-		<e5>skeleton 4 18</e5>
-		<e6>skeleton 3 19</e6>
-		<e7>skeleton 19 4</e7>
-	</enemies>
 	<boss>
-		<b0>dragon 24 16</b0>
+		<b0>wyvern 24 15</b0>
 	</boss>
 	<boss_chests>
-		<bc0>22 18 boss</bc0>
-		<bc1>26 18 treasure</bc1>
+		<bc0>24 17 wyvern</bc0>
+		<bc1>27 17 treasure</bc1>
 	</boss_chests>
-	<items>
-		<i0>12 11 potion Health_Potion 10</i0>
-		<i1>7 16 potion Greater_Potion 20</i1>
-		<i2>6 17 armor Plate_Armor 0 6 10</i2>
-		<i3>5 18 amulet Silver_Amulet 2 1 5</i3>
-		<i4>2 19 boots Swift_Boots 0 1 0</i4>
-	</items>
 	<chests>
-		<c0>28 12 wooden</c0>
-		<c1>25 14 treasure</c1>
-		<c2>27 12 wooden</c2>
+		<c0>5 16 keyvault</c0>
+		<c1>17 17 keyvault</c1>
+		<c2>25 4 treasure</c2>
 	</chests>
-	<shopkeeper>
-		<x>6</x>
-		<y>11</y>
-	</shopkeeper>
-	<shop>
-		<s0>12 potion Health_Potion 10</s0>
-		<s1>22 weapon Steel_Sword 5 0 0</s1>
-		<s2>28 armor Plate_Armor 0 6 10</s2>
-		<s3>35 weapon War_Hammer 8 0 0</s3>
-		<s4>40 amulet Lucky_Amulet 2 2 10</s4>
-		<s5>30 shield Iron_Shield 0 5 0</s5>
-	</shop>
-	<loot_goblin>
-		<d0>weapon Rusty_Dagger 2 0 0 0.5</d0>
-		<d1>ring Cracked_Ring 1 0 0 0.25</d1>
-		<d2>gold 12 0.8</d2>
-	</loot_goblin>
-	<loot_skeleton>
-		<d0>helmet Bone_Helm 0 2 0 0.4</d0>
-		<d1>weapon Bone_Club 3 0 0 0.35</d1>
+	<doors>
+		<d0>22 5 vault</d0>
+		<d1>22 15 boss</d1>
+	</doors>
+	<enemies>
+		<e0>knight 11 3</e0>
+		<e1>knight 17 3</e1>
+		<e2>archer 5 12</e2>
+		<e3>knight 17 12</e3>
+		<e4>archer 11 16</e4>
+		<e5>knight 5 17</e5>
+	</enemies>
+	<items>
+		<i0>5 4 potion Shadowmend 10</i0>
+		<i1>11 5 potion Greater_Shadowmend 20</i1>
+		<i2>5 6 armor Shadowplate 0 6 10</i2>
+		<i3>11 11 amulet Amulet_of_Dusk 2 1 5</i3>
+		<i4>5 11 boots Gloomstep_Boots 0 1 0</i4>
+	</items>
+	<loot_archer>
+		<d0>gloves Shade_Gloves 0 1 0 0.4</d0>
+		<d1>chestkey Gloom_Key 0.5</d1>
 		<d2>gold 18 0.7</d2>
-	</loot_skeleton>
-	<loot_boss>
-		<d0>weapon Dragon_Fang 8 0 0 1.0</d0>
-		<d1>armor Dragon_Scale 0 6 20 1.0</d1>
-		<d2>amulet Dragon_Heart 3 3 15 1.0</d2>
-		<d3>gold 140 1.0</d3>
-	</loot_boss>
+	</loot_archer>
+	<loot_keyvault>
+		<d0>doorkey Umbral_Key 1.0</d0>
+		<d1>potion Shadowmend 10 0.7</d1>
+		<d2>gold 22 1.0</d2>
+	</loot_keyvault>
+	<loot_knight>
+		<d0>helmet Wraith_Skull 0 2 0 0.4</d0>
+		<d1>chestkey Gloom_Key 0.5</d1>
+		<d2>gold 12 0.8</d2>
+	</loot_knight>
 	<loot_treasure>
-		<d0>weapon War_Hammer 8 0 0 0.8</d0>
-		<d1>armor Plate_Armor 0 6 10 0.6</d1>
-		<d2>potion Greater_Potion 20 1.0</d2>
+		<d0>weapon Duskhammer 8 0 0 0.8</d0>
+		<d1>armor Shadowplate 0 6 10 0.6</d1>
+		<d2>potion Greater_Shadowmend 20 1.0</d2>
 		<d3>gold 70 1.0</d3>
 	</loot_treasure>
 	<loot_wooden>
-		<d0>potion Health_Potion 10 0.8</d0>
-		<d1>gloves Leather_Gloves 0 1 0 0.5</d1>
+		<d0>potion Shadowmend 10 0.8</d0>
+		<d1>gloves Shade_Gloves 0 1 0 0.5</d1>
 		<d2>gold 17 1.0</d2>
 	</loot_wooden>
+	<loot_wyvern>
+		<d0>weapon Wyrm_Fang 8 0 0 1.0</d0>
+		<d1>armor Wyrm_Scale 0 6 20 1.0</d1>
+		<d2>amulet Shadowheart 3 3 15 1.0</d2>
+		<d3>gold 140 1.0</d3>
+	</loot_wyvern>
+	<map>
+		<height>21</height>
+		<row0>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row0>
+		<row1>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row1>
+		<row10>XX......X..........XXXXXXXXXXXX</row10>
+		<row11>XX......X....X.....XXXXXXXXXXXX</row11>
+		<row12>XX...........X.....XXXXXXXXXXXX</row12>
+		<row13>XX......X....X.....XXXX......XX</row13>
+		<row14>XX......X....X.....XXXX......XX</row14>
+		<row15>XX......X....X............E..XX</row15>
+		<row16>XX......X..........XXXX......XX</row16>
+		<row17>XX...........X.....XXXX......XX</row17>
+		<row18>XX......X....X.....XXXX......XX</row18>
+		<row19>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row19>
+		<row2>XX......X....X.....XXXXXXXXXXXX</row2>
+		<row20>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</row20>
+		<row3>XX......X....X.....XXXX......XX</row3>
+		<row4>XX......X..........XXXX......XX</row4>
+		<row5>XX......X....X...............XX</row5>
+		<row6>XX...........X.....XXXX......XX</row6>
+		<row7>XX......X....X.....XXXX......XX</row7>
+		<row8>XX......X....X.....XXXXXXXXXXXX</row8>
+		<row9>XXXXX.XXXXX.XXXX.XXXXXXXXXXXXXX</row9>
+		<width>31</width>
+	</map>
+	<meta>
+		<enemy_scale>1.4</enemy_scale>
+		<name>The Shrouded Depths</name>
+		<next>configs/floor3.xml</next>
+	</meta>
+	<player>
+		<attack>5</attack>
+		<defense>0</defense>
+		<gold>20</gold>
+		<hp>20</hp>
+		<x>3</x>
+		<y>3</y>
+	</player>
+	<shop>
+		<s0>12 potion Shadowmend 10</s0>
+		<s1>22 weapon Nightsteel_Sword 5 0 0</s1>
+		<s2>28 armor Shadowplate 0 6 10</s2>
+		<s3>35 weapon Duskhammer 8 0 0</s3>
+		<s4>30 shield Duskiron_Shield 0 5 0</s4>
+		<s5>40 doorkey Umbral_Key</s5>
+	</shop>
+	<shopkeeper>
+		<x>17</x>
+		<y>6</y>
+	</shopkeeper>
+	<start_equipped>
+		<e0>weapon Shadow_Shard 1 0 0</e0>
+		<e1>shield Cracked_Aegis 0 1 0</e1>
+	</start_equipped>
 </config>

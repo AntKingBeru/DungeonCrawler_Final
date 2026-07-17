@@ -3,19 +3,23 @@
 
 #include "Entity.h"
 #include <string>
+#include <optional>
 
 class Enemy : public Entity
 {
 public:
-    Enemy(std::string type, int x, int y, int hp, int attack, int sight, int defense, int roamRange);
+    Enemy(std::string type, std::string name, int x, int y,
+        int hp, int attack, int sight, int defense, int roamRange);
 
-    static Enemy makeGoblin(int x, int y);
-    static Enemy makeSkeleton(int x, int y);
-    static Enemy makeDragon(int x, int y);
+    static std::optional<Enemy> create(const std::string& type, int x, int y);
 
     const std::string& type() const
     {
         return type_;
+    }
+    const std::string& name() const
+    {
+        return name_;
     }
     int sight() const
     {
@@ -69,6 +73,7 @@ public:
 
 private:
     std::string type_;
+    std::string name_;
     int sight_ = 0;
     bool boss_ = false;
     int spawnX_ = 0, spawnY_ = 0, roamRange_ = 0;

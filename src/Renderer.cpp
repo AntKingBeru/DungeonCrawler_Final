@@ -105,20 +105,40 @@ namespace
     }
     Color itemColor(const Item& it)
     {
+        if (it.isKey())
+            return it.isDoorKey() ? GOLD : Color{ 190, 150, 70, 255 };
         return it.isPotion() ? PINK : slotColor(it.slot);
     }
 
     Color enemyColor(const std::string& t)
     {
-        if (t == "dragon")
-            return DARKPURPLE;
-        if (t == "skeleton")
-            return LIGHTGRAY;
-        return RED;
+        if (t == "hobgoblin")
+            return Color{ 120, 60,130,255 };
+        if (t == "knight")
+            return Color{ 70, 80,110,255 };
+        if (t == "archer")
+            return Color{ 60,110, 95,255 };
+        if (t == "mage")
+            return Color{ 120, 70,170,255 };
+        if (t == "golem")
+            return Color{ 85, 85,100,255 };
+        if (t == "wyvern")
+            return Color{ 95, 45,120,255 };
+        if (t == "lich")
+            return Color{ 140,125,180,255 };
+        return Color{ 95, 75,115,255 };
     }
     float enemyRadius(const std::string& t)
     {
-        return t == "dragon" ? 0.46f : 0.35f;
+        if (t == "golem")
+            return 0.48f;
+        if (t == "wyvern")
+            return 0.46f;
+        if (t == "lich")
+            return 0.44f;
+        if (t == "hobgoblin")
+            return 0.42f;
+        return 0.35f;
     }
 
     void drawHpBar(int tileScreenX, int tileScreenY, int hp, int maxHp)
@@ -158,7 +178,12 @@ namespace
     {
         std::vector<std::pair<std::string, Color>> lines;
         lines.push_back({ it.name, RAYWHITE });
-        if (it.isPotion())
+        if (it.isKey())
+        {
+            lines.push_back({ it.isDoorKey() ? "Door Key" : "Chest Key", Color{230,200,90,255} });
+            lines.push_back({ it.isDoorKey() ? "Unlocks a locked area" : "Opens a chest", LIGHTGRAY });
+        }
+        else if (it.isPotion())
         {
             lines.push_back({ "Consumable", LIGHTGRAY });
             lines.push_back({ "Restores " + std::to_string(it.heal) + " HP", Color{120,220,120,255} });
@@ -256,6 +281,14 @@ void Renderer::draw(const Game& game, bool showInventory) const
         DrawRectangleLines(px + TILE_SIZE / 6, py + TILE_SIZE / 4, TILE_SIZE * 2 / 3, TILE_SIZE / 2, BLACK);
     }
 
+    for (const auto& d : game.doors())
+    {
+        const int px = d.x * TILE_SIZE, py = d.y * TILE_SIZE;
+        DrawRectangle(px + 2, py + 2, TILE_SIZE - 4, TILE_SIZE - 4, Color{ 110, 60, 30, 255 });
+        DrawRectangle(px + TILE_SIZE/2 - 3, py + TILE_SIZE/2 - 7, 6, 14, GOLD);
+        DrawRectangleLines(px + 2, py + 2, TILE_SIZE - 4, TILE_SIZE - 4, Color{ 60, 30, 15, 255 });
+    }
+
     if (game.shopkeeper().exists)
     {
         const int px = game.shopkeeper().x * TILE_SIZE, py = game.shopkeeper().y * TILE_SIZE;
@@ -279,8 +312,9 @@ void Renderer::draw(const Game& game, bool showInventory) const
         player.hp(), player.maxHp());
 
     DrawRectangle(0, screenH, screenW, HUD_HEIGHT, BLACK);
-    std::string statLine = TextFormat("HP %d/%d   ATK %d   DEF %d   GOLD %d",
-        player.hp(), player.maxHp(), player.attackPower(), player.defense(), game.gold());
+    std::string statLine = TextFormat("HP %d/%d   ATK %d   DEF %d   GOLD %d   Keys D:%d C:%d",
+        player.hp(), player.maxHp(), player.attackPower(), player.defense(), game.gold(),
+        player.doorKeys(), player.chestKeys());
     DrawText(statLine.c_str(), 10, screenH + 8, 20,
         player.hp() > player.maxHp() / 4 ? RAYWHITE : RED);
     DrawText(TextFormat("Lv %d   EXP %d/%d", player.level(), player.exp(), player.expToNext()),

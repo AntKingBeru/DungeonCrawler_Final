@@ -17,6 +17,13 @@ enum class ItemSlot
 	Ring
 };
 
+enum class KeyType
+{
+	None,
+	Door,
+	Chest
+};
+
 struct Item
 {
 	std::string name;
@@ -24,6 +31,7 @@ struct Item
 	int atk = 0, def = 0, hp = 0;
 	int heal = 0;
 	int gold = 0;
+	KeyType key = KeyType::None;
 
 	bool isPotion() const
 	{
@@ -32,6 +40,18 @@ struct Item
 	bool isGold() const
 	{
 		return gold > 0;
+	}
+	bool isKey() const
+	{
+		return key != KeyType::None;
+	}
+	bool isDoorKey() const
+	{
+		return key == KeyType::Door;
+	}
+	bool isChestKey() const
+	{
+		return key == KeyType::Chest;
 	}
 };
 

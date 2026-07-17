@@ -9,16 +9,6 @@
 #include <queue>
 #include <climits>
 
-namespace
-{
-    std::string cap(std::string s)
-    {
-        if (!s.empty())
-            s[0] = static_cast<char>(std::toupper(s[0]));
-        return s;
-    }
-}
-
 int Game::sellValue(const Item& it)
 {
     const int base = it.atk * 3 + it.def * 3 + it.hp + it.heal;
@@ -77,14 +67,10 @@ void Game::buildStatic(const ConfigData& data)
 
 Enemy* Game::spawnEnemy(const std::string& type, int x, int y)
 {
-    if (type == "goblin")
-        enemies_.push_back(Enemy::makeGoblin(x, y));
-    else if (type == "skeleton")
-        enemies_.push_back(Enemy::makeSkeleton(x, y));
-    else if (type == "dragon")
-        enemies_.push_back(Enemy::makeDragon(x, y));
-    else
+    std::optional<Enemy> made = Enemy::create(type, x, y);
+    if (!made)
         return nullptr;
+    enemies_.push_back(std::move(*made));
     Enemy* e = &enemies_.back();
     e->scaleStats(enemyScale_);
     return e;
@@ -153,6 +139,11 @@ void Game::buildGround(const ConfigData& data, const std::string& section)
     }
 }
 
+void Game::buildChests(const ConfigData& data, const std::string& section)
+{
+    parseChestsInto(data, section, chests_);
+}
+
 void Game::parseChestsInto(const ConfigData& data, const std::string& section, std::vector<Chest>& out)
 {
     out.clear();
@@ -169,9 +160,28 @@ void Game::parseChestsInto(const ConfigData& data, const std::string& section, s
     }
 }
 
-void Game::buildChests(const ConfigData& data, const std::string& section)
+void Game::buildDoors(const ConfigData& data, const std::string& section)
 {
-    parseChestsInto(data, section, chests_);
+    doors_.clear();
+    auto it = data.find(section);
+    if (it == data.end())
+        return;
+    for (const auto& [id, spec] : it->second)
+    {
+        std::istringstream ss(spec);
+        int x, y;
+        std::string area;
+        if (ss >> x >> y >> area)
+            doors_.push_back({ x, y, area });
+    }
+}
+
+const Door* Game::doorAt(int x, int y) const
+{
+    for (const auto& d : doors_)
+        if (d.x == x && d.y == y)
+            return &d;
+    return nullptr;
 }
 
 bool Game::hasLivingBoss() const
@@ -186,11 +196,13 @@ void Game::onBossDefeated()
 {
     if (bossDefeated_ || hasLivingBoss())
         return;
+    const int n = static_cast<int>(pendingBossChests_.size());
     for (const auto& c : pendingBossChests_)
         chests_.push_back(c);
     pendingBossChests_.clear();
     bossDefeated_ = true;
-    addLog("The guardian's hoard appears!");
+    player_.addChestKeys(n);
+    addLog("The guardian's hoard appears! (+" + std::to_string(n) + " chest keys)");
 }
 
 void Game::resetRuntime()
@@ -212,6 +224,7 @@ void Game::newGame(const std::string& levelPath)
     buildGround(data, "items");
     buildChests(data, "chests");
     parseChestsInto(data, "boss_chests", pendingBossChests_);
+	buildDoors(data, "doors");
     bossDefeated_ = false;
     resetRuntime();
     addLog("Entered " + levelName_ + ".");
@@ -230,6 +243,7 @@ void Game::descend()
     buildGround(data, "items");
     buildChests(data, "chests");
     parseChestsInto(data, "boss_chests", pendingBossChests_);
+    buildDoors(data, "doors");
     bossDefeated_ = false;
     shopOpen_ = false;
     addLog("Descended to " + levelName_ + ".");
@@ -261,6 +275,7 @@ bool Game::loadSlot(const std::string& savePath)
     buildEnemies(save);
     buildGround(save, "ground");
     buildChests(save, "chests");
+	buildDoors(save, "doors");
     bossDefeated_ = (cfg::strOr(save, "save", "boss_defeated", "0") == "1");
     if (bossDefeated_)
         pendingBossChests_.clear();
@@ -302,6 +317,11 @@ void Game::saveSlot(const std::string& savePath) const
         d["chests"]["c" + std::to_string(n++)] =
         std::to_string(c.x) + " " + std::to_string(c.y) + " " + c.table;
 
+    n = 0;
+    for (const auto& dr: doors_)
+        d["doors"]["d" + std::to_string(n++)] = 
+		std::to_string(dr.x) + " " + std::to_string(dr.y) + " " + dr.area;
+
     makeParser(savePath)->serialize(d, savePath);
 }
 
@@ -324,6 +344,8 @@ bool Game::blocked(int x, int y) const
             return true;
     if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
         return true;
+    if (doorAt(x, y))
+        return true;
     return false;
 }
 
@@ -332,6 +354,23 @@ void Game::movePlayer(int dx, int dy)
     if (complete_ || gameOver_ || player_.isMoving())
         return;
     const int nx = player_.x() + dx, ny = player_.y() + dy;
+
+    if (const Door* d = doorAt(nx, ny))
+    {
+        if (!player_.useDoorKey())
+        {
+            addLog("The way is locked. You need a key.");
+            return;
+        }
+        const std::string area = d->area;
+        doors_.erase(std::remove_if(doors_.begin(), doors_.end(),
+            [&](const Door& e)
+            {
+                return e.area == area;
+            }
+        ), doors_.end());
+        addLog("You unlocked the " + area + "door.");
+    }
     if (blocked(nx, ny))
         return;
 
@@ -368,18 +407,18 @@ void Game::interactAt(int tileX, int tileY)
     {
         const int dmg = std::max(1, player_.attackPower() - e->defense());
         e->takeDamage(dmg);
-        addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
+        addLog("You hit the " + e->name() + " for " + std::to_string(dmg) + ".");
         if (!e->alive())
         {
             const int xp = e->maxHp() + e->attackPower();
             if (e->isBoss())
             {
-                addLog("The " + e->type() + " guardian falls!");
+                addLog("The " + e->name() + " guardian falls!");
                 onBossDefeated();
             }
             else
             {
-                addLog(cap(e->type()) + " slain!");
+                addLog(e->name() + " slain!");
                 dropLoot(e->type(), e->x(), e->y());
             }
             const int gained = player_.gainExp(xp);
@@ -406,6 +445,11 @@ void Game::interactAt(int tileX, int tileY)
 
 void Game::openChest(size_t index)
 {
+    if (!player_.useChestKey())
+    {
+        addLog("The chest is locked. You need a chest key.");
+        return;
+    }
     const Chest c = chests_[index];
     chests_.erase(chests_.begin() + index);
     addLog("Opened a chest.");
@@ -431,6 +475,16 @@ void Game::dropLoot(const std::string& table, int x, int y)
             player_.addGold(item.gold);
             addLog("Found " + std::to_string(item.gold) + " gold.");
         }
+        else if (item.isDoorKey())
+        {
+            player_.addDoorKeys(1);
+            addLog("Found a door key!");
+        }
+        else if (item.isChestKey())
+        {
+			player_.addChestKeys(1);
+			addLog("Found a chest key!");
+        }
         else
         {
             ground_.push_back({ item, x, y });
@@ -447,6 +501,20 @@ void Game::buy(int i)
     if (player_.gold() < e.price)
     {
         addLog("Not enough gold.");
+        return;
+    }
+    if (e.item.isDoorKey())
+    {
+        player_.spendGold(e.price);
+        player_.addDoorKeys(1);
+        addLog("Bought a door key.");
+        return;
+    }
+    if (e.item.isChestKey())
+    {
+        player_.spendGold(e.price);
+        player_.addChestKeys(1);
+        addLog("Bought a chest key.");
         return;
     }
     if (!player_.pickUp(e.item))
@@ -520,6 +588,8 @@ bool Game::hasLineOfSight(int x0, int y0, int x1, int y1) const
             for (const auto& c : chests_)
                 if (c.x == x && c.y == y)
                     return true;
+            if (doorAt(x, y))
+                return true;
             return false;
         };
     int dx = std::abs(x1 - x0), dy = std::abs(y1 - y0);
@@ -567,6 +637,8 @@ bool Game::passableForPath(int x, int y, const Enemy* self, int goalX, int goalY
         if (c.x == x && c.y == y)
             return false;
     if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
+        return false;
+    if (doorAt(x, y))
         return false;
     if (x == player_.x() && y == player_.y())
         return false;
@@ -625,7 +697,8 @@ std::pair<int, int> Game::aStarStep(const Enemy* self, int tx, int ty) const
             }
         }
     }
-    if (!found) return { 0, 0 };
+    if (!found)
+        return { 0, 0 };
     int c = idx(tx, ty), prev = came[c];
     if (prev == -1)
         return { 0, 0 };
@@ -677,7 +750,7 @@ void Game::enemyTurn()
             const int dmg = std::max(1, e.attackPower() - player_.defense());
             player_.takeDamage(dmg);
             e.setAggro(AGGRO_TURNS); e.setLastSeen(px, py);
-            addLog(cap(e.type()) + " hits you for " + std::to_string(dmg) + ".");
+            addLog(e.name() + " hits you for " + std::to_string(dmg) + ".");
             if (!player_.alive())
             {
                 gameOver_ = true;
@@ -745,6 +818,8 @@ bool Game::wallOrEnemy(int x, int y, const Enemy* self) const
         if (c.x == x && c.y == y)
             return true;
     if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
+        return true;
+    if (doorAt(x, y))
         return true;
     return false;
 }

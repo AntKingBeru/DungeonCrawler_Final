@@ -39,7 +39,7 @@ namespace
 
 int main()
 {
-    InitWindow(kMenuW, kMenuH, "Dungeon Crawler");
+    InitWindow(kMenuW, kMenuH, "Shadow Dungeon");
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
 

@@ -55,7 +55,7 @@ void Menu::drawMain(int w, int h, const SlotInfo& slots) const
     const char* labels[COUNT] = { "New Game", l1.c_str(), l2.c_str(), l3.c_str(), "Quit" };
 
     const bool enabled[COUNT] = { true, slots[0] != "Empty", slots[1] != "Empty", slots[2] != "Empty", true };
-    drawScreen(w, h, "DUNGEON CRAWLER", labels, enabled);
+    drawScreen(w, h, "SHADOW DUNGEON", labels, enabled);
 }
 
 int Menu::hitMain(int w, int h, int mx, int my) const

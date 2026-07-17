@@ -13,6 +13,8 @@ void Player::loadFrom(const ConfigData& data)
     gold_ = cfg::intOr(data, "player", "gold", 0);
     level_ = cfg::intOr(data, "player", "level", 1);
     exp_ = cfg::intOr(data, "player", "exp", 0);
+    doorKeys_ = cfg::intOr(data, "player", "door_keys", 0);
+    chestKeys_ = cfg::intOr(data, "player", "chest_keys", 0);
 
     inv_.clear();
     if (auto it = data.find("start_equipped");
@@ -103,6 +105,8 @@ void Player::writeState(ConfigData& out) const
     p["gold"] = std::to_string(gold_);
 	p["level"] = std::to_string(level_);
 	p["exp"] = std::to_string(exp_);
+	p["door_keys"] = std::to_string(doorKeys_);
+	p["chest_keys"] = std::to_string(chestKeys_);
 
     int n = 0;
     const auto& st = inv_.storage();
@@ -128,6 +132,8 @@ void Player::readState(const ConfigData& in)
     gold_ = cfg::intOr(in, "player", "gold", 0);
     level_ = cfg::intOr(in, "player", "level", 1);
     exp_ = cfg::intOr(in, "player", "exp", 0);
+	doorKeys_ = cfg::intOr(in, "player", "door_keys", 0);
+    chestKeys_ = cfg::intOr(in, "player", "chest_keys", 0);
 
     inv_.clear();
     if (auto it = in.find("backpack"); it != in.end())

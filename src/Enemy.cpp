@@ -3,27 +3,37 @@
 #include <cmath>
 #include <algorithm>
 
-Enemy::Enemy(std::string type, int x, int y, int hp, int attack, int sight, int defense, int roamRange)
-    : type_(std::move(type)), sight_(sight),
+Enemy::Enemy(std::string type, std::string name, int x, int y,
+    int hp, int attack, int sight, int defense, int roamRange)
+    : type_(std::move(type)), name_(std::move(name)), sight_(sight),
     spawnX_(x), spawnY_(y), roamRange_(roamRange)
 {
-    x_ = x; y_ = y; snapVisual();
+    x_ = x; y_ = y;
+    snapVisual();
     maxHp_ = hp_ = hp;
     attack_ = attack;
     defense_ = defense;
 }
 
-Enemy Enemy::makeGoblin(int x, int y)
+std::optional<Enemy> Enemy::create(const std::string& type, int x, int y)
 {
-    return Enemy("goblin", x, y, 10, 3, 6, 0, 5);
-}
-Enemy Enemy::makeSkeleton(int x, int y)
-{
-    return Enemy("skeleton", x, y, 14, 4, 7, 1, 3);
-}
-Enemy Enemy::makeDragon(int x, int y)
-{
-    return Enemy("dragon", x, y, 40, 7, 10, 3, 0);
+    if (type == "goblin")
+        return Enemy("goblin", "Shadow Goblin", x, y, 10, 3, 6, 0, 5);
+    if (type == "hobgoblin")
+        return Enemy("hobgoblin", "Shadow Hobgoblin", x, y, 24, 6, 7, 2, 4);
+    if (type == "golem")
+        return Enemy("golem", "Shadow Golem", x, y, 65, 6, 9, 5, 0);
+    if (type == "knight")
+        return Enemy("knight", "Shadow Knight", x, y, 16, 5, 7, 2, 3);
+    if (type == "archer")
+        return Enemy("archer", "Shadow Archer", x, y, 12, 5, 8, 0, 3);
+    if (type == "wyvern")
+        return Enemy("wyvern", "Shadow Wyvern", x, y, 48, 8, 10, 3, 0);
+    if (type == "mage")
+        return Enemy("mage", "Shadow Mage", x, y, 16, 6, 8, 1, 4);
+    if (type == "lich")
+        return Enemy("lich", "Shadow Lich", x, y, 60, 9, 10, 4, 0);
+    return std::nullopt;
 }
 
 void Enemy::scaleStats(float m)

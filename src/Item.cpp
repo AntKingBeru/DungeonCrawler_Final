@@ -102,11 +102,13 @@ namespace
 
 bool parseItemBody(std::istringstream& ss, Item& out)
 {
-    std::string first; if (!(ss >> first))
+    std::string first;
+    if (!(ss >> first))
         return false;
     if (first == "potion")
     {
-        std::string name; int heal;
+        std::string name;
+        int heal;
         if (!(ss >> name >> heal))
             return false;
         out = Item{ underscoresToSpaces(name), ItemSlot::Weapon, 0, 0, 0, heal, 0 };
@@ -114,15 +116,27 @@ bool parseItemBody(std::istringstream& ss, Item& out)
     }
     if (first == "gold")
     {
-        int amount; if (!(ss >> amount))
+        int amount;
+        if (!(ss >> amount))
             return false;
         out = Item{ "gold", ItemSlot::Weapon, 0, 0, 0, 0, amount };
+        return true;
+    }
+    if (first == "doorkey" || first == "chestkey")
+    {
+        std::string name;
+        if (!(ss >> name))
+            return false;
+        out = Item{};
+		out.name = underscoresToSpaces(name);
+		out.key = (first == "doorkey") ? KeyType::Door : KeyType::Chest;
         return true;
     }
     ItemSlot slot;
     if (!parseSlot(first, slot))
         return false;
-    std::string name; int atk, def, hp;
+    std::string name;
+    int atk, def, hp;
     if (!(ss >> name >> atk >> def >> hp))
         return false;
     out = Item{ underscoresToSpaces(name), slot, atk, def, hp, 0, 0 };
@@ -132,7 +146,11 @@ bool parseItemBody(std::istringstream& ss, Item& out)
 std::string itemToBody(const Item& it)
 {
     std::ostringstream os;
-    if (it.isPotion())
+    if (it.isDoorKey())
+		os << "doorkey " << spacesToUnderscores(it.name);
+	else if (it.isChestKey())
+		os << "chestkey " << spacesToUnderscores(it.name);
+	else if (it.isPotion())
         os << "potion " << spacesToUnderscores(it.name) << ' ' << it.heal;
     else if (it.isGold())
         os << "gold " << it.gold;

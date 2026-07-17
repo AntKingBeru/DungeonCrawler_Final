@@ -1,105 +1,125 @@
 {
-  "meta": {
-    "name": "The Abyssal Throne",
-    "enemy_scale": "1.9"
-  },
-  "map": {
-    "width": "31",
-    "height": "21",
-    "row0": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "row1": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "row2": "XX......XXXXXXXXXXXXXXX......XX",
-    "row3": "XX......XXXXXXXXXXXXXXX......XX",
-    "row4": "XX...........................XX",
-    "row5": "XX......XXXXXXX.XXXXXXX......XX",
-    "row6": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row7": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row8": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row9": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row10": "XXXXX.XXXX.....E.....XXXXX.XXXX",
-    "row11": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row12": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row13": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row14": "XXXXX.XXXX...........XXXXX.XXXX",
-    "row15": "XX......XXXXXXX.XXXXXXX......XX",
-    "row16": "XX......XXXXXXX.XXXXXXX......XX",
-    "row17": "XX...........................XX",
-    "row18": "XX......XXXXXXXXXXXXXXX......XX",
-    "row19": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "row20": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-  },
-  "player": {
-    "x": "3",
-    "y": "3",
-    "hp": "20",
-    "attack": "5",
-    "defense": "0",
-    "gold": "20"
-  },
-  "enemies": {
-    "e0": "goblin 6 2",
-    "e1": "goblin 7 3",
-    "e2": "skeleton 5 14",
-    "e3": "skeleton 2 15",
-    "e4": "skeleton 4 15",
-    "e5": "skeleton 3 16",
-    "e6": "skeleton 16 4",
-    "e7": "skeleton 15 5"
-  },
   "boss": {
-    "b0": "dragon 15 8"
+    "b0": "lich 24 16"
   },
   "boss_chests": {
-    "bc0": "12 12 boss",
-    "bc1": "18 12 treasure"
-  },
-  "items": {
-    "i0": "5 15 potion Greater_Potion 20",
-    "i1": "2 16 potion Greater_Potion 20",
-    "i2": "4 16 weapon Runed_Blade 9 0 5",
-    "i3": "3 17 ring Power_Ring 2 0 0"
+    "bc0": "24 18 lich",
+    "bc1": "27 18 treasure"
   },
   "chests": {
-    "c0": "28 18 treasure",
-    "c1": "27 18 wooden"
+    "c0": "5 7 keyvault",
+    "c1": "11 13 keyvault",
+    "c2": "17 7 keyvault",
+    "c3": "25 3 treasure",
+    "c4": "25 10 treasure"
   },
-  "shopkeeper": {
-    "x": "26",
-    "y": "4"
+  "doors": {
+    "d0": "22 3 vaultA",
+    "d1": "22 9 vaultB",
+    "d2": "22 16 boss"
   },
-  "shop": {
-    "s0": "15 potion Greater_Potion 20",
-    "s1": "40 weapon Runed_Blade 9 0 5",
-    "s2": "50 armor Aegis_Mail 0 8 25",
-    "s3": "30 gloves Plate_Gauntlets 0 2 0",
-    "s4": "45 amulet Power_Amulet 3 2 10",
-    "s5": "55 shield Aegis_Shield 0 8 0"
+  "enemies": {
+    "e0": "archer 11 3",
+    "e1": "mage 17 3",
+    "e2": "knight 5 11",
+    "e3": "mage 17 11",
+    "e4": "archer 11 15",
+    "e5": "knight 5 16",
+    "e6": "mage 17 17"
   },
-  "loot_goblin": {
-    "d0": "weapon Rusty_Dagger 2 0 0 0.5",
-    "d1": "ring Cracked_Ring 1 0 0 0.25",
+  "items": {
+    "i0": "5 5 potion Greater_Shadowmend 20",
+    "i1": "11 5 potion Greater_Shadowmend 20",
+    "i2": "5 10 weapon Voidrune_Blade 9 0 5",
+    "i3": "11 11 ring Ring_of_Night 2 0 0"
+  },
+  "loot_archer": {
+    "d0": "gloves Shade_Gloves 0 1 0 0.4",
+    "d1": "chestkey Gloom_Key 0.5",
+    "d2": "gold 24 0.7"
+  },
+  "loot_keyvault": {
+    "d0": "doorkey Umbral_Key 1.0",
+    "d1": "potion Shadowmend 10 0.7",
+    "d2": "gold 30 1.0"
+  },
+  "loot_knight": {
+    "d0": "helmet Wraith_Skull 0 2 0 0.4",
+    "d1": "chestkey Gloom_Key 0.5",
     "d2": "gold 20 0.8"
   },
-  "loot_skeleton": {
-    "d0": "helmet Bone_Helm 0 2 0 0.4",
-    "d1": "weapon Bone_Club 3 0 0 0.35",
-    "d2": "gold 28 0.7"
-  },
-  "loot_boss": {
-    "d0": "weapon Dragon_Fang 8 0 0 1.0",
-    "d1": "armor Dragon_Scale 0 6 20 1.0",
-    "d2": "amulet Dragon_Heart 3 3 15 1.0",
+  "loot_lich": {
+    "d0": "weapon Voidrune_Blade 9 0 5 1.0",
+    "d1": "armor Nightward_Mail 0 8 25 1.0",
+    "d2": "ring Ring_of_Night 3 0 0 1.0",
     "d3": "gold 220 1.0"
   },
+  "loot_mage": {
+    "d0": "ring Ring_of_Night 2 0 0 0.4",
+    "d1": "chestkey Gloom_Key 0.5",
+    "d2": "gold 28 0.8"
+  },
   "loot_treasure": {
-    "d0": "weapon Runed_Blade 9 0 5 0.8",
-    "d1": "armor Aegis_Mail 0 8 25 0.6",
-    "d2": "potion Greater_Potion 20 1.0",
+    "d0": "weapon Voidrune_Blade 9 0 5 0.8",
+    "d1": "armor Nightward_Mail 0 8 25 0.6",
+    "d2": "potion Greater_Shadowmend 20 1.0",
     "d3": "gold 110 1.0"
   },
   "loot_wooden": {
-    "d0": "potion Health_Potion 10 0.8",
-    "d1": "gloves Leather_Gloves 0 1 0 0.5",
+    "d0": "potion Shadowmend 10 0.8",
+    "d1": "gloves Shade_Gloves 0 1 0 0.5",
     "d2": "gold 25 1.0"
+  },
+  "map": {
+    "height": 21,
+    "row0": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "row1": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "row10": "XX...........X.....XXXX......XX",
+    "row11": "XX......X..........XXXX......XX",
+    "row12": "XX......X....X.....XXXXXXXXXXXX",
+    "row13": "XX......X....X.....XXXXXXXXXXXX",
+    "row14": "XX......X....X.....XXXX......XX",
+    "row15": "XX...........X.....XXXX......XX",
+    "row16": "XX......X.................E..XX",
+    "row17": "XX......X....X.....XXXX......XX",
+    "row18": "XX......X....X.....XXXX......XX",
+    "row19": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "row2": "XX......X....X.....XXXX......XX",
+    "row20": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "row3": "XX......X....X...............XX",
+    "row4": "XX......X..........XXXX......XX",
+    "row5": "XX...........X.....XXXX......XX",
+    "row6": "XX......X....X.....XXXXXXXXXXXX",
+    "row7": "XX......X....X.....XXXXXXXXXXXX",
+    "row8": "XX......X....X.....XXXX......XX",
+    "row9": "XXXXX.XXXXX.XXXX.X...........XX",
+    "width": 31
+  },
+  "meta": {
+    "enemy_scale": 1.9,
+    "name": "The Throne of Shadows"
+  },
+  "player": {
+    "attack": 5,
+    "defense": 0,
+    "gold": 20,
+    "hp": 20,
+    "x": 3,
+    "y": 3
+  },
+  "shop": {
+    "s0": "15 potion Greater_Shadowmend 20",
+    "s1": "40 weapon Voidrune_Blade 9 0 5",
+    "s2": "50 armor Nightward_Mail 0 8 25",
+    "s3": "55 shield Voidguard 0 8 0",
+    "s4": "45 doorkey Umbral_Key"
+  },
+  "shopkeeper": {
+    "x": 17,
+    "y": 5
+  },
+  "start_equipped": {
+    "e0": "weapon Shadow_Shard 1 0 0",
+    "e1": "shield Cracked_Aegis 0 1 0"
   }
 }
