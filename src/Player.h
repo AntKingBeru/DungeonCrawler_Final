@@ -31,6 +31,20 @@ public:
     }
     bool spendGold(int g);
 
+    int level() const
+    {
+        return level_;
+    }
+    int exp() const
+    {
+        return exp_;
+    }
+    int expToNext() const
+    {
+        return 25 * level_;
+    }
+    int gainExp(int amount);
+
     int baseMaxHp() const
     {
 		return baseMaxHp_;
@@ -51,10 +65,12 @@ public:
 
 private:
     void recomputeStats();
+    void levelUp();
 
 	Inventory inv_;
 	int baseAtk_ = 5, baseDef_ = 0, baseMaxHp_ = 20;
     int gold_ = 0;
+    int level_ = 1, exp_ = 0;
 };
 
 #endif

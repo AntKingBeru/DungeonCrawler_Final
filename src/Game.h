@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <random>
+#include <utility>
 #include "Map.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -129,6 +130,11 @@ private:
     void resetRuntime();
 
     void enemyTurn();
+    bool detects(const Enemy& e) const;
+    bool hasLineOfSight(int x0, int y0, int x1, int y1) const;
+    bool passableForPath(int x, int y, const Enemy* self, int goalX, int goalY) const;
+    std::pair<int, int> aStarStep(const Enemy* self, int tx, int ty) const;
+    std::pair<int, int> roamStep(Enemy* self);
     void removeDead();
     void addLog(const std::string& msg);
     void tryPickUp(int x, int y);

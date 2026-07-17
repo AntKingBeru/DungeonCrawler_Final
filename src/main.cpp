@@ -8,7 +8,8 @@
 #include <string>
 #include <filesystem>
 
-namespace {
+namespace
+{
     constexpr int kMenuW = 900, kMenuH = 640;
     const std::string kLevel = "configs/dungeon.ini";
     const std::array<std::string, 3> kSlots = {
@@ -36,7 +37,8 @@ namespace {
     }
 }
 
-int main() {
+int main()
+{
     InitWindow(kMenuW, kMenuH, "Dungeon Crawler");
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);

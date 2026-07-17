@@ -37,6 +37,10 @@
     "defense": "0",
     "gold": "20"
   },
+  "start_equipped": {
+    "e0": "weapon Chipped_Dagger 1 0 0",
+    "e1": "shield Worn_Buckler 0 1 0"
+  },
   "enemies": {
     "e0": "goblin 6 2",
     "e1": "goblin 7 3",

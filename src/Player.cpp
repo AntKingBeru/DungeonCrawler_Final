@@ -11,7 +11,44 @@ void Player::loadFrom(const ConfigData& data)
     baseAtk_ = cfg::intOr(data, "player", "attack", 5);
     baseDef_ = cfg::intOr(data, "player", "defense", 0);
     gold_ = cfg::intOr(data, "player", "gold", 0);
+    level_ = cfg::intOr(data, "player", "level", 1);
+    exp_ = cfg::intOr(data, "player", "exp", 0);
+
+    inv_.clear();
+    if (auto it = data.find("start_equipped");
+        it != data.end())
+    for (const auto& [id, spec] : it->second)
+    {
+        std::istringstream ss(spec);
+        Item item;
+        if (parseItemBody(ss, item))
+            inv_.placeEquipped(item);
+    }
+
     recomputeStats();
+    hp_ = maxHp_;
+}
+
+int Player::gainExp(int amount)
+{
+    exp_ += amount;
+    int gained = 0;
+    while (exp_ >= expToNext())
+    {
+        exp_ -= expToNext();
+		levelUp();
+		++gained;
+    }
+	return gained;
+}
+
+void Player::levelUp()
+{
+	++level_;
+	baseMaxHp_ += 5;
+	baseAtk_ += 1;
+	baseDef_ += 1;
+	recomputeStats();
     hp_ = maxHp_;
 }
 
@@ -64,6 +101,8 @@ void Player::writeState(ConfigData& out) const
     p["attack"] = std::to_string(baseAtk_);
     p["defense"] = std::to_string(baseDef_);
     p["gold"] = std::to_string(gold_);
+	p["level"] = std::to_string(level_);
+	p["exp"] = std::to_string(exp_);
 
     int n = 0;
     const auto& st = inv_.storage();
@@ -87,6 +126,8 @@ void Player::readState(const ConfigData& in)
     baseAtk_ = cfg::intOr(in, "player", "attack", 5);
     baseDef_ = cfg::intOr(in, "player", "defense", 0);
     gold_ = cfg::intOr(in, "player", "gold", 0);
+    level_ = cfg::intOr(in, "player", "level", 1);
+    exp_ = cfg::intOr(in, "player", "exp", 0);
 
     inv_.clear();
     if (auto it = in.find("backpack"); it != in.end())

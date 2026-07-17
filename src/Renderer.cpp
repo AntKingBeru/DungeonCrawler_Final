@@ -9,7 +9,6 @@
 namespace
 {
     constexpr int BOX = 42, GAP = 8, LABELW = 90;
-
     struct Box
     {
         int x, y, w, h;
@@ -45,10 +44,12 @@ namespace
     void invLayout(int screenW, std::vector<GearBox>& gear, std::vector<Box>& bag,
         int& panelX, int& panelY, int& ringY, int& bagX, int& sy)
     {
-        panelX = 40; panelY = 30;
+        panelX = 40;
+        panelY = 30;
         const int sx = panelX + 24;
         sy = panelY + 60;
-        gear.clear(); bag.clear();
+        gear.clear();
+        bag.clear();
         for (int i = 0; i < SINGLES; ++i)
             gear.push_back({ { sx + LABELW, sy + i * (BOX + GAP), BOX, BOX }, kSingles[i].slot, 0 });
         ringY = sy + SINGLES * (BOX + GAP) + 26;
@@ -63,11 +64,13 @@ namespace
         std::vector<Box>& stock, std::vector<Box>& bag, Box& close,
         int& panelX, int& panelY, int& bagX, int& sy)
     {
-        panelX = 40; panelY = 30;
+        panelX = 40;
+        panelY = 30;
         sy = panelY + 74;
         const int gx = panelX + 24;
         close = { screenW - panelX - 110, panelY + 14, 90, 30 };
-        stock.clear(); bag.clear();
+        stock.clear();
+        bag.clear();
         for (int i = 0; i < stockCount; ++i)
             stock.push_back({ gx, sy + i * (BOX + GAP), BOX, BOX });
         bagX = screenW / 2 + 40;
@@ -79,24 +82,24 @@ namespace
     {
         switch (s)
         {
-        case ItemSlot::Weapon:
-            return ORANGE;
-        case ItemSlot::Shield:
-            return Color{ 70,130,180,255 };
-        case ItemSlot::Helmet:
-            return SKYBLUE;
-        case ItemSlot::Cape:
-            return VIOLET;
-        case ItemSlot::Armor:
-            return LIGHTGRAY;
-        case ItemSlot::Gloves:
-            return BEIGE;
-        case ItemSlot::Boots:
-            return BROWN;
-        case ItemSlot::Amulet:
-            return GOLD;
-        case ItemSlot::Ring:
-            return YELLOW;
+            case ItemSlot::Weapon:
+                return ORANGE;
+            case ItemSlot::Shield:
+                return Color{ 70,130,180,255 };
+            case ItemSlot::Helmet:
+                return SKYBLUE;
+            case ItemSlot::Cape:
+                return VIOLET;
+            case ItemSlot::Armor:
+                return LIGHTGRAY;
+            case ItemSlot::Gloves:
+                return BEIGE;
+            case ItemSlot::Boots:
+                return BROWN;
+            case ItemSlot::Amulet:
+                return GOLD;
+            case ItemSlot::Ring:
+                return YELLOW;
         }
         return GRAY;
     }
@@ -144,86 +147,87 @@ namespace
     }
 
     const Color TEAL{ 0,170,160,255 };
-}
 
-std::string signedStr(int v)
-{
-    return (v > 0 ? "+" : "") + std::to_string(v);
-}
-
-void drawItemTooltip(const Item& it, bool equipped, const Inventory& inv,
-    int mx, int my, int screenW, int screenH)
-{
-    std::vector<std::pair<std::string, Color>> lines;
-    lines.push_back({ it.name, RAYWHITE });
-    if (it.isPotion())
+    std::string signedStr(int v)
     {
-        lines.push_back({ "Consumable", LIGHTGRAY });
-        lines.push_back({ "Restores " + std::to_string(it.heal) + " HP", Color{120,220,120,255} });
+        return (v > 0 ? "+" : "") + std::to_string(v);
     }
-    else
+
+    void drawItemTooltip(const Item& it, bool equipped, const Inventory& inv,
+        int mx, int my, int screenW, int screenH, int sellFor = -1)
     {
-        lines.push_back({ std::string(slotName(it.slot)), LIGHTGRAY });
-        if (it.atk)
-            lines.push_back({ "ATK " + signedStr(it.atk), RAYWHITE });
-        if (it.def)
-            lines.push_back({ "DEF " + signedStr(it.def), RAYWHITE });
-        if (it.hp)
-            lines.push_back({ "HP  " + signedStr(it.hp),  RAYWHITE });
-        if (!it.atk && !it.def && !it.hp)
-            lines.push_back({ "No bonuses", LIGHTGRAY });
-        if (equipped) {
-            lines.push_back({ "(equipped)", GOLD });
-        }
-        else if (it.slot != ItemSlot::Ring)
+        std::vector<std::pair<std::string, Color>> lines;
+        lines.push_back({ it.name, RAYWHITE });
+        if (it.isPotion())
         {
-            auto e = inv.equipped().find(it.slot);
-            if (e != inv.equipped().end() && !e->second.empty())
+            lines.push_back({ "Consumable", LIGHTGRAY });
+            lines.push_back({ "Restores " + std::to_string(it.heal) + " HP", Color{120,220,120,255} });
+        }
+        else
+        {
+            lines.push_back({ std::string(slotName(it.slot)), LIGHTGRAY });
+            if (it.atk)
+                lines.push_back({ "ATK " + signedStr(it.atk), RAYWHITE });
+            if (it.def)
+                lines.push_back({ "DEF " + signedStr(it.def), RAYWHITE });
+            if (it.hp)
+                lines.push_back({ "HP  " + signedStr(it.hp),  RAYWHITE });
+            if (!it.atk && !it.def && !it.hp)
+                lines.push_back({ "No bonuses", LIGHTGRAY });
+            if (equipped)
             {
-                const Item& cur = e->second[0];
-                lines.push_back({ "vs " + cur.name + ":", LIGHTGRAY });
-                auto delta = [&](const char* n, int d)
-                    {
-                        Color c = d > 0 ? Color{ 120,220,120,255 } : d < 0 ? Color{ 220,110,110,255 } : GRAY;
-                        lines.push_back({ std::string(n) + " " + signedStr(d), c });
-                    };
-                delta("ATK", it.atk - cur.atk); delta("DEF", it.def - cur.def); delta("HP ", it.hp - cur.hp);
+                lines.push_back({ "(equipped)", GOLD });
             }
-            else
+            else if (it.slot != ItemSlot::Ring)
             {
-                lines.push_back({ "(slot empty)", LIGHTGRAY });
+                auto e = inv.equipped().find(it.slot);
+                if (e != inv.equipped().end() && !e->second.empty())
+                {
+                    const Item& cur = e->second[0];
+                    lines.push_back({ "vs " + cur.name + ":", LIGHTGRAY });
+                    auto delta = [&](const char* n, int d)
+                        {
+                            Color c = d > 0 ? Color{ 120,220,120,255 } : d < 0 ? Color{ 220,110,110,255 } : GRAY;
+                            lines.push_back({ std::string(n) + " " + signedStr(d), c });
+                        };
+                    delta("ATK", it.atk - cur.atk); delta("DEF", it.def - cur.def); delta("HP ", it.hp - cur.hp);
+                }
+                else
+                {
+                    lines.push_back({ "(slot empty)", LIGHTGRAY });
+                }
             }
         }
+        if (sellFor > 0)
+            lines.push_back({ "Sells for " + std::to_string(sellFor) + " gold", GOLD });
+
+        int wpx = 0;
+        for (auto& ln : lines)
+            wpx = std::max(wpx, MeasureText(ln.first.c_str(), 16));
+        const int pad = 10, lh = 20;
+        const int w = wpx + 2 * pad, h = static_cast<int>(lines.size()) * lh + 2 * pad;
+        int x = mx + 16, y = my + 16;
+        if (x + w > screenW)
+            x = mx - w - 8;
+        if (y + h > screenH)
+            y = screenH - h - 4;
+        if (x < 0)
+            x = 0;
+        if (y < 0)
+            y = 0;
+        DrawRectangle(x, y, w, h, Color{ 20,20,28,245 });
+        DrawRectangleLines(x, y, w, h, RAYWHITE);
+        int ty = y + pad;
+        for (auto& ln : lines)
+        {
+            DrawText(ln.first.c_str(), x + pad, ty, 16, ln.second); ty += lh;
+        }
     }
-    int wpx = 0;
-    for (auto& ln : lines)
-        wpx = std::max(wpx, MeasureText(ln.first.c_str(), 16));
-    const int pad = 10, lh = 20;
-    const int w = wpx + 2 * pad, h = static_cast<int>(lines.size()) * lh + 2 * pad;
-    int x = mx + 16, y = my + 16;
-    if (x + w > screenW)
-        x = mx - w - 8;
-    if (y + h > screenH)
-        y = screenH - h - 4;
-    if (x < 0)
-        x = 0;
-    if (y < 0)
-        y = 0;
-    DrawRectangle(x, y, w, h, Color{ 20,20,28,245 });
-    DrawRectangleLines(x, y, w, h, RAYWHITE);
-    int ty = y + pad;
-    for (auto& ln : lines)
-    {
-        DrawText(ln.first.c_str(), x + pad, ty, 16, ln.second);
-        ty += lh;
-    }
+
 }
 
 void Renderer::draw(const Game& game, bool showInventory) const
 {
-    BeginDrawing();
-    ClearBackground(DARKGRAY);
-
     const Map& map = game.map();
     const Player& player = game.player();
     const int screenW = map.width() * TILE_SIZE;
@@ -275,9 +279,12 @@ void Renderer::draw(const Game& game, bool showInventory) const
         player.hp(), player.maxHp());
 
     DrawRectangle(0, screenH, screenW, HUD_HEIGHT, BLACK);
-    DrawText(TextFormat("HP %d/%d   ATK %d   DEF %d   GOLD %d", player.hp(), player.maxHp(),
-        player.attackPower(), player.defense(), game.gold()),
-        10, screenH + 8, 20, player.hp() > player.maxHp() / 4 ? RAYWHITE : RED);
+    std::string statLine = TextFormat("HP %d/%d   ATK %d   DEF %d   GOLD %d",
+        player.hp(), player.maxHp(), player.attackPower(), player.defense(), game.gold());
+    DrawText(statLine.c_str(), 10, screenH + 8, 20,
+        player.hp() > player.maxHp() / 4 ? RAYWHITE : RED);
+    DrawText(TextFormat("Lv %d   EXP %d/%d", player.level(), player.exp(), player.expToNext()),
+        10 + MeasureText(statLine.c_str(), 20) + 28, screenH + 8, 20, Color{ 210,205,120,255 });
     DrawText("[I] Inventory", screenW - 150, screenH + 8, 18, LIGHTGRAY);
     {
         const std::string& fl = game.levelName();
@@ -290,9 +297,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
     if (showInventory && !shopOpen)
     {
         DrawRectangle(0, 0, screenW, screenH, Fade(BLACK, 0.75f));
-        int panelX, panelY, ringY, bagX, sy2;
-        std::vector<GearBox> gear;
-        std::vector<Box> bag;
+        int panelX, panelY, ringY, bagX, sy2; std::vector<GearBox> gear; std::vector<Box> bag;
         invLayout(screenW, gear, bag, panelX, panelY, ringY, bagX, sy2);
         DrawRectangle(panelX, panelY, screenW - 2 * panelX, screenH - 2 * panelY, Color{ 25,25,35,255 });
         DrawRectangleLines(panelX, panelY, screenW - 2 * panelX, screenH - 2 * panelY, RAYWHITE);
@@ -382,6 +387,26 @@ void Renderer::draw(const Game& game, bool showInventory) const
         }
         DrawText("Selling pays about half an item's worth.  Click Close or press [I] to leave.",
             panelX + 24, screenH - panelY - 26, 16, LIGHTGRAY);
+
+        Vector2 mp = GetMousePosition();
+        const int mx = static_cast<int>(mp.x), my = static_cast<int>(mp.y);
+        const Item* hover = nullptr; int sellFor = -1;
+        for (size_t i = 0; i < shop.size(); ++i)
+            if (stock[i].has(mx, my))
+            {
+                hover = &shop[i].item;
+                break;
+            }
+        if (!hover)
+            for (int k = 0; k < 27; ++k)
+                if (bag[k].has(mx, my) && inv.storage()[k])
+                {
+                    hover = &*inv.storage()[k];
+                    sellFor = Game::sellValue(*hover);
+                    break;
+                }
+        if (hover)
+            drawItemTooltip(*hover, false, inv, mx, my, screenW, screenH, sellFor);
     }
 
     if (!showInventory && !shopOpen && game.isGameOver())

@@ -38,6 +38,10 @@
 		<defense>0</defense>
 		<gold>20</gold>
 	</player>
+	<start_equipped>
+		<e0>weapon Chipped_Dagger 1 0 0</e0>
+		<e1>shield Worn_Buckler 0 1 0</e1>
+	</start_equipped>
 	<enemies>
 		<e0>goblin 6 2</e0>
 		<e1>goblin 7 3</e1>

@@ -6,13 +6,11 @@
 #include <cctype>
 #include <algorithm>
 #include <fstream>
+#include <queue>
+#include <climits>
 
 namespace
 {
-    int sgn(int v)
-    {
-        return (v > 0) - (v < 0);
-    }
     std::string cap(std::string s)
     {
         if (!s.empty())
@@ -373,6 +371,7 @@ void Game::interactAt(int tileX, int tileY)
         addLog("You hit the " + e->type() + " for " + std::to_string(dmg) + ".");
         if (!e->alive())
         {
+            const int xp = e->maxHp() + e->attackPower();
             if (e->isBoss())
             {
                 addLog("The " + e->type() + " guardian falls!");
@@ -383,6 +382,10 @@ void Game::interactAt(int tileX, int tileY)
                 addLog(cap(e->type()) + " slain!");
                 dropLoot(e->type(), e->x(), e->y());
             }
+            const int gained = player_.gainExp(xp);
+            addLog("Gained " + std::to_string(xp) + " EXP.");
+            if (gained)
+                addLog("Level up! You are now level " + std::to_string(player_.level()) + "!");
         }
         enemyTurn();
         removeDead();
@@ -508,19 +511,172 @@ void Game::tryPickUp(int x, int y)
     }
 }
 
+bool Game::hasLineOfSight(int x0, int y0, int x1, int y1) const
+{
+    auto blocksSight = [&](int x, int y)
+        {
+            if (map_.isWall(x, y))
+                return true;
+            for (const auto& c : chests_)
+                if (c.x == x && c.y == y)
+                    return true;
+            return false;
+        };
+    int dx = std::abs(x1 - x0), dy = std::abs(y1 - y0);
+    int sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+    int err = dx - dy, cx = x0, cy = y0;
+    while (true)
+    {
+        if (!(cx == x0 && cy == y0) && !(cx == x1 && cy == y1) && blocksSight(cx, cy))
+            return false;
+        if (cx == x1 && cy == y1)
+            break;
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            cx += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            cy += sy;
+        }
+    }
+    return true;
+}
+
+bool Game::detects(const Enemy& e) const
+{
+    const int dx = std::abs(player_.x() - e.x()), dy = std::abs(player_.y() - e.y());
+    if (std::max(dx, dy) > e.sight())
+        return false;
+    return hasLineOfSight(e.x(), e.y(), player_.x(), player_.y());
+}
+
+bool Game::passableForPath(int x, int y, const Enemy* self, int goalX, int goalY) const
+{
+    if (x == goalX && y == goalY)
+        return true;
+    if (map_.isWall(x, y))
+        return false;
+    for (const auto& e : enemies_)
+        if (&e != self && e.alive() && e.x() == x && e.y() == y)
+            return false;
+    for (const auto& c : chests_)
+        if (c.x == x && c.y == y)
+            return false;
+    if (shopkeeper_.exists && shopkeeper_.x == x && shopkeeper_.y == y)
+        return false;
+    if (x == player_.x() && y == player_.y())
+        return false;
+    return true;
+}
+
+std::pair<int, int> Game::aStarStep(const Enemy* self, int tx, int ty) const
+{
+    const int W = map_.width(), H = map_.height();
+    const int sx = self->x(), sy = self->y();
+    if (sx == tx && sy == ty)
+        return { 0, 0 };
+    auto idx = [&](int x, int y)
+        {
+            return y * W + x;
+        };
+    auto h = [&](int x, int y)
+        {
+            return std::abs(x - tx) + std::abs(y - ty);
+        };
+    std::vector<int> came(W * H, -1);
+    std::vector<int> g(W * H, INT_MAX);
+    std::vector<char> closed(W * H, 0);
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>,
+        std::greater<std::pair<int, int>>> open;
+    g[idx(sx, sy)] = 0;
+    open.push({ h(sx, sy), idx(sx, sy) });
+    const int dxs[4] = { 1,-1,0,0 }, dys[4] = { 0,0,1,-1 };
+    bool found = false;
+    while (!open.empty())
+    {
+        int cur = open.top().second;
+        open.pop();
+        if (closed[cur])
+            continue;
+        closed[cur] = 1;
+        int cx = cur % W, cy = cur / W;
+        if (cx == tx && cy == ty)
+        {
+            found = true;
+            break;
+        }
+        for (int d = 0; d < 4; ++d)
+        {
+            int nx = cx + dxs[d], ny = cy + dys[d];
+            if (nx < 0 || ny < 0 || nx >= W || ny >= H)
+                continue;
+            if (!passableForPath(nx, ny, self, tx, ty))
+                continue;
+            int ng = g[cur] + 1;
+            if (ng < g[idx(nx, ny)])
+            {
+                g[idx(nx, ny)] = ng;
+                came[idx(nx, ny)] = cur;
+                open.push({ ng + h(nx, ny), idx(nx, ny) });
+            }
+        }
+    }
+    if (!found) return { 0, 0 };
+    int c = idx(tx, ty), prev = came[c];
+    if (prev == -1)
+        return { 0, 0 };
+    while (prev != idx(sx, sy))
+    {
+        c = prev; prev = came[c];
+        if (prev == -1)
+            return { 0, 0 };
+    }
+    return { c % W - sx, c / W - sy };
+}
+
+std::pair<int, int> Game::roamStep(Enemy* self)
+{
+    const int dxs[4] = { 1,-1,0,0 }, dys[4] = { 0,0,1,-1 };
+    std::vector<std::pair<int, int>> cands;
+    for (int d = 0; d < 4; ++d)
+    {
+        int nx = self->x() + dxs[d], ny = self->y() + dys[d];
+        if (wallOrEnemy(nx, ny, self))
+            continue;
+        if (nx == player_.x() && ny == player_.y())
+            continue;
+        if (std::max(std::abs(nx - self->spawnX()), std::abs(ny - self->spawnY())) > self->roamRange())
+            continue;
+        cands.push_back({ dxs[d], dys[d] });
+    }
+    if (cands.empty())
+        return { 0, 0 };
+    std::uniform_int_distribution<int> pick(0, static_cast<int>(cands.size()));
+    int r = pick(rng_);
+    if (r >= static_cast<int>(cands.size()))
+        return { 0, 0 };
+    return cands[r];
+}
+
 void Game::enemyTurn()
 {
+    constexpr int AGGRO_TURNS = 6;
     for (auto& e : enemies_)
     {
         if (!e.alive())
             continue;
-        const int dx = player_.x() - e.x(), dy = player_.y() - e.y();
-        const int manhattan = std::abs(dx) + std::abs(dy);
+        const int px = player_.x(), py = player_.y();
+        const int manhattan = std::abs(px - e.x()) + std::abs(py - e.y());
 
         if (manhattan == 1)
         {
             const int dmg = std::max(1, e.attackPower() - player_.defense());
             player_.takeDamage(dmg);
+            e.setAggro(AGGRO_TURNS); e.setLastSeen(px, py);
             addLog(cap(e.type()) + " hits you for " + std::to_string(dmg) + ".");
             if (!player_.alive())
             {
@@ -531,31 +687,34 @@ void Game::enemyTurn()
             continue;
         }
 
-        const int chebyshev = std::max(std::abs(dx), std::abs(dy));
-        if (chebyshev > e.sight())
-            continue;
-
-        const int sx = sgn(dx), sy = sgn(dy);
-        auto tryStep = [&](int mx, int my)
-            {
-                const int tx = e.x() + mx, ty = e.y() + my;
-                if (tx == player_.x() && ty == player_.y())
-                    return false;
-                if (wallOrEnemy(tx, ty, &e))
-                    return false;
-                e.setTile(tx, ty);
-                return true;
-            };
-        if (std::abs(dx) >= std::abs(dy))
+        const bool see = detects(e);
+        if (see)
         {
-            if (!tryStep(sx, 0))
-                tryStep(0, sy);
+            e.setAggro(AGGRO_TURNS);
+            e.setLastSeen(px, py);
+        }
+
+        std::pair<int, int> step{ 0, 0 };
+        if (e.aggro() > 0)
+        {
+            const int tx = e.lastSeenX(), ty = e.lastSeenY();
+            if (e.x() == tx && e.y() == ty)
+                e.setAggro(0);
+            else
+                step = aStarStep(&e, tx, ty);
+            if (!see)
+                e.setAggro(e.aggro() - 1);
         }
         else
         {
-            if (!tryStep(0, sy))
-                tryStep(sx, 0);
+            const int fromSpawn = std::max(std::abs(e.x() - e.spawnX()), std::abs(e.y() - e.spawnY()));
+            if (fromSpawn > e.roamRange())
+                step = aStarStep(&e, e.spawnX(), e.spawnY());
+            else if (!e.isBoss() && e.roamRange() > 0)
+                step = roamStep(&e);
         }
+        if (step.first || step.second)
+            e.setTile(e.x() + step.first, e.y() + step.second);
     }
 }
 
