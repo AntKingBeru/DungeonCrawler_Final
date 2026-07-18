@@ -10,7 +10,6 @@
 
 namespace
 {
-    constexpr int kMenuW = 900, kMenuH = 640;
     const std::string kLevel = "configs/dungeon.ini";
     const std::array<std::string, 3> kSlots = {
         "saves/slot1.json", "saves/slot2.json", "saves/slot3.json" };
@@ -39,7 +38,7 @@ namespace
 
 int main()
 {
-    InitWindow(kMenuW, kMenuH, "Shadow Dungeon");
+    InitWindow(SCREEN_W, SCREEN_H, "Shadow Dungeon");
     SetTargetFPS(60);
     SetExitKey(KEY_NULL);
 
@@ -56,17 +55,12 @@ int main()
     bool inventoryOpen = false, paused = false, quit = false;
     SlotInfo slots = readSlots();
 
-    auto sizeToGame = [&]
-        {
-            SetWindowSize(game.map().width() * TILE_SIZE, game.map().height() * TILE_SIZE + HUD_HEIGHT);
-        };
     auto toMenu = [&]
         {
             state = State::Menu;
             inventoryOpen = paused = false;
             game.closeShop();
             slots = readSlots();
-            SetWindowSize(kMenuW, kMenuH);
         };
 
     while (!quit && !WindowShouldClose())
@@ -83,7 +77,6 @@ int main()
                 if (a == 0)
                 {
                     game.newGame(kLevel);
-                    sizeToGame();
                     state = State::Play;
                     inventoryOpen = paused = false;
                 }
@@ -91,7 +84,6 @@ int main()
                 {
                     if (slots[a - 1] != "Empty" && game.loadSlot(kSlots[a - 1]))
                     {
-                        sizeToGame();
                         state = State::Play;
                         inventoryOpen = paused = false;
                     }
@@ -165,7 +157,7 @@ int main()
                     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                     {
                         int tx, ty;
-                        renderer.screenToTile(GetMouseX(), GetMouseY(), tx, ty);
+                        renderer.screenToTile(game, GetMouseX(), GetMouseY(), tx, ty);
                         game.interactAt(tx, ty);
                     }
                 }

@@ -8,6 +8,12 @@
 
 namespace
 {
+    void originOf(const Map& map, int& ox, int& oy)
+    {
+        ox = std::max(0, (SCREEN_W - map.width() * TILE_SIZE) / 2);
+        oy = std::max(0, (VIEW_H - map.height() * TILE_SIZE) / 2);
+    }
+
     constexpr int BOX = 42, GAP = 8, LABELW = 90;
     struct Box
     {
@@ -255,14 +261,19 @@ void Renderer::draw(const Game& game, bool showInventory) const
 {
     const Map& map = game.map();
     const Player& player = game.player();
-    const int screenW = map.width() * TILE_SIZE;
-    const int screenH = map.height() * TILE_SIZE;
+    const int screenW = SCREEN_W;
+    const int screenH = VIEW_H;
+    int ox, oy;
+    originOf(map, ox, oy);
     const bool shopOpen = game.isShopOpen();
+
+    DrawRectangle(0, 0, screenW, screenH, Color{ 10,10,14,255 });
+    DrawRectangle(ox, oy, map.width() * TILE_SIZE, map.height() * TILE_SIZE, DARKGRAY);
 
     for (int y = 0; y < map.height(); ++y)
         for (int x = 0; x < map.width(); ++x)
         {
-            const int px = x * TILE_SIZE, py = y * TILE_SIZE;
+            const int px = ox + x * TILE_SIZE, py = oy + y * TILE_SIZE;
             if (map.isWall(x, y))
                 DrawRectangle(px, py, TILE_SIZE, TILE_SIZE, RAYWHITE);
             else if (map.isExit(x, y))
@@ -270,12 +281,12 @@ void Renderer::draw(const Game& game, bool showInventory) const
         }
 
     for (const auto& gi : game.groundItems())
-        DrawRectangle(gi.x * TILE_SIZE + TILE_SIZE / 4, gi.y * TILE_SIZE + TILE_SIZE / 4,
+        DrawRectangle(ox + gi.x * TILE_SIZE + TILE_SIZE / 4, oy + gi.y * TILE_SIZE + TILE_SIZE / 4,
             TILE_SIZE / 2, TILE_SIZE / 2, itemColor(gi.item));
 
     for (const auto& c : game.chests())
     {
-        const int px = c.x * TILE_SIZE, py = c.y * TILE_SIZE;
+        const int px = ox + c.x * TILE_SIZE, py = oy + c.y * TILE_SIZE;
         DrawRectangle(px + TILE_SIZE / 6, py + TILE_SIZE / 4, TILE_SIZE * 2 / 3, TILE_SIZE / 2, BROWN);
         DrawRectangle(px + TILE_SIZE / 6, py + TILE_SIZE / 4, TILE_SIZE * 2 / 3, TILE_SIZE / 8, GOLD);
         DrawRectangleLines(px + TILE_SIZE / 6, py + TILE_SIZE / 4, TILE_SIZE * 2 / 3, TILE_SIZE / 2, BLACK);
@@ -283,7 +294,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
 
     for (const auto& d : game.doors())
     {
-        const int px = d.x * TILE_SIZE, py = d.y * TILE_SIZE;
+        const int px = ox + d.x * TILE_SIZE, py = oy + d.y * TILE_SIZE;
         DrawRectangle(px + 2, py + 2, TILE_SIZE - 4, TILE_SIZE - 4, Color{ 110, 60, 30, 255 });
         DrawRectangle(px + TILE_SIZE/2 - 3, py + TILE_SIZE/2 - 7, 6, 14, GOLD);
         DrawRectangleLines(px + 2, py + 2, TILE_SIZE - 4, TILE_SIZE - 4, Color{ 60, 30, 15, 255 });
@@ -291,7 +302,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
 
     if (game.shopkeeper().exists)
     {
-        const int px = game.shopkeeper().x * TILE_SIZE, py = game.shopkeeper().y * TILE_SIZE;
+        const int px = ox + game.shopkeeper().x * TILE_SIZE, py = oy + game.shopkeeper().y * TILE_SIZE;
         DrawCircle(px + TILE_SIZE / 2, py + TILE_SIZE / 2, TILE_SIZE * 0.38f, TEAL);
         DrawCircle(px + TILE_SIZE / 2, py + TILE_SIZE / 2, TILE_SIZE * 0.16f, GOLD);
         DrawText("$", px + TILE_SIZE / 2 - 4, py + TILE_SIZE / 2 - 8, 18, BLACK);
@@ -299,17 +310,20 @@ void Renderer::draw(const Game& game, bool showInventory) const
 
     for (const auto& e : game.enemies())
     {
-        const int cx = static_cast<int>(e.visualX() * TILE_SIZE) + TILE_SIZE / 2;
-        const int cy = static_cast<int>(e.visualY() * TILE_SIZE) + TILE_SIZE / 2;
+        const int ex = ox + static_cast<int>(e.visualX() * TILE_SIZE);
+        const int ey = oy + static_cast<int>(e.visualY() * TILE_SIZE);
+        const int cx = ex + TILE_SIZE / 2, cy = ey + TILE_SIZE / 2;
         DrawCircle(cx, cy, TILE_SIZE * enemyRadius(e.type()), enemyColor(e.type()));
         if (e.isBoss())
             DrawCircleLines(cx, cy, TILE_SIZE * enemyRadius(e.type()) + 3, GOLD);
-        drawHpBar(static_cast<int>(e.visualX() * TILE_SIZE), static_cast<int>(e.visualY() * TILE_SIZE), e.hp(), e.maxHp());
+        drawHpBar(ex, ey, e.hp(), e.maxHp());
     }
-    DrawCircle(static_cast<int>(player.visualX() * TILE_SIZE) + TILE_SIZE / 2,
-        static_cast<int>(player.visualY() * TILE_SIZE) + TILE_SIZE / 2, TILE_SIZE * 0.35f, YELLOW);
-    drawHpBar(static_cast<int>(player.visualX() * TILE_SIZE), static_cast<int>(player.visualY() * TILE_SIZE),
-        player.hp(), player.maxHp());
+    {
+        const int pxp = ox + static_cast<int>(player.visualX() * TILE_SIZE);
+        const int pyp = oy + static_cast<int>(player.visualY() * TILE_SIZE);
+        DrawCircle(pxp + TILE_SIZE / 2, pyp + TILE_SIZE / 2, TILE_SIZE * 0.35f, YELLOW);
+        drawHpBar(pxp, pyp, player.hp(), player.maxHp());
+    }
 
     DrawRectangle(0, screenH, screenW, HUD_HEIGHT, BLACK);
     std::string statLine = TextFormat("HP %d/%d   ATK %d   DEF %d   GOLD %d   Keys D:%d C:%d",
@@ -461,7 +475,7 @@ void Renderer::draw(const Game& game, bool showInventory) const
 
 InvHit Renderer::hitTestInventory(const Game& game, int mx, int my) const
 {
-    const int screenW = game.map().width() * TILE_SIZE;
+    const int screenW = SCREEN_W;
     int panelX, panelY, ringY, bagX, sy2;
     std::vector<GearBox> gear;
     std::vector<Box> bag;
@@ -478,7 +492,7 @@ InvHit Renderer::hitTestInventory(const Game& game, int mx, int my) const
 
 ShopHit Renderer::hitTestShop(const Game& game, int mx, int my) const
 {
-    const int screenW = game.map().width() * TILE_SIZE;
+    const int screenW = SCREEN_W;
     int panelX, panelY, bagX, sy;
     std::vector<Box> stock, bag;
     Box close;
@@ -495,8 +509,16 @@ ShopHit Renderer::hitTestShop(const Game& game, int mx, int my) const
     return ShopHit{};
 }
 
-void Renderer::screenToTile(int mx, int my, int& tileX, int& tileY) const
+void Renderer::screenToTile(const Game& game, int mx, int my, int& tileX, int& tileY) const
 {
-    tileX = mx / TILE_SIZE;
-    tileY = my / TILE_SIZE;
+    int ox, oy;
+    originOf(game.map(), ox, oy);
+    const int rx = mx - ox, ry = my - oy;
+    if (rx < 0 || ry < 0)
+    {
+        tileX = tileY = -1;
+        return;
+    }
+    tileX = rx / TILE_SIZE;
+    tileY = ry / TILE_SIZE;
 }
