@@ -26,13 +26,36 @@ std::optional<Enemy> Enemy::create(const std::string& type, int x, int y)
     if (type == "knight")
         return Enemy("knight", "Shadow Knight", x, y, 16, 5, 7, 2, 3);
     if (type == "archer")
-        return Enemy("archer", "Shadow Archer", x, y, 12, 5, 8, 0, 3);
+    {
+        Enemy e("archer", "Shadow Archer", x, y, 12, 5, 8, 0, 3);
+        e.attackRange_ = 3;
+        e.missChance_ = 0.3;
+        return e;
+    }
     if (type == "wyvern")
-        return Enemy("wyvern", "Shadow Wyvern", x, y, 48, 8, 10, 3, 0);
+    {
+        Enemy e("wyvern", "Shadow Wyvern", x, y, 48, 8, 10, 3, 0);
+        e.moveSpeed_ = 2;
+        return e;
+    }
     if (type == "mage")
-        return Enemy("mage", "Shadow Mage", x, y, 16, 6, 8, 1, 4);
+    {
+        Enemy e("mage", "Shadow Mage", x, y, 16, 6, 8, 1, 4);
+        e.attackRange_ = 2;
+        e.missChance_ = 0.25;
+        e.teleportChance_ = 0.35;
+        e.teleportRange_ = 4;
+        return e;
+    }
     if (type == "lich")
-        return Enemy("lich", "Shadow Lich", x, y, 60, 9, 10, 4, 0);
+    {
+        Enemy e("lich", "Shadow Lich", x, y, 60, 9, 10, 4, 0);
+        e.attackRange_ = 2;
+        e.missChance_ = 0.2;
+        e.teleportChance_ = 0.3;
+        e.teleportRange_ = 3;
+        return e;
+    }
     return std::nullopt;
 }
 

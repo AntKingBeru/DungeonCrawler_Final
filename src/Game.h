@@ -142,6 +142,9 @@ private:
     void descend();
 
     void enemyTurn();
+    bool chance(double p);
+    bool enemyAttack(Enemy& e);
+    bool teleportEnemy(Enemy& e);
     bool detects(const Enemy& e) const;
     bool hasLineOfSight(int x0, int y0, int x1, int y1) const;
     bool passableForPath(int x, int y, const Enemy* self, int goalX, int goalY) const;

@@ -735,28 +735,85 @@ std::pair<int, int> Game::roamStep(Enemy* self)
     return cands[r];
 }
 
+bool Game::chance(double p)
+{
+    std::uniform_real_distribution<double> d(0.0, 1.0);
+    return d(rng_) < p;
+}
+
+bool Game::enemyAttack(Enemy& e)
+{
+    if (e.missChance() > 0.0 && chance(e.missChance()))
+    {
+        addLog("The " + e.name() + "'s attack goes wide.");
+        return false;
+    }
+    const int dmg = std::max(1, e.attackPower() - player_.defense());
+    player_.takeDamage(dmg);
+    addLog(e.name() + " hits you for " + std::to_string(dmg) + ".");
+    if (!player_.alive())
+    {
+        gameOver_ = true;
+        addLog("You died.");
+        return true;
+    }
+    return false;
+}
+
+bool Game::teleportEnemy(Enemy& e)
+{
+    const int R = e.teleportRange();
+    if (R <= 0)
+        return false;
+    std::uniform_int_distribution<int> off(-R, R);
+    for (int tries = 0; tries < 30; ++tries)
+    {
+        const int nx = e.spawnX() + off(rng_);
+        const int ny = e.spawnY() + off(rng_);
+        if (nx == e.x() && ny == e.y())
+            continue;
+        if (nx < 0 || ny < 0 || nx >= map_.width() || ny >= map_.height())
+            continue;
+        if (nx == player_.x() && ny == player_.y())
+            continue;
+        if (wallOrEnemy(nx, ny, &e))
+            continue;
+        e.setTile(nx, ny);
+        return true;
+    }
+    return false;
+}
+
 void Game::enemyTurn()
 {
     constexpr int AGGRO_TURNS = 6;
+    const int px = player_.x(), py = player_.y();
+
+    auto canHit = [&](const Enemy& en)
+        {
+            const int ddx = std::abs(px - en.x()), ddy = std::abs(py - en.y());
+            const int cheb = std::max(ddx, ddy), manh = ddx + ddy;
+            if (en.attackRange() <= 1)
+                return manh == 1;
+            return cheb >= 1 && cheb <= en.attackRange()
+                && hasLineOfSight(en.x(), en.y(), px, py);
+        };
+
     for (auto& e : enemies_)
     {
         if (!e.alive())
             continue;
-        const int px = player_.x(), py = player_.y();
-        const int manhattan = std::abs(px - e.x()) + std::abs(py - e.y());
 
-        if (manhattan == 1)
+        if (canHit(e))
         {
-            const int dmg = std::max(1, e.attackPower() - player_.defense());
-            player_.takeDamage(dmg);
             e.setAggro(AGGRO_TURNS); e.setLastSeen(px, py);
-            addLog(e.name() + " hits you for " + std::to_string(dmg) + ".");
-            if (!player_.alive())
+            if (e.teleportChance() > 0.0 && chance(e.teleportChance()) && teleportEnemy(e))
             {
-                gameOver_ = true;
-                addLog("You died.");
-                return;
+                addLog("The " + e.name() + " blinks away.");
+                continue;
             }
+            if (enemyAttack(e))
+                return;
             continue;
         }
 
@@ -767,27 +824,43 @@ void Game::enemyTurn()
             e.setLastSeen(px, py);
         }
 
-        std::pair<int, int> step{ 0, 0 };
-        if (e.aggro() > 0)
+        bool struck = false;
+        for (int s = 0; s < e.moveSpeed(); ++s)
         {
-            const int tx = e.lastSeenX(), ty = e.lastSeenY();
-            if (e.x() == tx && e.y() == ty)
-                e.setAggro(0);
-            else
+            std::pair<int, int> step{ 0, 0 };
+            if (e.aggro() > 0)
+            {
+                const int tx = e.lastSeenX(), ty = e.lastSeenY();
+                if (e.x() == tx && e.y() == ty)
+                {
+                    e.setAggro(0);
+                    break;
+                }
                 step = aStarStep(&e, tx, ty);
-            if (!see)
-                e.setAggro(e.aggro() - 1);
-        }
-        else
-        {
-            const int fromSpawn = std::max(std::abs(e.x() - e.spawnX()), std::abs(e.y() - e.spawnY()));
-            if (fromSpawn > e.roamRange())
-                step = aStarStep(&e, e.spawnX(), e.spawnY());
-            else if (!e.isBoss() && e.roamRange() > 0)
-                step = roamStep(&e);
-        }
-        if (step.first || step.second)
+            }
+            else
+            {
+                const int fromSpawn = std::max(std::abs(e.x() - e.spawnX()),
+                    std::abs(e.y() - e.spawnY()));
+                if (fromSpawn > e.roamRange())
+                    step = aStarStep(&e, e.spawnX(), e.spawnY());
+                else if (!e.isBoss() && e.roamRange() > 0)
+                    step = roamStep(&e);
+            }
+            if (!step.first && !step.second)
+                break;
             e.setTile(e.x() + step.first, e.y() + step.second);
+            if (canHit(e))
+            { 
+                e.setAggro(AGGRO_TURNS); e.setLastSeen(px, py);
+                if (enemyAttack(e))
+                    return;
+                struck = true;
+                break;
+            }
+        }
+        if (!struck && !see && e.aggro() > 0)
+            e.setAggro(e.aggro() - 1);
     }
 }
 

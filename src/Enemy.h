@@ -25,6 +25,26 @@ public:
     {
         return sight_;
     }
+    int attackRange() const
+    {
+        return attackRange_;
+    }
+    double missChance() const
+    {
+        return missChance_;
+    }
+    double teleportChance() const
+    {
+        return teleportChance_;
+    }
+    int teleportRange() const
+    {
+        return teleportRange_;
+    }
+    int moveSpeed() const
+    {
+        return moveSpeed_;
+    }
 
     void scaleStats(float m);
 
@@ -78,6 +98,11 @@ private:
     bool boss_ = false;
     int spawnX_ = 0, spawnY_ = 0, roamRange_ = 0;
     int aggro_ = 0, lastSeenX_ = 0, lastSeenY_ = 0;
+    int attackRange_ = 1;
+    double missChance_ = 0.0;
+    double teleportChance_ = 0.0;
+    int teleportRange_ = 0;
+    int moveSpeed_ = 1;
 };
 
 #endif
