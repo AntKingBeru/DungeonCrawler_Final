@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "E:\\CPP\\HW\\DungeonCrawler\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\CPP\\HW\\DungeonCrawler\\CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\CPP\\HW\\DungeonCrawler\\src\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -41,10 +45,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\CPP\\HW\\DungeonCrawler\\configs\\floor2.ini||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:configs\\floor2.ini||{3B902123-F8A7-4915-9F01-361F908088D0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\CPP\\HW\\DungeonCrawler\\CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:CMakeLists.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,11 +54,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "floor3.ini",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\configs\\floor3.ini",
               "RelativeDocumentMoniker": "configs\\floor3.ini",
@@ -66,11 +66,12 @@
               "RelativeToolTip": "configs\\floor3.ini",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAHoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002768|",
-              "WhenOpened": "2026-07-12T16:01:38.969Z"
+              "WhenOpened": "2026-07-12T16:01:38.969Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "floor2.ini",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\configs\\floor2.ini",
               "RelativeDocumentMoniker": "configs\\floor2.ini",
@@ -78,11 +79,12 @@
               "RelativeToolTip": "configs\\floor2.ini",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002768|",
-              "WhenOpened": "2026-07-12T16:01:38.319Z"
+              "WhenOpened": "2026-07-12T16:01:38.319Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "dungeon.ini",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\configs\\dungeon.ini",
               "RelativeDocumentMoniker": "configs\\dungeon.ini",
@@ -90,23 +92,25 @@
               "RelativeToolTip": "configs\\dungeon.ini",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002768|",
-              "WhenOpened": "2026-07-12T16:01:37.757Z"
+              "WhenOpened": "2026-07-12T16:01:37.757Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "CMakeLists.txt",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\CMakeLists.txt",
               "RelativeDocumentMoniker": "CMakeLists.txt",
               "ToolTip": "E:\\CPP\\HW\\DungeonCrawler\\CMakeLists.txt",
               "RelativeToolTip": "CMakeLists.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvzYAAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2026-07-10T20:15:29.489Z"
+              "WhenOpened": "2026-07-10T20:15:29.489Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "main.cpp",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\main.cpp",
               "RelativeDocumentMoniker": "src\\main.cpp",
@@ -125,7 +129,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Renderer.cpp",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Renderer.cpp",
               "RelativeDocumentMoniker": "src\\Renderer.cpp",
@@ -138,7 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Renderer.h",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Renderer.h",
               "RelativeDocumentMoniker": "src\\Renderer.h",
@@ -151,7 +155,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Game.cpp",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Game.cpp",
               "RelativeDocumentMoniker": "src\\Game.cpp",
@@ -164,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Game.h",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Game.h",
               "RelativeDocumentMoniker": "src\\Game.h",
@@ -172,11 +176,12 @@
               "RelativeToolTip": "src\\Game.h",
               "ViewState": "AgIAAGkAAAAAAAAAAAAAAJIAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-07-17T19:45:54.076Z"
+              "WhenOpened": "2026-07-17T19:45:54.076Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Enemy.cpp",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Enemy.cpp",
               "RelativeDocumentMoniker": "src\\Enemy.cpp",
@@ -184,11 +189,12 @@
               "RelativeToolTip": "src\\Enemy.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2026-07-17T19:28:49.476Z"
+              "WhenOpened": "2026-07-17T19:28:49.476Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Enemy.h",
               "DocumentMoniker": "E:\\CPP\\HW\\DungeonCrawler\\src\\Enemy.h",
               "RelativeDocumentMoniker": "src\\Enemy.h",

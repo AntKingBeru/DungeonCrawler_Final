@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<boss>
-		<b0>wyvern 24 15</b0>
+		<b0>wyvern 27 15</b0>
 	</boss>
 	<boss_chests>
 		<bc0>24 17 wyvern</bc0>
